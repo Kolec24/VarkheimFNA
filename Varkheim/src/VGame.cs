@@ -12,6 +12,8 @@ namespace Varkheim
 {
     public class VGame : Game
     {
+        EntityManager Manager = new EntityManager();
+
         public VGame()
         {
             new GraphicsDeviceManager(this);
@@ -20,6 +22,7 @@ namespace Varkheim
         protected override void Initialize()
         {
             base.Initialize();
+            
         }
 
         protected override void LoadContent()
@@ -27,14 +30,16 @@ namespace Varkheim
             base.LoadContent();
         }
 
-        protected override void Update(GameTime gameTime)
+        protected override void Update(GameTime GameTime)
         {
-            base.Update(gameTime);
+            base.Update(GameTime);
+            Manager.Update(GameTime);
         }
 
-        protected override void Draw(GameTime gameTime)
+        protected override void Draw(GameTime GameTime)
         {
-            base.Draw(gameTime);
+            base.Draw(GameTime);
+            Manager.Render(GameTime);
         }
     }
 }

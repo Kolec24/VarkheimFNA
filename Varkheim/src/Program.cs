@@ -11,9 +11,9 @@ namespace Varkheim
     {
         static void Main(string[] args)
         {
-            using (VGame game = new VGame())
+            using (VGame Game = new VGame())
             {
-                game.Run();
+                Game.Run();
             }
         }
     }
