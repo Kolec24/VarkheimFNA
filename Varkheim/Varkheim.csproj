@@ -47,12 +47,23 @@
   <ItemGroup>
     <Compile Include="src\components\Position.cs" />
     <Compile Include="src\components\Velocity.cs" />
+    <Compile Include="src\ContentLoader.cs" />
     <Compile Include="src\ecs\Component.cs" />
     <Compile Include="src\ecs\EntityManager.cs" />
     <Compile Include="src\ecs\System.cs" />
     <Compile Include="src\Program.cs" />
     <Compile Include="src\VGame.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="src\systems\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="content\sprites\player.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\tilesets\tileset.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -8,3 +8,5 @@ D:\Program Files\FNA Projects\Varkheim\Varkheim\Varkheim\bin\Debug\FNA.dll.confi
 D:\Program Files\FNA Projects\Varkheim\Varkheim\Varkheim\obj\Debug\Varkheim.csproj.CopyComplete
 D:\Program Files\FNA Projects\Varkheim\Varkheim\Varkheim\obj\Debug\Varkheim.exe
 D:\Program Files\FNA Projects\Varkheim\Varkheim\Varkheim\obj\Debug\Varkheim.pdb
+D:\Program Files\FNA Projects\Varkheim\Varkheim\Varkheim\bin\Debug\content\sprites\player.png
+D:\Program Files\FNA Projects\Varkheim\Varkheim\Varkheim\bin\Debug\content\tilesets\tileset.png

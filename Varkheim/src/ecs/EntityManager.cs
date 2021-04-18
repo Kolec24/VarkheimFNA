@@ -189,6 +189,7 @@ namespace ECS
                     if(j == LeastNumComponents)
                     {
                         TargetComponents.Add(AllComponents[LeastNumComponents][i]);
+                        continue;
                     }
 
                     TargetComponents.Add(_GetComponentInternal(AllComponents[LeastNumComponents][i].Entity, AllComponents[j], ComponentTypes[j]));

@@ -14,15 +14,19 @@ namespace ECS
             Render
         }
 
-        BaseSystem(List<int> ComponentTypes, SystemType Type)
+        public BaseSystem(SystemType Type)
         {
-            _ComponentTypes = ComponentTypes;
             _Type = Type;
         }
 
         public virtual void UpdateComponents(GameTime GameTime, List<BaseComponent> Components)
         {
 
+        }
+
+        public void AddComponentType(int ComponentType)
+        {
+            _ComponentTypes.Add(ComponentType);
         }
 
         public List<int> ComponentTypes()
