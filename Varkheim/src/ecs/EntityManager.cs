@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Microsoft.Xna.Framework;
-
+using Microsoft.Xna.Framework.Graphics;
 using EntityHandle = System.Object;
 
 namespace ECS
@@ -143,7 +143,17 @@ namespace ECS
             }
         }
 
-        public void UpdateSystems(GameTime GameTime, List<BaseSystem> Systems)
+        public void UpdateSystems(float DeltaTime)
+        {
+            _UpdateSystemsInternal(DeltaTime, _GameplaySystems);
+        }
+
+        public void RenderSystems(float DeltaTime, SpriteBatch Batch)
+        {
+            _UpdateSystemsInternal(DeltaTime, _RenderSystems, Batch);
+        }
+
+        private void _UpdateSystemsInternal(float DeltaTime, List<BaseSystem> Systems, SpriteBatch Batch = null)
         {
             List<List<BaseComponent>> AllComponents = new List<List<BaseComponent>>();
             List<BaseComponent> TargetComponents = new List<BaseComponent>();
@@ -158,19 +168,26 @@ namespace ECS
                         //TODO: Check if _Systems(..., new List<BaseComponent>{ Components[i] }); is better.
                         TargetComponents.Clear();
                         TargetComponents.Add(Components[i]);
-                        Systems[Index].UpdateComponents(GameTime, TargetComponents);
+                        if (Batch == null)
+                        {
+                            Systems[Index].UpdateComponents(DeltaTime, TargetComponents);
+                        }
+                        else
+                        {
+                            Systems[Index].RenderComponents(DeltaTime, TargetComponents, Batch);
+                        }
                     }
                 }
                 else
                 {
-                    _UpdateMultiComponentSystem(GameTime, Systems, Index, ComponentTypes, TargetComponents, AllComponents);
+                    _UpdateMultiComponentSystem(DeltaTime, Systems, Index, ComponentTypes, TargetComponents, AllComponents, Batch);
                 }
             }
         }
 
-        private void _UpdateMultiComponentSystem(GameTime GameTime, List<BaseSystem> Systems,
+        private void _UpdateMultiComponentSystem(float DeltaTime, List<BaseSystem> Systems,
             int Index, List<int> ComponentTypes, List<BaseComponent> TargetComponents,
-            List<List<BaseComponent>> AllComponents)
+            List<List<BaseComponent>> AllComponents, SpriteBatch Batch = null)
         {
             for(int i = 0; i < ComponentTypes.Count; i++)
             {
@@ -202,7 +219,14 @@ namespace ECS
 
                 if(EntityValid)
                 {
-                    Systems[Index].UpdateComponents(GameTime, TargetComponents);
+                    if (Batch == null)
+                    {
+                        Systems[Index].UpdateComponents(DeltaTime, TargetComponents);
+                    }
+                    else
+                    {
+                        Systems[Index].RenderComponents(DeltaTime, TargetComponents, Batch);
+                    }
                 }
             }
         }
@@ -238,16 +262,6 @@ namespace ECS
         public void Clear()
         {
 
-        }
-
-        public void Update(GameTime GameTime)
-        {
-            UpdateSystems(GameTime, _GameplaySystems);
-        }
-
-        public void Render(GameTime GameTime)
-        {
-            UpdateSystems(GameTime, _RenderSystems);
         }
 
         private List<Tuple<int, List<Tuple<int, int>>>> _Entities = new List<Tuple<int, List<Tuple<int, int>>>>();
