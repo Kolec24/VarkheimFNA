@@ -45,22 +45,29 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\components\Collision.cs" />
     <Compile Include="src\components\Position.cs" />
     <Compile Include="src\components\Sprite.cs" />
-    <Compile Include="src\components\Velocity.cs" />
+    <Compile Include="src\components\Tilemap.cs" />
+    <Compile Include="src\components\Movement.cs" />
     <Compile Include="src\ContentLoader.cs" />
     <Compile Include="src\ecs\Component.cs" />
     <Compile Include="src\ecs\EntityManager.cs" />
     <Compile Include="src\ecs\System.cs" />
     <Compile Include="src\Factory.cs" />
+    <Compile Include="src\Masks.cs" />
     <Compile Include="src\Program.cs" />
-    <Compile Include="src\systems\MovementSystem.cs" />
-    <Compile Include="src\systems\RenderSystem.cs" />
+    <Compile Include="src\systems\PhysicsSystem.cs" />
+    <Compile Include="src\systems\SpriteSystem.cs" />
+    <Compile Include="src\systems\TilemapSystem.cs" />
     <Compile Include="src\VGame.cs" />
     <Compile Include="src\World.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="content\sprites\collider.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="content\sprites\player.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

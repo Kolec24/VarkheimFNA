@@ -9,18 +9,32 @@ using EntityHandle = System.Object;
 
 namespace Varkheim
 {
-    class Factory
+    static class Factory
     {
-        public static EntityHandle Player(EntityManager Manager, Vector2 Position)
+        public static EntityHandle Player(EntityManager Manager, Point Position)
         {
             var PosComp = new Position(Position.X, Position.Y);
-            var VelComp = new Velocity(70, 0);
-            var SpriteComp = new Sprite(ContentLoader.FindSprite("player.png"), 5);
+            var Mover = new Movement(50, 50);
+            var SpriteComp = new Sprite(ContentLoader.FindSprite("player.png"), new Vector2(4, 16));
+            var ColComp = new Collision(Mask.Player, new Rectangle(-4, -16, 8, 16));
             EntityHandle Player = Manager.AddEntity();
             Manager.AddComponent<Position>(Player, PosComp);
-            Manager.AddComponent<Velocity>(Player, VelComp);
+            Manager.AddComponent<Movement>(Player, Mover);
             Manager.AddComponent<Sprite>(Player, SpriteComp);
+            Manager.AddComponent<Collision>(Player, ColComp);
             return Player;
+        }
+
+        public static EntityHandle Tilemap(EntityManager Manager, int Columns, int Rows, int TileWidth, int TileHeight, List<bool> Cells)
+        {
+            var Tilemap = new Tilemap(Columns, Rows, TileWidth, TileHeight, Cells);
+            var SpriteComp = new Sprite(ContentLoader.FindTileset("tileset.png"), new Vector2(0, 0));
+            var ColComp = new Collision(Mask.Solid, Columns, Rows, 8, Cells);
+            EntityHandle Terrain = Manager.AddEntity();
+            Manager.AddComponent<Sprite>(Terrain, SpriteComp);
+            Manager.AddComponent<Collision>(Terrain, ColComp);
+            Manager.AddComponent<Tilemap>(Terrain, Tilemap);
+            return Terrain;
         }
     }
 }

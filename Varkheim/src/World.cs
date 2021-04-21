@@ -12,11 +12,13 @@ namespace Varkheim
 {
     class World
     {
+        private VGame _Game;
         public EntityManager Manager;
+        public EntityHandle Player;
 
-        public World()
+        public World(VGame Game)
         {
-
+            _Game = Game;
         }
 
         public void Initialize()
@@ -29,16 +31,31 @@ namespace Varkheim
         {
             _LoadLevel();
         }
+        
+        public List<T> GetComponents<T>() where T : BaseComponent
+        {
+            return Manager.Components()[Component<T>.Type()].Cast<T>().ToList();
+        }
 
         private void _InitializeSystems()
         {
-            Manager.AddSystem(new RenderSystem());
-            Manager.AddSystem(new MovementSystem());
+            Manager.AddSystem(new SpriteSystem(this));
+            Manager.AddSystem(new TilemapSystem(this));
+            Manager.AddSystem(new PhysicsSystem(this));
         }
 
         private void _LoadLevel()
         {
-            Factory.Player(Manager, new Vector2(0, 100));
+            Player = Factory.Player(Manager, new Point(4, 16));
+            bool[] Cells = new bool[_Game.Columns * _Game.Rows];
+            for(int x = 0; x < _Game.Columns; x ++)
+            {
+                for(int y = _Game.Rows - 2; y < _Game.Rows; y ++)
+                {
+                    Cells[x + y * _Game.Columns] = true;
+                }
+            }
+            Factory.Tilemap(Manager, _Game.Columns, _Game.Rows, _Game.TileWidth, _Game.TileHeight, new List<bool>(Cells));
         }
 
         public void Update(GameTime GameTime)

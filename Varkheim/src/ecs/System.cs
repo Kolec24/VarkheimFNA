@@ -5,16 +5,21 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+//Only for world - to reconsider how to remove it from here.
+using Varkheim;
+
 namespace ECS
 {
     class BaseSystem
     {
         private List<int> _ComponentTypes = new List<int>();
-        private SystemType _Type;
+        private SystemType _Type = SystemType.None;
+        protected World World;
 
         public enum SystemType
         {
-            Gameplay = 0,
+            None = 0,
+            Gameplay,
             Render
         }
 

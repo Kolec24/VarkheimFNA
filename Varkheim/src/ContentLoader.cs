@@ -18,7 +18,7 @@ namespace Varkheim
 
         private static List<TextureInfo> _Sprites = new List<TextureInfo>();
         private static List<TextureInfo> _Tilesets = new List<TextureInfo>();
-        private List<TextureInfo> _Subtextures = new List<TextureInfo>();
+        private static List<TextureInfo> _Subtextures = new List<TextureInfo>();
 
         // Maybe useless but left for future
         private static void _PremultiplyTexture(Texture2D texture)

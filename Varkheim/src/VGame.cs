@@ -7,8 +7,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ECS;
 
-using EntityHandle = System.Object;
-
 namespace Varkheim
 {
     public class VGame : Game
@@ -21,6 +19,10 @@ namespace Varkheim
         int BackBufferHeight;
         int BufferWidth;
         int BufferHeight;
+        public int Columns;
+        public int Rows;
+        public int TileWidth;
+        public int TileHeight;
         float Scale;
         Matrix ScaleMatrix;
 
@@ -30,22 +32,27 @@ namespace Varkheim
             Content.RootDirectory = "content";
 
             BackBufferWidth = 1280;
-            BackBufferHeight = 720;
+            BackBufferHeight = 960;
             BufferWidth = 320;
             BufferHeight = 240;
+
+            TileWidth = 8;
+            TileHeight = 8;
+            Columns = BufferWidth / TileWidth;
+            Rows = BufferHeight / TileHeight;
 
             Scale = Math.Min((float)BackBufferWidth / BufferWidth, (float)BackBufferHeight / BufferHeight);
             ScaleMatrix = Matrix.CreateScale(Scale);
 
-            Graphics.PreferredBackBufferWidth = 1280;
-            Graphics.PreferredBackBufferHeight = 720;
+            Graphics.PreferredBackBufferWidth = BackBufferWidth;
+            Graphics.PreferredBackBufferHeight = BackBufferHeight;
             Graphics.IsFullScreen = false;
             Graphics.ApplyChanges();
         }
 
         protected override void Initialize()
         {
-            World = new World();
+            World = new World(this);
             World.Initialize();
 
             base.Initialize();

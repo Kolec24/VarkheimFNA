@@ -159,6 +159,7 @@ namespace ECS
             List<BaseComponent> TargetComponents = new List<BaseComponent>();
             for (int Index = 0; Index < Systems.Count; Index++)
             {
+                AllComponents.Clear();
                 List<int> ComponentTypes = Systems[Index].ComponentTypes();
                 if (ComponentTypes.Count == 1)
                 {
@@ -237,10 +238,11 @@ namespace ECS
             {
                 return _GameplaySystems;
             }
-            else
+            else if(System.Type() == BaseSystem.SystemType.Render)
             {
                 return _RenderSystems;
             }
+            return default(List<BaseSystem>);
         }
 
         private int FindLeastCommonComponent(List<int> ComponentTypes)

@@ -4,18 +4,19 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using ECS;
+using Microsoft.Xna.Framework;
 
 namespace Varkheim
 {
     class Position : Component<Position>
     {
-        public float X;
-        public float Y;
+        public Point Pos;
+        public Vector2 Remainder = Vector2.Zero; 
 
-        public Position(float PosX, float PosY)
+        public Position(int PosX, int PosY)
         {
-            X = PosX;
-            Y = PosY;
+            Pos.X = PosX;
+            Pos.Y = PosY;
         }
     }
 }

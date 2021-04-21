@@ -9,10 +9,12 @@ using ECS;
 
 namespace Varkheim
 {
-    class RenderSystem : BaseSystem
+    class SpriteSystem : BaseSystem
     {
-        public RenderSystem() : base(SystemType.Render)
+        public SpriteSystem(World InWorld) : base(SystemType.Render)
         {
+            World = InWorld;
+
             AddComponentType<Position>();
             AddComponentType<Sprite>();
         }
@@ -22,7 +24,7 @@ namespace Varkheim
             var PosComp = (Position)Components[0];
             var SpriteComp = (Sprite)Components[1];
 
-            Batch.Draw(SpriteComp.Texture, new Vector2(PosComp.X, PosComp.Y), Color.White);
+            Batch.Draw(SpriteComp.Texture, new Vector2(PosComp.Pos.X, PosComp.Pos.Y) - SpriteComp.Origin, Color.White);
         }
     }
 }
