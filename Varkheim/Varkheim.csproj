@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\components\Collision.cs" />
+    <Compile Include="src\components\Input.cs" />
     <Compile Include="src\components\Position.cs" />
     <Compile Include="src\components\Sprite.cs" />
     <Compile Include="src\components\Tilemap.cs" />
@@ -57,7 +58,9 @@
     <Compile Include="src\Factory.cs" />
     <Compile Include="src\Masks.cs" />
     <Compile Include="src\Program.cs" />
+    <Compile Include="src\systems\InputSystem.cs" />
     <Compile Include="src\systems\PhysicsSystem.cs" />
+    <Compile Include="src\systems\PlayerControlSystem.cs" />
     <Compile Include="src\systems\SpriteSystem.cs" />
     <Compile Include="src\systems\TilemapSystem.cs" />
     <Compile Include="src\VGame.cs" />

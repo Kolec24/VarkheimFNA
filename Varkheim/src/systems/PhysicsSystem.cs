@@ -29,9 +29,65 @@ namespace Varkheim
                 return;
             }
 
+            List<Collision> AllCollisions = World.GetComponents<Collision>();
+
+            Mover.OnGround = _Check(Mask.Solid, Position, Collider, AllCollisions, new Point(0, 1));
+            _CalculateVelocityX(DeltaTime, Mover);
+            _CalculateVelocityY(DeltaTime, Mover);
             _PrepareMovement(DeltaTime, Position, Mover);
-            _MoveX(Position, Mover, Collider);
-            _MoveY(Position, Mover, Collider);
+            _MoveX(Position, Mover, Collider, AllCollisions);
+            _MoveY(Position, Mover, Collider, AllCollisions);
+        }
+
+        private void _CalculateVelocityX(float DeltaTime, Movement Mover)
+        {
+            float MaxSpeed;
+            float Acceleration;
+            float Friction;
+            if (Mover.OnGround)
+            {
+                MaxSpeed = Mover.MaxGroundSpeed;
+                Acceleration = Mover.GroundAccel;
+                Friction = Mover.GroundFriction;
+            }
+            else
+            {
+                MaxSpeed = Mover.MaxAirSpeed;
+                Acceleration = Mover.AirAccel;
+                Friction = Mover.AirFriction;
+            }
+
+            Mover.Velocity.X = Mover.Velocity.X + Mover.Direction * Acceleration * DeltaTime;
+            if (Math.Abs(Mover.Velocity.X) > MaxSpeed)
+            {
+                // TODO: Change to approaching instead of instant
+                Mover.Velocity.X = Math.Sign(Mover.Velocity.X) * MaxSpeed;
+            }
+
+            if(Mover.Direction == 0)
+            {
+                Mover.Velocity.X = Math.Sign(Mover.Velocity.X) * Math.Max((Math.Abs(Mover.Velocity.X) - Friction * DeltaTime), 0);
+            }
+        }
+
+        private void _CalculateVelocityY(float DeltaTime, Movement Mover)
+        {
+            if (Mover.OnGround && Mover.Jumping)
+            {
+                Mover.Jumping = false;
+                Mover.JumpTimer = 0.3F;
+            }
+
+            if(Mover.JumpTimer > 0)
+            {
+                Mover.Velocity.Y = -100;
+                Mover.JumpTimer -= DeltaTime;
+            }
+
+            if(!Mover.OnGround)
+            {
+                Mover.Velocity.Y = Math.Min(Mover.Velocity.Y + Mover.Gravity * DeltaTime, Mover.MaxFallingSpeed);
+            }
         }
 
         private void _PrepareMovement(float DeltaTime, Position Pos, Movement Mover)
@@ -43,7 +99,7 @@ namespace Varkheim
             Pos.Remainder.Y = FullMove.Y - Mover.DesiredMovement.Y;
         }
 
-        private void _MoveX(Position Position, Movement Mover, Collision Collider)
+        private void _MoveX(Position Position, Movement Mover, Collision Collider, List<Collision> AllCollisions)
         {
             int Distance = Mover.DesiredMovement.X;
             if(Distance == 0)
@@ -51,7 +107,6 @@ namespace Varkheim
                 return;
             }
 
-            List<Collision> AllCollisions = World.GetComponents<Collision>();
             int Sign = Math.Sign(Distance);
             Point Offset = new Point(Sign, 0);
             while (Distance != 0)
@@ -59,6 +114,7 @@ namespace Varkheim
                 if(_Check(Mask.Solid, Position, Collider, AllCollisions, Offset))
                 {
                     _StopX(Position, Mover);
+                    return;
                 }
 
                 Position.Pos.X += Sign;
@@ -66,7 +122,7 @@ namespace Varkheim
             }
         }
 
-        private void _MoveY(Position Position, Movement Mover, Collision Collider)
+        private void _MoveY(Position Position, Movement Mover, Collision Collider, List<Collision> AllCollisions)
         {
             int Distance = Mover.DesiredMovement.Y;
             if (Distance == 0)
@@ -74,7 +130,6 @@ namespace Varkheim
                 return;
             }
 
-            List<Collision> AllCollisions = World.GetComponents<Collision>();
             int Sign = Math.Sign(Distance);
             Point Offset = new Point(0, Sign);
             while (Distance != 0)

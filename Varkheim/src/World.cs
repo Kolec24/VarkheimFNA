@@ -39,20 +39,26 @@ namespace Varkheim
 
         private void _InitializeSystems()
         {
+            Manager.AddSystem(new InputSystem(this));
+            Manager.AddSystem(new PlayerControlSystem(this));
+            Manager.AddSystem(new PhysicsSystem(this));
+
             Manager.AddSystem(new SpriteSystem(this));
             Manager.AddSystem(new TilemapSystem(this));
-            Manager.AddSystem(new PhysicsSystem(this));
         }
 
         private void _LoadLevel()
         {
-            Player = Factory.Player(Manager, new Point(4, 16));
+            Player = Factory.Player(Manager, new Point(160, 208));
             bool[] Cells = new bool[_Game.Columns * _Game.Rows];
             for(int x = 0; x < _Game.Columns; x ++)
             {
-                for(int y = _Game.Rows - 2; y < _Game.Rows; y ++)
+                for(int y = _Game.Rows - 10; y < _Game.Rows; y ++)
                 {
-                    Cells[x + y * _Game.Columns] = true;
+                    if(y >= _Game.Rows - 7 && x > _Game.Columns - 15)
+                        Cells[x + y * _Game.Columns] = true;
+                    else if (y >= _Game.Rows - 3)
+                        Cells[x + y * _Game.Columns] = true;
                 }
             }
             Factory.Tilemap(Manager, _Game.Columns, _Game.Rows, _Game.TileWidth, _Game.TileHeight, new List<bool>(Cells));
