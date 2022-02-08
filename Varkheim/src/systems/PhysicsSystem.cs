@@ -16,6 +16,7 @@ namespace Varkheim
             AddComponentType<Position>();
             AddComponentType<Movement>();
             AddComponentType<Collision>();
+            AddComponentType<Physics>();
         }
 
         public override void UpdateComponents(float DeltaTime, List<BaseComponent> Components)
@@ -23,140 +24,78 @@ namespace Varkheim
             var Position = (Position)Components[0];
             var Mover = (Movement)Components[1];
             var Collider = (Collision)Components[2];
+            var Physics = (Physics)Components[3];
 
-            if(Collider.Shape() != Collision.ShapeType.Rect)
+            if (Collider.Shape() != Collision.ShapeType.Rect)
             {
                 return;
             }
 
             List<Collision> AllCollisions = World.GetComponents<Collision>();
 
-            Mover.OnGround = _Check(Mask.Solid, Position, Collider, AllCollisions, new Point(0, 1));
-            _CalculateVelocityX(DeltaTime, Mover);
-            _CalculateVelocityY(DeltaTime, Mover);
-            _PrepareMovement(DeltaTime, Position, Mover);
-            _MoveX(Position, Mover, Collider, AllCollisions);
-            _MoveY(Position, Mover, Collider, AllCollisions);
+            Physics.OnGround = _Check(Mask.Solid, Position, Collider, AllCollisions, new Point(0, 1));
+            _CalculateVelocityX(DeltaTime, Mover, Physics);
+            _CalculateVelocityY(DeltaTime, Mover, Physics);
         }
 
-        private void _CalculateVelocityX(float DeltaTime, Movement Mover)
+        private void _CalculateVelocityX(float DeltaTime, Movement Mover, Physics Physics)
         {
             float MaxSpeed;
             float Acceleration;
             float Friction;
-            if (Mover.OnGround)
+
+            if(Physics.OnGround)
             {
-                MaxSpeed = Mover.MaxGroundSpeed;
-                Acceleration = Mover.GroundAccel;
-                Friction = Mover.GroundFriction;
+                MaxSpeed = Physics.MaxGroundSpeed;
+                Acceleration = Physics.GroundAccel;
+                Friction = Physics.GroundFriction;
             }
             else
             {
-                MaxSpeed = Mover.MaxAirSpeed;
-                Acceleration = Mover.AirAccel;
-                Friction = Mover.AirFriction;
+                MaxSpeed = Physics.MaxAirSpeed;
+                Acceleration = Physics.AirAccel;
+                Friction = Physics.AirFriction;
             }
 
-            Mover.Velocity.X = Mover.Velocity.X + Mover.Direction * Acceleration * DeltaTime;
-            if (Math.Abs(Mover.Velocity.X) > MaxSpeed)
+            float DesiredVel = 0;
+            if (Mover.Velocity.X != 0 && Physics.Direction != Math.Sign(Mover.Velocity.X))
+            {
+                DesiredVel = Math.Sign(Mover.Velocity.X) * Math.Max((Math.Abs(Mover.Velocity.X) - Friction * DeltaTime), 0);
+            }
+            else
+            {
+                DesiredVel = Mover.Velocity.X + Physics.Direction * Acceleration * DeltaTime;
+            }
+
+            if (Math.Abs(DesiredVel) > MaxSpeed)
             {
                 // TODO: Change to approaching instead of instant
-                Mover.Velocity.X = Math.Sign(Mover.Velocity.X) * MaxSpeed;
+                DesiredVel = Math.Sign(Mover.Velocity.X) * MaxSpeed;
             }
 
-            if(Mover.Direction == 0)
-            {
-                Mover.Velocity.X = Math.Sign(Mover.Velocity.X) * Math.Max((Math.Abs(Mover.Velocity.X) - Friction * DeltaTime), 0);
-            }
+            Mover.Velocity.X = DesiredVel;
         }
 
-        private void _CalculateVelocityY(float DeltaTime, Movement Mover)
+        private void _CalculateVelocityY(float DeltaTime, Movement Mover, Physics Physics)
         {
-            if (Mover.OnGround && Mover.Jumping)
+            if (Physics.OnGround)
             {
-                Mover.Jumping = false;
-                Mover.JumpTimer = 0.3F;
+                Mover.Velocity.Y = Physics.Jumping ? -1 * Physics.JumpVelocity : 0;
+                Physics.JumpTimer = Physics.Jumping ? 0.2F : 0;
+            }
+            else
+            {
+                Mover.Velocity.Y = Math.Min(Mover.Velocity.Y + Physics.Gravity * DeltaTime, Physics.MaxFallingSpeed);
             }
 
-            if(Mover.JumpTimer > 0)
+            if (Physics.JumpTimer > 0)
             {
-                Mover.Velocity.Y = -100;
-                Mover.JumpTimer -= DeltaTime;
-            }
-
-            if(!Mover.OnGround)
-            {
-                Mover.Velocity.Y = Math.Min(Mover.Velocity.Y + Mover.Gravity * DeltaTime, Mover.MaxFallingSpeed);
-            }
-        }
-
-        private void _PrepareMovement(float DeltaTime, Position Pos, Movement Mover)
-        {
-            Vector2 FullMove = Pos.Remainder + Mover.Velocity * DeltaTime;
-            Mover.DesiredMovement.X = (int)FullMove.X;
-            Mover.DesiredMovement.Y = (int)FullMove.Y;
-            Pos.Remainder.X = FullMove.X - Mover.DesiredMovement.X;
-            Pos.Remainder.Y = FullMove.Y - Mover.DesiredMovement.Y;
-        }
-
-        private void _MoveX(Position Position, Movement Mover, Collision Collider, List<Collision> AllCollisions)
-        {
-            int Distance = Mover.DesiredMovement.X;
-            if(Distance == 0)
-            {
-                return;
-            }
-
-            int Sign = Math.Sign(Distance);
-            Point Offset = new Point(Sign, 0);
-            while (Distance != 0)
-            {
-                if(_Check(Mask.Solid, Position, Collider, AllCollisions, Offset))
-                {
-                    _StopX(Position, Mover);
-                    return;
-                }
-
-                Position.Pos.X += Sign;
-                Distance -= Sign;
+                Mover.Velocity.Y = -1 * Physics.JumpVelocity;
+                Physics.JumpTimer -= DeltaTime;
             }
         }
 
-        private void _MoveY(Position Position, Movement Mover, Collision Collider, List<Collision> AllCollisions)
-        {
-            int Distance = Mover.DesiredMovement.Y;
-            if (Distance == 0)
-            {
-                return;
-            }
-
-            int Sign = Math.Sign(Distance);
-            Point Offset = new Point(0, Sign);
-            while (Distance != 0)
-            {
-                if (_Check(Mask.Solid, Position, Collider, AllCollisions, Offset))
-                {
-                    _StopY(Position, Mover);
-                    return;
-                }
-
-                Position.Pos.Y += Sign;
-                Distance -= Sign;
-            }
-        }
-
-        private void _StopX(Position Position, Movement Mover)
-        {
-            Mover.Velocity.X = 0; ;
-            Position.Remainder.X = 0;
-        }
-
-        private void _StopY(Position Position, Movement Mover)
-        {
-            Mover.Velocity.Y = 0; ;
-            Position.Remainder.Y = 0;
-        }
-
+        // TODO: Clean up places with collision check.
         private bool _Check(int Mask, Position Position, Collision Collider, List<Collision> AllCollisions, Point Offset)
         {
             foreach (var Other in AllCollisions)
@@ -182,10 +121,10 @@ namespace Varkheim
                 Point OtherOffset = new Point(0, 0);
                 if (OtherPos != null)
                 {
-                    OtherOffset = OtherPos.Pos;
+                    OtherOffset = OtherPos.Current;
                 }
                 Rectangle R1 = Collider.Rectangle();
-                R1.Offset(Position.Pos + Offset);
+                R1.Offset(Position.Current + Offset);
                 Rectangle R2 = Other.Rectangle();
                 R2.Offset(OtherOffset);
                 return R1.Intersects(R2);
@@ -193,7 +132,7 @@ namespace Varkheim
             else
             {
                 Rectangle Rect = Collider.Rectangle();
-                Rect.Offset(Position.Pos + Offset);
+                Rect.Offset(Position.Current + Offset);
                 int Left = Math.Max(Rect.Left / Other.Grid().TileSize, 0);
                 int Right = (int)Math.Min(Math.Ceiling((double)Rect.Right / Other.Grid().TileSize), Other.Grid().Columns);
                 int Top = Math.Max(Rect.Top / Other.Grid().TileSize, 0);

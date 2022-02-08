@@ -3,50 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Squared.Tiled;
 using ECS;
 
 namespace Varkheim
 {
     class Tilemap : Component<Tilemap>
     {
-        public Tilemap(int Columns, int Rows, int TileWidth, int TileHeight, List<bool> Cells)
+        public Tilemap(Map NewMap)
         {
-            _Columns = Columns;
-            _Rows = Rows;
-            _TileWidth = TileWidth;
-            _TileHeight = TileHeight;
-            _Cells = Cells;
+            _Map = NewMap;
         }
 
-        public int Columns()
+        public Map Map()
         {
-            return _Columns;
+            return _Map;
         }
 
-        public int Rows()
-        {
-            return _Rows;
-        }
-
-        public int TileWidth()
-        {
-            return _TileWidth;
-        }
-
-        public int TileHeight()
-        {
-            return _TileHeight;
-        }
-
-        public List<bool> Cells()
-        {
-            return _Cells;
-        }
-
-        private int _Columns;
-        private int _Rows;
-        private int _TileWidth;
-        private int _TileHeight;
-        private List<bool> _Cells;
+        private Map _Map;
     }
 }

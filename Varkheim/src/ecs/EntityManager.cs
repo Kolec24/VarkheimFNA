@@ -163,6 +163,11 @@ namespace ECS
                 List<int> ComponentTypes = Systems[Index].ComponentTypes();
                 if (ComponentTypes.Count == 1)
                 {
+                    if(!_Components.ContainsKey(ComponentTypes[0]))
+                    {
+                        continue;
+                    }
+
                     List<BaseComponent> Components = _Components[ComponentTypes[0]];
                     for(int i = 0; i < Components.Count; i++)
                     {
@@ -192,6 +197,11 @@ namespace ECS
         {
             for(int i = 0; i < ComponentTypes.Count; i++)
             {
+                if (!_Components.ContainsKey(ComponentTypes[i]))
+                {
+                    return;
+                }
+
                 AllComponents.Add(_Components[ComponentTypes[i]]);
             }
 

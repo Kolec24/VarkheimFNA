@@ -63,9 +63,13 @@ namespace Varkheim
             public List<bool> Cells;
         }
 
+        public List<Collision> Collisions = new List<Collision>();
+
         private int _Mask;
         private ShapeType _Shape;
         private Rectangle _Rectangle;
         private GridType _Grid;
+
+        
     }
 }

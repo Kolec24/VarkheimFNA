@@ -15,10 +15,10 @@ namespace Varkheim
         SpriteBatch Batch;
         World World;
 
-        int BackBufferWidth;
-        int BackBufferHeight;
-        int BufferWidth;
-        int BufferHeight;
+        public int BackBufferWidth;
+        public int BackBufferHeight;
+        public int BufferWidth;
+        public int BufferHeight;
         public int Columns;
         public int Rows;
         public int TileWidth;

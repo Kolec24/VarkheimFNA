@@ -8,11 +8,12 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Varkheim</RootNamespace>
     <AssemblyName>Varkheim</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -23,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,21 +34,33 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="content\levels\0x0.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FNA">
       <HintPath>..\..\FNA\bin\Release\FNA.dll</HintPath>
     </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.ReaderWriter, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Xml.ReaderWriter.4.3.1\lib\net46\System.Xml.ReaderWriter.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\components\Collision.cs" />
     <Compile Include="src\components\Input.cs" />
+    <Compile Include="src\components\Physics.cs" />
+    <Compile Include="src\components\Player.cs" />
     <Compile Include="src\components\Position.cs" />
     <Compile Include="src\components\Sprite.cs" />
     <Compile Include="src\components\Tilemap.cs" />
@@ -58,11 +72,15 @@
     <Compile Include="src\Factory.cs" />
     <Compile Include="src\Masks.cs" />
     <Compile Include="src\Program.cs" />
+    <Compile Include="src\systems\CollisionSystem.cs" />
     <Compile Include="src\systems\InputSystem.cs" />
+    <Compile Include="src\systems\MovementSystem.cs" />
     <Compile Include="src\systems\PhysicsSystem.cs" />
     <Compile Include="src\systems\PlayerControlSystem.cs" />
+    <Compile Include="src\systems\ResolveSystem.cs" />
     <Compile Include="src\systems\SpriteSystem.cs" />
     <Compile Include="src\systems\TilemapSystem.cs" />
+    <Compile Include="src\tiled\Tiled.cs" />
     <Compile Include="src\VGame.cs" />
     <Compile Include="src\World.cs" />
   </ItemGroup>
@@ -74,7 +92,10 @@
     <Content Include="content\sprites\player.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="content\tilesets\tileset.png">
+    <Content Include="content\tilesets\castle_tiles.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\tilesets\castle_tiles.tsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

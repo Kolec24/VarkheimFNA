@@ -24,7 +24,7 @@ namespace Varkheim
             var PosComp = (Position)Components[0];
             var SpriteComp = (Sprite)Components[1];
 
-            Batch.Draw(SpriteComp.Texture, new Vector2(PosComp.Pos.X, PosComp.Pos.Y) - SpriteComp.Origin, Color.White);
+            Batch.Draw(SpriteComp.Texture, new Vector2(PosComp.Current.X, PosComp.Current.Y) - SpriteComp.Origin, Color.White);
         }
     }
 }

@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Win32;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Squared.Tiled;
 
 namespace Varkheim
 {
@@ -16,9 +18,20 @@ namespace Varkheim
             public Texture2D Texture;
         }
 
+        private struct MapInfo
+        {
+            public Map Map;
+            public Tuple<int, int> Coordinates;
+
+            public MapInfo(int Horizontal, int Vertical)
+            {
+                Map = null;
+                Coordinates = new Tuple<int, int>(Horizontal, Vertical);
+            }
+        }
+
         private static List<TextureInfo> _Sprites = new List<TextureInfo>();
-        private static List<TextureInfo> _Tilesets = new List<TextureInfo>();
-        private static List<TextureInfo> _Subtextures = new List<TextureInfo>();
+        private static List<MapInfo> _Maps = new List<MapInfo>();
 
         // Maybe useless but left for future
         private static void _PremultiplyTexture(Texture2D texture)
@@ -48,26 +61,26 @@ namespace Varkheim
             }
         }
 
-        private static void _LoadTilesets(ContentManager Content)
+        private static void _LoadMaps(ContentManager Content)
         {
-            string PathString = Content.RootDirectory + "/tilesets/";
+            string PathString = Content.RootDirectory + "/levels/";
             System.IO.DirectoryInfo Path = new System.IO.DirectoryInfo(PathString);
             Console.WriteLine(PathString);
             System.IO.FileInfo[] Files = Path.GetFiles();
             foreach (System.IO.FileInfo File in Files)
             {
-                TextureInfo NewTiletes = new TextureInfo();
-                NewTiletes.Name = File.Name;
-                NewTiletes.Texture = Content.Load<Texture2D>("tilesets/" + File.Name);
-                _PremultiplyTexture(NewTiletes.Texture);
-                _Tilesets.Add(NewTiletes);
+                int Horizontal = _Horizontal(File.Name);
+                int Vertical = _Vertical(File.Name);
+                MapInfo NewMap = new MapInfo(Horizontal, Vertical);
+                NewMap.Map = Map.Load(Content.RootDirectory + "/levels/" + Horizontal + "x" + Vertical + ".tmx", Content);
+                _Maps.Add(NewMap);
             }
         }
-        
+
         public static void Load(ContentManager Content)
         {
             _LoadSprites(Content);
-            _LoadTilesets(Content);
+            _LoadMaps(Content);
         }
 
         public static Texture2D FindSprite(string FileName)
@@ -82,16 +95,57 @@ namespace Varkheim
             return null;
         }
 
-        public static Texture2D FindTileset(string FileName)
+        public static Map FindMap(int Horizontal, int Vertical)
         {
-            foreach (var TilesetInfo in _Tilesets)
+            foreach (var MapInfo in _Maps)
             {
-                if (TilesetInfo.Name == FileName)
+                if (MapInfo.Coordinates.Item1 == Horizontal && MapInfo.Coordinates.Item2 == Vertical)
                 {
-                    return TilesetInfo.Texture;
+                    return MapInfo.Map;
                 }
             }
             return null;
+        }
+
+        private static int _Horizontal(string MapName)
+        {
+            string StringNumber = String.Empty;
+            for(int i = 0; i< MapName.Length; i++)
+            {
+                if(MapName[i] == 'x')
+                {
+                    break;
+                }
+
+                StringNumber += MapName[i];
+            }
+            return int.Parse(StringNumber);
+        }
+
+        private static int _Vertical(string MapName)
+        {
+            string StringNumber = String.Empty;
+            bool Before = true;
+            for (int i = 0; i < MapName.Length; i++)
+            {
+                if (Before)
+                {
+                    if(MapName[i] == 'x')
+                    {
+                        Before = false;
+                    }
+                    continue;
+                }
+
+                if(MapName[i] == '.')
+                {
+                    break;
+                }
+
+                Before = false;
+                StringNumber += MapName[i];
+            }
+            return int.Parse(StringNumber);
         }
     }
 }

@@ -10,13 +10,16 @@ namespace Varkheim
 {
     class Position : Component<Position>
     {
-        public Point Pos;
+        public Point Current;
+        public Point Last;
         public Vector2 Remainder = Vector2.Zero; 
 
         public Position(int PosX, int PosY)
         {
-            Pos.X = PosX;
-            Pos.Y = PosY;
+            Current.X = PosX;
+            Current.Y = PosY;
+            Last.X = PosX;
+            Last.Y = PosY;
         }
     }
 }

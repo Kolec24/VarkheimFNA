@@ -14,35 +14,35 @@ namespace Varkheim
             World = InWorld;
 
             AddComponentType<Input>();
-            AddComponentType<Movement>();
+            AddComponentType<Physics>();
         }
 
         public override void UpdateComponents(float DeltaTime, List<BaseComponent> Components)
         {
             Input Input = (Input)Components[0];
-            Movement Mover = (Movement)Components[1];
+            Physics Physics = (Physics)Components[1];
 
             if(_IsKeyDown(Input, Keys.Right))
             {
-                Mover.Direction = 1;
+                Physics.Direction = 1;
             }
             else if (_IsKeyDown(Input, Keys.Left))
             {
-                Mover.Direction = -1;
+                Physics.Direction = -1;
             }
             else
             {
-                Mover.Direction = 0;
+                Physics.Direction = 0;
             }
 
             if(_IsKeyPressed(Input, Keys.Z))
             {
-                if(Mover.OnGround)
-                    Mover.Jumping = true;
+                Physics.Jumping = true;
             }
             else if(_IsKeyReleased(Input, Keys.Z))
             {
-                Mover.JumpTimer = 0;
+                Physics.Jumping = false;
+                Physics.JumpTimer = 0;
             }
         }
 
