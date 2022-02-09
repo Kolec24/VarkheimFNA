@@ -81,7 +81,6 @@
     <Compile Include="src\systems\MovementSystem.cs" />
     <Compile Include="src\systems\PhysicsSystem.cs" />
     <Compile Include="src\systems\PlayerControlSystem.cs" />
-    <Compile Include="src\systems\ResolveSystem.cs" />
     <Compile Include="src\systems\SpriteSystem.cs" />
     <Compile Include="src\systems\TilemapSystem.cs" />
     <Compile Include="src\tiled\Tiled.cs" />

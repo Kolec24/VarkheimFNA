@@ -75,7 +75,6 @@ namespace Varkheim
             Manager.AddSystem(new PhysicsSystem(this));
             Manager.AddSystem(new MovementSystem(this));
             Manager.AddSystem(new CollisionSystem(this));
-            Manager.AddSystem(new ResolveSystem(this));
 
             Manager.AddSystem(new SpriteSystem(this));
             Manager.AddSystem(new TilemapSystem(this));

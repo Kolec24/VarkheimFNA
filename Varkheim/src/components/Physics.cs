@@ -23,7 +23,6 @@ namespace Varkheim
 
         public int Direction = 0;
 
-        public bool OnGround = true;
         public bool Jumping = false;
         public float JumpVelocity = 0;
         public float JumpTimer = 0;
