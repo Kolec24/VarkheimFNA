@@ -15,6 +15,7 @@ namespace Varkheim
     {
         public VGame Game;
         public EntityManager Manager;
+        public EntityHandle Player;
 
         public World(VGame InGame)
         {
@@ -29,7 +30,7 @@ namespace Varkheim
 
         public void Load()
         {
-            _LoadLevel(0, 0);
+            LoadLevel(new Point(0, 0));
         }
         
         public List<T> GetComponents<T>() where T : BaseComponent
@@ -37,23 +38,17 @@ namespace Varkheim
             return Manager.Components()[Component<T>.Type()].Cast<T>().ToList();
         }
 
-        private void _InitializeSystems()
+        public void LoadLevel(Point Room)
         {
-            Manager.AddSystem(new InputSystem(this));
-            Manager.AddSystem(new PlayerControlSystem(this));
-            Manager.AddSystem(new PhysicsSystem(this));
-            Manager.AddSystem(new MovementSystem(this));
-            Manager.AddSystem(new CollisionSystem(this));
-            Manager.AddSystem(new ResolveSystem(this));
-
-            Manager.AddSystem(new SpriteSystem(this));
-            Manager.AddSystem(new TilemapSystem(this));
+            if(Player == null)
+                Player = Factory.Player(Manager, Room, new Point(50, 180));
+            Factory.Tilemap(Manager, Room);
         }
 
-        private void _LoadLevel(int Horizontal, int Vertical)
+        public void TransitionRooms(Point NextRoom)
         {
-            Factory.Player(Manager, new Point(50, 180));
-            Factory.Tilemap(Manager, Horizontal, Vertical);
+            LoadLevel(NextRoom);
+            Game.TransitionRooms(NextRoom);
         }
 
         public void Update(GameTime GameTime)
@@ -71,6 +66,21 @@ namespace Varkheim
         public void Clear()
         {
 
+        }
+
+        private void _InitializeSystems()
+        {
+            Manager.AddSystem(new InputSystem(this));
+            Manager.AddSystem(new PlayerControlSystem(this));
+            Manager.AddSystem(new PhysicsSystem(this));
+            Manager.AddSystem(new MovementSystem(this));
+            Manager.AddSystem(new CollisionSystem(this));
+            Manager.AddSystem(new ResolveSystem(this));
+
+            Manager.AddSystem(new SpriteSystem(this));
+            Manager.AddSystem(new TilemapSystem(this));
+
+            Manager.AddSystem(new CameraSystem(this));
         }
     }
 }

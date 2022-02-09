@@ -44,6 +44,9 @@
     <None Include="content\levels\0x0.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="content\levels\1x0.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -72,6 +75,7 @@
     <Compile Include="src\Factory.cs" />
     <Compile Include="src\Masks.cs" />
     <Compile Include="src\Program.cs" />
+    <Compile Include="src\systems\CameraSystem.cs" />
     <Compile Include="src\systems\CollisionSystem.cs" />
     <Compile Include="src\systems\InputSystem.cs" />
     <Compile Include="src\systems\MovementSystem.cs" />

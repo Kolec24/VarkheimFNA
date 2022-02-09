@@ -115,24 +115,25 @@ namespace Varkheim
 
         private bool _CheckCollision(Position Position, Collision Collider, Collision Other, Point Offset)
         {
+            Position OtherPos = World.Manager.GetComponent<Position>(Other.Entity);
+            Point OtherOffset = new Point(0, 0);
+            if (OtherPos != null)
+            {
+                OtherOffset = OtherPos.Current;
+            }
+
             if (Other.Shape() == Collision.ShapeType.Rect)
             {
-                Position OtherPos = World.Manager.GetComponent<Position>(Other.Entity);
-                Point OtherOffset = new Point(0, 0);
-                if (OtherPos != null)
-                {
-                    OtherOffset = OtherPos.Current;
-                }
                 Rectangle R1 = Collider.Rectangle();
-                R1.Offset(Position.Current + Offset);
+                R1.Offset(Position.Current + Offset - OtherOffset);
                 Rectangle R2 = Other.Rectangle();
-                R2.Offset(OtherOffset);
+                //R2.Offset(OtherOffset);
                 return R1.Intersects(R2);
             }
             else
             {
                 Rectangle Rect = Collider.Rectangle();
-                Rect.Offset(Position.Current + Offset);
+                Rect.Offset(Position.Current + Offset - OtherOffset);
                 int Left = Math.Max(Rect.Left / Other.Grid().TileSize, 0);
                 int Right = (int)Math.Min(Math.Ceiling((double)Rect.Right / Other.Grid().TileSize), Other.Grid().Columns);
                 int Top = Math.Max(Rect.Top / Other.Grid().TileSize, 0);

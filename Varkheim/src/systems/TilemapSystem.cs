@@ -15,14 +15,16 @@ namespace Varkheim
         {
             World = InWorld;
 
+            AddComponentType<Position>();
             AddComponentType<Tilemap>();
         }
 
         public override void RenderComponents(float DeltaSystem, List<BaseComponent> Components, SpriteBatch Batch)
         {
-            var Tilemap = (Tilemap)Components[0];
+            var Position = (Position)Components[0];
+            var Tilemap = (Tilemap)Components[1];
 
-            Tilemap.Map().Draw(Batch, new Rectangle(0, 0, World.Game.BackBufferWidth, World.Game.BackBufferHeight), new Vector2(0, 0));
+            Tilemap.Map().Draw(Batch, new Rectangle(Position.Current.X, Position.Current.Y, World.Game.BackBufferWidth, World.Game.BackBufferHeight), new Vector2(0, 0));
         }
     }
 }

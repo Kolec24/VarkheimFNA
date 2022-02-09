@@ -10,9 +10,12 @@ namespace Varkheim
 {
     class Player : Component<Player>
     {
-        public Player()
-        {
+        // TODO: Remove this.
+        public Point CurrentRoom = new Point();
 
+        public Player(Point Room)
+        {
+            CurrentRoom = Room;
         }
     }
 }

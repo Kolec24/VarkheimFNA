@@ -37,11 +37,6 @@ namespace Varkheim
         // TODO: Clean up places with collision check.
         private void _CheckCollisions(Position Position, Collision Collider, List<Collision> AllCollisions)
         {
-            if (Collider.Shape() != Collision.ShapeType.Rect)
-            {
-                return;
-            }
-
             int ColWidth = Collider.Rectangle().Width;
             int ColHeight = Collider.Rectangle().Height;
             int Left = Math.Min(Position.Last.X + Collider.Rectangle().Left, Position.Current.X + Collider.Rectangle().Left);
@@ -57,17 +52,18 @@ namespace Varkheim
                     continue;
                 }
 
+                Point Offset = new Point(0, 0);
+                Position OtherPos = World.Manager.GetComponent<Position>(Other.Entity);
+                Point OtherOffset = new Point(0, 0);
+                if (OtherPos != null)
+                {
+                    OtherOffset = OtherPos.Current;
+                }
+
                 if (Other.Shape() == Collision.ShapeType.Rect)
                 {
-                    Position OtherPos = World.Manager.GetComponent<Position>(Other.Entity);
-                    Point OtherOffset = new Point(0, 0);
-                    if (OtherPos != null)
-                    {
-                        OtherOffset = OtherPos.Current;
-                    }
-
+                    MovementRectangle.Offset(Offset - OtherOffset);
                     Rectangle OtherRectangle = Other.Rectangle();
-                    OtherRectangle.Offset(OtherOffset);
                     if(MovementRectangle.Intersects(OtherRectangle))
                     {
                         Collider.Collisions.Add(Other);
@@ -75,6 +71,8 @@ namespace Varkheim
                 }
                 else
                 {
+                    MovementRectangle.Offset(Offset - OtherOffset);
+
                     int LeftIdx = Math.Max(MovementRectangle.Left / Other.Grid().TileSize, 0);
                     int RightIdx = (int)Math.Min(Math.Ceiling((double)MovementRectangle.Right / Other.Grid().TileSize), Other.Grid().Columns);
                     int TopIdx = Math.Max(MovementRectangle.Top / Other.Grid().TileSize, 0);

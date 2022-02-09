@@ -25,6 +25,13 @@ namespace Varkheim
         public int TileHeight;
         float Scale;
         Matrix ScaleMatrix;
+        // TODO: Fix room transition logic.
+        //...
+        Matrix CameraMatrix;
+        public Point LastRoom = new Point(0, 0);
+        public Point CurrentRoom = new Point(0, 0);
+        //...
+
 
         public VGame()
         {
@@ -43,6 +50,7 @@ namespace Varkheim
 
             Scale = Math.Min((float)BackBufferWidth / BufferWidth, (float)BackBufferHeight / BufferHeight);
             ScaleMatrix = Matrix.CreateScale(Scale);
+            CameraMatrix = Matrix.Identity;
 
             Graphics.PreferredBackBufferWidth = BackBufferWidth;
             Graphics.PreferredBackBufferHeight = BackBufferHeight;
@@ -67,6 +75,17 @@ namespace Varkheim
             base.LoadContent();
         }
 
+        // TODO: Fix room transition logic.
+        //...
+        public void TransitionRooms(Point NextRoom)
+        {
+            LastRoom = CurrentRoom;
+            CurrentRoom = NextRoom;
+
+            CameraMatrix = Matrix.CreateTranslation(new Vector3((-1) * NextRoom.X * BufferWidth, (-1) * NextRoom.Y * BufferHeight, 0));
+        }
+        //...
+
         protected override void Update(GameTime GameTime)
         {
             World.Update(GameTime);
@@ -78,7 +97,7 @@ namespace Varkheim
         {
             GraphicsDevice.Clear(Color.Black);
 
-            Batch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, ScaleMatrix);
+            Batch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, CameraMatrix * ScaleMatrix);
             World.Render(GameTime, Batch);
             Batch.End();
 

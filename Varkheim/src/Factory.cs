@@ -12,7 +12,7 @@ namespace Varkheim
 {
     static class Factory
     {
-        public static EntityHandle Player(EntityManager Manager, Point NewPosition)
+        public static EntityHandle Player(EntityManager Manager, Point NewRoom, Point NewPosition)
         {
             var Input = new Input();
             var Position = new Position(NewPosition.X, NewPosition.Y);
@@ -30,6 +30,7 @@ namespace Varkheim
                 Physics.AirFriction = 700;
                 Physics.JumpVelocity = 120;
             }
+            var PlayerComp = new Player(NewRoom);
             var SpriteComp = new Sprite(ContentLoader.FindSprite("player.png"), new Vector2(4, 16));
 
             EntityHandle Player = Manager.AddEntity();
@@ -40,6 +41,7 @@ namespace Varkheim
                 Manager.AddComponent<Sprite>(Player, SpriteComp);
                 Manager.AddComponent<Collision>(Player, Collider);
                 Manager.AddComponent<Physics>(Player, Physics);
+                Manager.AddComponent<Player>(Player, PlayerComp);
             }
             return Player;
         }
@@ -51,13 +53,21 @@ namespace Varkheim
             return Manager.AddEntity();
         }
 
-        public static EntityHandle Tilemap(EntityManager Manager, int Horizontal, int Vertical)
+        public static EntityHandle Tilemap(EntityManager Manager, Point Room)
         {
-            Map NewMap = ContentLoader.FindMap(Horizontal, Vertical);
+            Map NewMap = ContentLoader.FindMap(Room.X, Room.Y);
+            if(NewMap == null)
+            {
+                Console.WriteLine("InvalidMap");
+                return new EntityHandle();
+            }
+
+            var Position = new Position(Room.X * 320, Room.Y * 240);
             var Tilemap = new Tilemap(NewMap);
             var SolidCells = _SolidCells(NewMap);
             var Collider = new Collision(Mask.Solid, NewMap.Width, NewMap.Height, 8, SolidCells);
             EntityHandle Terrain = Manager.AddEntity();
+            Manager.AddComponent<Position>(Terrain, Position);
             Manager.AddComponent<Collision>(Terrain, Collider);
             Manager.AddComponent<Tilemap>(Terrain, Tilemap);
             return Terrain;
