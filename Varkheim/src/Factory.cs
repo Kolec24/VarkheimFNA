@@ -30,7 +30,7 @@ namespace Varkheim
                 Physics.AirFriction = 700;
                 Physics.JumpVelocity = 120;
             }
-            var PlayerComp = new Player(NewRoom);
+            var PlayerComp = new Player();
             var SpriteComp = new Sprite(ContentLoader.FindSprite("player.png"), new Vector2(4, 16));
 
             EntityHandle Player = Manager.AddEntity();
@@ -53,15 +53,8 @@ namespace Varkheim
             return Manager.AddEntity();
         }
 
-        public static EntityHandle Tilemap(EntityManager Manager, Point Room)
+        public static EntityHandle Tilemap(EntityManager Manager, Map NewMap, Point Room)
         {
-            Map NewMap = ContentLoader.FindMap(Room.X, Room.Y);
-            if(NewMap == null)
-            {
-                Console.WriteLine("InvalidMap");
-                return new EntityHandle();
-            }
-
             var Position = new Position(Room.X * 320, Room.Y * 240);
             var Tilemap = new Tilemap(NewMap);
             var SolidCells = _SolidCells(NewMap);

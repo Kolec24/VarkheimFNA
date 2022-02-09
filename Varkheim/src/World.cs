@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Squared.Tiled;
 using ECS;
 
 using EntityHandle = System.Object;
@@ -16,6 +17,7 @@ namespace Varkheim
         public VGame Game;
         public EntityManager Manager;
         public EntityHandle Player;
+        public Point CurrentRoom = new Point(0, 0);
 
         public World(VGame InGame)
         {
@@ -28,9 +30,9 @@ namespace Varkheim
             _InitializeSystems();
         }
 
-        public void Load()
+        public void Load(Point StartingRoom)
         {
-            LoadLevel(new Point(0, 0));
+            LoadLevel(StartingRoom);
         }
         
         public List<T> GetComponents<T>() where T : BaseComponent
@@ -40,20 +42,38 @@ namespace Varkheim
 
         public void LoadLevel(Point Room)
         {
-            if(Player == null)
-                Player = Factory.Player(Manager, Room, new Point(50, 180));
-            Factory.Tilemap(Manager, Room);
+            CurrentRoom = Room;
+
+            // Not sure if using ContentLoader in the world is OK.
+            Map NewMap = ContentLoader.FindMap(Room.X, Room.Y);
+            if (NewMap == null)
+            {
+                Console.WriteLine("InvalidMap");
+                return;
+            }
+
+            IList<Squared.Tiled.Object> GameObjects = NewMap.ObjectGroups["Objects"].Objects.Values;
+            foreach(Squared.Tiled.Object Object in GameObjects)
+            {
+                if(Object.Name == "Player" && Player == null)
+                {
+                    int RelativeX = Object.X + (int)(0.5 * Object.Width);
+                    int RelativeY = Object.Y + Object.Height;
+                    Player = Factory.Player(Manager, Room, new Point(RelativeX + Room.X * Game.BufferWidth, RelativeY + Room.Y * Game.BufferHeight));
+                }
+            }
+
+            Factory.Tilemap(Manager, NewMap, Room);
         }
 
-        public void TransitionRooms(Point NextRoom)
+        public void ChangeRooms(Point NextRoom)
         {
             LoadLevel(NextRoom);
-            Game.TransitionRooms(NextRoom);
+            Game.SetCamera(NextRoom);
         }
 
-        public void Update(GameTime GameTime)
+        public void Update(float DeltaTime)
         {
-            float DeltaTime = (float)GameTime.ElapsedGameTime.TotalSeconds;
             Manager.UpdateSystems(DeltaTime);
         }
 

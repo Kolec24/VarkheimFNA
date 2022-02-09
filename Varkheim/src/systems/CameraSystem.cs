@@ -25,7 +25,7 @@ namespace Varkheim
 
             int Width = World.Game.BufferWidth;
             int Height = World.Game.BufferHeight;
-            Point Room = Player.CurrentRoom;
+            Point Room = World.CurrentRoom;
             Rectangle Bounds = new Rectangle(Room.X * Width, Room.Y * Height, Width, Height);
             if(Bounds.Contains(Position.Current))
             {
@@ -43,8 +43,7 @@ namespace Varkheim
                 YCoord--;
             }
 
-            Player.CurrentRoom = new Point(XCoord, YCoord);
-            World.TransitionRooms(new Point(XCoord, YCoord));
+            World.ChangeRooms(new Point(XCoord, YCoord));
         }
     }
 }

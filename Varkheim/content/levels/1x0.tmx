@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="8" tileheight="8" infinite="0" nextlayerid="2" nextobjectid="1">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="8" tileheight="8" infinite="0" nextlayerid="3" nextobjectid="2">
  <tileset firstgid="1" source="../tilesets/castle_tiles.tsx"/>
  <layer id="1" name="Solid" width="40" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3VQQrAIAxE0SAUcv8TdyV0EUwUzcQyA3//FEubiLTCcf8e+n2xmt9zVVe2URdtGYv4kH7Pp58QG/nUKHuWz3JFnCfO0H07q+7b6Uf4ZowoX9R4g2/135YxtM+7V7TP2w2+hzHGDvUCOkBC38ASAAA=
+   H4sIAAAAAAAACu3UsQ0AMAgDQTfsv3J2gABGekvfX4EISUHpXIevtis+15vEV5v7D8I359vw4tvzTXjx+fg6vPh8fT+8+O74iKinBzrSPb/AEgAA
   </data>
  </layer>
+ <objectgroup id="2" name="Objects">
+  <object id="1" name="Player" x="24" y="40" width="8" height="8"/>
+ </objectgroup>
 </map>

@@ -25,12 +25,12 @@ namespace Varkheim
         public int TileHeight;
         float Scale;
         Matrix ScaleMatrix;
-        // TODO: Fix room transition logic.
-        //...
         Matrix CameraMatrix;
-        public Point LastRoom = new Point(0, 0);
-        public Point CurrentRoom = new Point(0, 0);
-        //...
+        public Point CameraPosition = new Point(0, 0);
+        public Point LastCamera = new Point(0, 0);
+        public Point NextCamera = new Point(0, 0);
+        public float TransitionTime;
+        public float CurrentTransitionTime;
 
 
         public VGame()
@@ -50,12 +50,13 @@ namespace Varkheim
 
             Scale = Math.Min((float)BackBufferWidth / BufferWidth, (float)BackBufferHeight / BufferHeight);
             ScaleMatrix = Matrix.CreateScale(Scale);
-            CameraMatrix = Matrix.Identity;
 
             Graphics.PreferredBackBufferWidth = BackBufferWidth;
             Graphics.PreferredBackBufferHeight = BackBufferHeight;
             Graphics.IsFullScreen = false;
             Graphics.ApplyChanges();
+
+            TransitionTime = 0.75F;
         }
 
         protected override void Initialize()
@@ -70,25 +71,40 @@ namespace Varkheim
         {
             Batch = new SpriteBatch(GraphicsDevice);
             ContentLoader.Load(Content);
-            World.Load();
+
+            // To change starting room one needs to change camera!
+            World.Load(new Point(0, 0));
 
             base.LoadContent();
         }
 
-        // TODO: Fix room transition logic.
-        //...
-        public void TransitionRooms(Point NextRoom)
+        public void SetCamera(Point TargetCamera)
         {
-            LastRoom = CurrentRoom;
-            CurrentRoom = NextRoom;
-
-            CameraMatrix = Matrix.CreateTranslation(new Vector3((-1) * NextRoom.X * BufferWidth, (-1) * NextRoom.Y * BufferHeight, 0));
+            CurrentTransitionTime = TransitionTime;
+            LastCamera = NextCamera;
+            NextCamera = new Point(TargetCamera.X * BufferWidth, TargetCamera.Y * BufferHeight);
         }
-        //...
+
+        public void MoveCamera(float Progress)
+        {
+            CameraPosition.X = (int)(Progress * LastCamera.X + (1 - Progress) * NextCamera.X);
+            CameraPosition.Y = (int)(Progress * LastCamera.Y + (1 - Progress) * NextCamera.Y);
+        }
 
         protected override void Update(GameTime GameTime)
         {
-            World.Update(GameTime);
+            float DeltaTime = (float)GameTime.ElapsedGameTime.TotalSeconds;
+
+            // TODO: Check if such update block can be used.
+            if (CurrentTransitionTime > 0)
+            {
+                CurrentTransitionTime = Math.Max(CurrentTransitionTime - DeltaTime, 0);
+                MoveCamera(CurrentTransitionTime / TransitionTime);
+                base.Update(GameTime);
+                return;
+            }
+
+            World.Update(DeltaTime);
 
             base.Update(GameTime);
         }
@@ -97,6 +113,7 @@ namespace Varkheim
         {
             GraphicsDevice.Clear(Color.Black);
 
+            CameraMatrix = Matrix.CreateTranslation(new Vector3((-1) * CameraPosition.X, (-1) * CameraPosition.Y, 0));
             Batch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, CameraMatrix * ScaleMatrix);
             World.Render(GameTime, Batch);
             Batch.End();
