@@ -15,20 +15,28 @@ namespace Varkheim
 
             AddComponentType<Input>();
             AddComponentType<Physics>();
+            AddComponentType<Player>();
+            // TODO: Probably remove!
+            AddComponentType<Position>();
         }
 
         public override void UpdateComponents(float DeltaTime, List<BaseComponent> Components)
         {
             Input Input = (Input)Components[0];
             Physics Physics = (Physics)Components[1];
+            Player Player = (Player)Components[2];
+            // TODO: Probably remove!
+            Position Position = (Position)Components[3];
 
-            if(_IsKeyDown(Input, Keys.Right))
+            if (_IsKeyDown(Input, Keys.Right))
             {
                 Physics.Direction = 1;
+                Position.Facing = 1;
             }
             else if (_IsKeyDown(Input, Keys.Left))
             {
                 Physics.Direction = -1;
+                Position.Facing = -1;
             }
             else
             {
@@ -43,6 +51,15 @@ namespace Varkheim
             {
                 Physics.Jumping = false;
                 Physics.JumpTimer = 0;
+            }
+
+            if (_IsKeyPressed(Input, Keys.X))
+            {
+                Player.Shooting = true;
+            }
+            else if (_IsKeyReleased(Input, Keys.X))
+            {
+                Player.Shooting = false;
             }
         }
 

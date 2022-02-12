@@ -23,6 +23,7 @@ namespace Varkheim
         public int Rows;
         public int TileWidth;
         public int TileHeight;
+        public Color BGColor = new Color();
         float Scale;
         Matrix ScaleMatrix;
         Matrix CameraMatrix;
@@ -50,6 +51,11 @@ namespace Varkheim
 
             Scale = Math.Min((float)BackBufferWidth / BufferWidth, (float)BackBufferHeight / BufferHeight);
             ScaleMatrix = Matrix.CreateScale(Scale);
+
+            BGColor.R = 54;
+            BGColor.G = 29;
+            BGColor.B = 24;
+            BGColor.A = 255;
 
             Graphics.PreferredBackBufferWidth = BackBufferWidth;
             Graphics.PreferredBackBufferHeight = BackBufferHeight;
@@ -89,6 +95,10 @@ namespace Varkheim
         {
             CameraPosition.X = (int)(Progress * LastCamera.X + (1 - Progress) * NextCamera.X);
             CameraPosition.Y = (int)(Progress * LastCamera.Y + (1 - Progress) * NextCamera.Y);
+            if(CameraPosition == NextCamera)
+            {
+                World.UnloadPreviousLevel();
+            }
         }
 
         protected override void Update(GameTime GameTime)
@@ -111,7 +121,7 @@ namespace Varkheim
 
         protected override void Draw(GameTime GameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(BGColor);
 
             CameraMatrix = Matrix.CreateTranslation(new Vector3((-1) * CameraPosition.X, (-1) * CameraPosition.Y, 0));
             Batch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, CameraMatrix * ScaleMatrix);

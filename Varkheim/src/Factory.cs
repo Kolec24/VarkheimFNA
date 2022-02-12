@@ -46,11 +46,21 @@ namespace Varkheim
             return Player;
         }
 
-        public static EntityHandle Spirit(EntityManager Manager, Point NewPosition)
+        public static EntityHandle Spirit(EntityManager Manager, Point NewPosition, Vector2 NewVelocity)
         {
             var Position = new Position(NewPosition.X, NewPosition.Y);
-            var Mover = new Movement();
-            return Manager.AddEntity();
+            var Mover = new Movement(NewVelocity);
+            var Collider = new Collision(Mask.Player, new Rectangle(-2, -2, 4, 4));
+            var SpriteComp = new Sprite(ContentLoader.FindSprite("spirit.png"), new Vector2(4, 4));
+
+            EntityHandle Spirit = Manager.AddEntity();
+            {
+                Manager.AddComponent<Position>(Spirit, Position);
+                Manager.AddComponent<Movement>(Spirit, Mover);
+                Manager.AddComponent<Sprite>(Spirit, SpriteComp);
+                Manager.AddComponent<Collision>(Spirit, Collider);
+            }
+            return Spirit;
         }
 
         public static EntityHandle Tilemap(EntityManager Manager, Map NewMap, Point Room)

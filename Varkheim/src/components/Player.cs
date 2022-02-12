@@ -10,6 +10,10 @@ namespace Varkheim
 {
     class Player : Component<Player>
     {
+        public bool Shooting = false;
+        // TODO: Move to shooting component if it exists.
+        public Point ShootingOffset = new Point(5, -8);
+
         public Player()
         {
 

@@ -23,7 +23,6 @@ D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\Varkhe
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\Varkheim.exe
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\Varkheim.pdb
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\FNA.dll
-D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\System.Xml.ReaderWriter.dll
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\FNA.dll.config
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\obj\Debug\Varkheim.csprojAssemblyReference.cache
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\obj\Debug\Varkheim.csproj.CoreCompileInputs.cache
@@ -31,3 +30,6 @@ D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\obj\Debug\Varkhe
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\obj\Debug\Varkheim.exe
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\obj\Debug\Varkheim.pdb
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\content\levels\1x0.tmx
+D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\content\sprites\spirit.png
+D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\System.ValueTuple.dll
+D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\System.ValueTuple.xml

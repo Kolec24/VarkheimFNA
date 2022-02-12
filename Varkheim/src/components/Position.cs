@@ -12,7 +12,10 @@ namespace Varkheim
     {
         public Point Current;
         public Point Last;
-        public Vector2 Remainder = Vector2.Zero; 
+        public Vector2 Remainder = Vector2.Zero;
+
+        // TODO: Check if this is the right place.
+        public int Facing = 1;
 
         public Position(int PosX, int PosY)
         {

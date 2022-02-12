@@ -12,6 +12,11 @@ namespace Varkheim
         public Vector2 Velocity;
         public bool OnGround = false;
 
+        public Movement(Vector2 NewVelocity)
+        {
+            Velocity = NewVelocity;
+        }
+
         public Movement()
         {
 

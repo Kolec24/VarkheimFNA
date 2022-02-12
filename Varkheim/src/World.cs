@@ -17,7 +17,11 @@ namespace Varkheim
         public VGame Game;
         public EntityManager Manager;
         public EntityHandle Player;
+        // Temporary unloading.
+        public List<EntityHandle> CurrentEntities = new List<EntityHandle>();
+        public List<EntityHandle> LastEntities = new List<EntityHandle>();
         public Point CurrentRoom = new Point(0, 0);
+        public Point LastRoom = new Point(0, 0);
 
         public World(VGame InGame)
         {
@@ -40,9 +44,19 @@ namespace Varkheim
             return Manager.Components()[Component<T>.Type()].Cast<T>().ToList();
         }
 
+        // TODO: Messy.
         public void LoadLevel(Point Room)
         {
+            LastRoom = CurrentRoom;
             CurrentRoom = Room;
+
+            // Mark which entities should be removed.
+            LastEntities.Clear();
+            foreach(EntityHandle Entity in CurrentEntities)
+            {
+                LastEntities.Add(Entity);
+            }
+            CurrentEntities.Clear();
 
             // Not sure if using ContentLoader in the world is OK.
             Map NewMap = ContentLoader.FindMap(Room.X, Room.Y);
@@ -63,7 +77,17 @@ namespace Varkheim
                 }
             }
 
-            Factory.Tilemap(Manager, NewMap, Room);
+            CurrentEntities.Add(Factory.Tilemap(Manager, NewMap, Room));
+        }
+
+        public void UnloadPreviousLevel()
+        {
+            foreach(var Entity in LastEntities)
+            {
+                Manager.RemoveEntity(Entity);
+            }
+
+            LastEntities.Clear();
         }
 
         public void ChangeRooms(Point NextRoom)
@@ -75,6 +99,8 @@ namespace Varkheim
         public void Update(float DeltaTime)
         {
             Manager.UpdateSystems(DeltaTime);
+
+            //Console.WriteLine(CurrentEntities.Count());
         }
 
         public void Render(GameTime GameTime, SpriteBatch Batch)
@@ -95,6 +121,7 @@ namespace Varkheim
             Manager.AddSystem(new PhysicsSystem(this));
             Manager.AddSystem(new MovementSystem(this));
             Manager.AddSystem(new CollisionSystem(this));
+            Manager.AddSystem(new ShootingSystem(this));
 
             Manager.AddSystem(new SpriteSystem(this));
             Manager.AddSystem(new TilemapSystem(this));
