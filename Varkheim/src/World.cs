@@ -5,7 +5,6 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
-using Squared.Tiled;
 using ECS;
 
 using EntityHandle = System.Object;
@@ -59,15 +58,15 @@ namespace Varkheim
             CurrentEntities.Clear();
 
             // Not sure if using ContentLoader in the world is OK.
-            Map NewMap = ContentLoader.FindMap(Room.X, Room.Y);
+            Parser.Map NewMap = ContentLoader.FindMap(Room.X, Room.Y);
             if (NewMap == null)
             {
                 Console.WriteLine("InvalidMap");
                 return;
             }
 
-            IList<Squared.Tiled.Object> GameObjects = NewMap.ObjectGroups["Objects"].Objects.Values;
-            foreach(Squared.Tiled.Object Object in GameObjects)
+            IList<Parser.Object> GameObjects = NewMap.ObjectGroups["Objects"].Objects.Values;
+            foreach(Parser.Object Object in GameObjects)
             {
                 if(Object.Name == "Player" && Player == null)
                 {
@@ -99,8 +98,6 @@ namespace Varkheim
         public void Update(float DeltaTime)
         {
             Manager.UpdateSystems(DeltaTime);
-
-            //Console.WriteLine(CurrentEntities.Count());
         }
 
         public void Render(GameTime GameTime, SpriteBatch Batch)
@@ -123,7 +120,7 @@ namespace Varkheim
             Manager.AddSystem(new CollisionSystem(this));
             Manager.AddSystem(new ShootingSystem(this));
 
-            Manager.AddSystem(new SpriteSystem(this));
+            Manager.AddSystem(new AnimationSystem(this));
             Manager.AddSystem(new TilemapSystem(this));
 
             Manager.AddSystem(new CameraSystem(this));

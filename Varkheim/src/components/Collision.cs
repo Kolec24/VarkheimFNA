@@ -69,7 +69,5 @@ namespace Varkheim
         private ShapeType _Shape;
         private Rectangle _Rectangle;
         private GridType _Grid;
-
-        
     }
 }

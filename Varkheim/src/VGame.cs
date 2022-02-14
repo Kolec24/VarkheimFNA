@@ -76,7 +76,7 @@ namespace Varkheim
         protected override void LoadContent()
         {
             Batch = new SpriteBatch(GraphicsDevice);
-            ContentLoader.Load(Content);
+            ContentLoader.Load(Content, GraphicsDevice);
 
             // To change starting room one needs to change camera!
             World.Load(new Point(0, 0));

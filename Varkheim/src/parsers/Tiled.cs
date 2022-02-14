@@ -61,7 +61,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Globalization;
 
-namespace Squared.Tiled {
+namespace Parser {
     public class Tileset {
         public class TilePropertyList : Dictionary<string, string> {
         }
@@ -473,7 +473,7 @@ namespace Squared.Tiled {
                     {
                         info = TileInfoCache[index];
                         batch.Draw(info.Texture, destPos - viewPos, info.Rectangle,
-                                   Color.White * this.Opacity, rotation, new Vector2(tileWidth / 2f, tileHeight / 2f), 
+                                   Microsoft.Xna.Framework.Color.White * this.Opacity, rotation, new Vector2(tileWidth / 2f, tileHeight / 2f), 
                                    1f, flipEffect, 0);
                     }
 
@@ -697,7 +697,7 @@ namespace Squared.Tiled {
                 {
                     int x = (int)(this.X + offset.X - viewportPosition.X);
                     int y = (int)(this.Y + offset.Y - viewportPosition.Y);
-                    batch.Draw(_Texture, new Rectangle(x, y, this.Width, this.Height), new Rectangle(0, 0, _Texture.Width, _Texture.Height), Color.White * opacity);
+                    batch.Draw(_Texture, new Rectangle(x, y, this.Width, this.Height), new Rectangle(0, 0, _Texture.Width, _Texture.Height), Microsoft.Xna.Framework.Color.White * opacity);
                 }
         }
     }

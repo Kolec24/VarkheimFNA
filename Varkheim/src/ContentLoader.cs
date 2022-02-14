@@ -6,21 +6,20 @@ using Microsoft.Win32;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Squared.Tiled;
 
 namespace Varkheim
 {
     class ContentLoader
     {
-        private struct TextureInfo
+        private struct SpriteInfo
         {
             public string Name;
-            public Texture2D Texture;
+            public Sprite Sprite;
         }
 
         private struct MapInfo
         {
-            public Map Map;
+            public Parser.Map Map;
             public Tuple<int, int> Coordinates;
 
             public MapInfo(int Horizontal, int Vertical)
@@ -30,7 +29,7 @@ namespace Varkheim
             }
         }
 
-        private static List<TextureInfo> _Sprites = new List<TextureInfo>();
+        private static List<SpriteInfo> _Sprites = new List<SpriteInfo>();
         private static List<MapInfo> _Maps = new List<MapInfo>();
 
         // Maybe useless but left for future
@@ -45,7 +44,7 @@ namespace Varkheim
             texture.SetData(buffer);
         }
 
-        private static void _LoadSprites(ContentManager Content)
+        private static void _LoadSprites(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
             string PathString = Content.RootDirectory + "/sprites/";
             System.IO.DirectoryInfo Path = new System.IO.DirectoryInfo(PathString);
@@ -53,10 +52,9 @@ namespace Varkheim
             System.IO.FileInfo[] Files = Path.GetFiles();
             foreach (System.IO.FileInfo File in Files)
             {
-                TextureInfo NewSprite = new TextureInfo();
+                SpriteInfo NewSprite = new SpriteInfo();
                 NewSprite.Name = File.Name;
-                NewSprite.Texture = Content.Load<Texture2D>("sprites/" + File.Name);
-                _PremultiplyTexture(NewSprite.Texture);
+                NewSprite.Sprite = _AsepriteToSprite(new Parser.Aseprite(Content.RootDirectory + "/sprites/" + File.Name), Content, GraphicsDevice);
                 _Sprites.Add(NewSprite);
             }
         }
@@ -72,30 +70,30 @@ namespace Varkheim
                 int Horizontal = _Horizontal(File.Name);
                 int Vertical = _Vertical(File.Name);
                 MapInfo NewMap = new MapInfo(Horizontal, Vertical);
-                NewMap.Map = Map.Load(Content.RootDirectory + "/levels/" + Horizontal + "x" + Vertical + ".tmx", Content);
+                NewMap.Map = Parser.Map.Load(Content.RootDirectory + "/levels/" + Horizontal + "x" + Vertical + ".tmx", Content);
                 _Maps.Add(NewMap);
             }
         }
 
-        public static void Load(ContentManager Content)
+        public static void Load(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
-            _LoadSprites(Content);
+            _LoadSprites(Content, GraphicsDevice);
             _LoadMaps(Content);
         }
 
-        public static Texture2D FindSprite(string FileName)
+        public static Sprite FindSprite(string FileName)
         {
-            foreach(var SpriteInfo in _Sprites)
+            foreach (var SpriteInfo in _Sprites)
             {
                 if (SpriteInfo.Name == FileName)
                 {
-                    return SpriteInfo.Texture;
+                    return SpriteInfo.Sprite;
                 }
             }
             return null;
         }
 
-        public static Map FindMap(int Horizontal, int Vertical)
+        public static Parser.Map FindMap(int Horizontal, int Vertical)
         {
             foreach (var MapInfo in _Maps)
             {
@@ -105,6 +103,43 @@ namespace Varkheim
                 }
             }
             return null;
+        }
+
+        private static Sprite _AsepriteToSprite(Parser.Aseprite Aseprite, ContentManager Content, GraphicsDevice GraphicsDevice)
+        {
+            Sprite Sprite = new Sprite();
+            if(Aseprite.Slices.Count() > 0 && Aseprite.Slices[0].Pivot.HasValue)
+            {
+                Sprite.Origin = new Vector2(Aseprite.Slices[0].Pivot.Value.X, Aseprite.Slices[0].Pivot.Value.Y);
+            }
+
+            for (int i = 0; i < Aseprite.Tags.Count(); i++)
+            {
+                Parser.Aseprite.Tag CurrentTag = Aseprite.Tags[i];
+                Sprite.Animation NewAnimation;
+                NewAnimation.Name = CurrentTag.Name;
+                NewAnimation.Frames = new List<Sprite.Frame>();
+                for (int j = CurrentTag.From; j <= CurrentTag.To; j++)
+                {
+                    Parser.Aseprite.Frame CurrentFrame = Aseprite.Frames[j];
+                    Sprite.Frame NewFrame;
+
+                    Texture2D NewTexture = new Texture2D(GraphicsDevice, Aseprite.Width, Aseprite.Height);
+                    Color[] NewPixels = new Color[CurrentFrame.Pixels.Count()];
+                    for(int p = 0; p < CurrentFrame.Pixels.Count(); p++)
+                    {
+                        NewPixels[p] = new Color(CurrentFrame.Pixels[p].R, CurrentFrame.Pixels[p].G, CurrentFrame.Pixels[p].B, CurrentFrame.Pixels[p].A);
+                    }
+
+                    NewTexture.SetData<Color>(NewPixels);
+                    NewFrame.Texture = NewTexture;
+                    NewFrame.Duration = (float)Aseprite.Frames[j].Duration / 1000;
+                    NewAnimation.Frames.Add(NewFrame);
+                }
+                Sprite.Animations.Add(NewAnimation);
+            }
+
+            return Sprite;
         }
 
         private static int _Horizontal(string MapName)

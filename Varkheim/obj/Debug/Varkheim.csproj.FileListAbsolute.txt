@@ -14,8 +14,6 @@ D:\Program Files\FNA Projects\Varkheim\Varkheim\Varkheim\bin\Debug\System.Xml.Re
 D:\Program Files\FNA Projects\Varkheim\Varkheim\Varkheim\bin\Debug\content\tilesets\castle_tiles.tsx
 D:\Program Files\FNA Projects\Varkheim\Varkheim\Varkheim\bin\Debug\content\levels\0x0.tmx
 D:\Program Files\FNA Projects\Varkheim\Varkheim\Varkheim\bin\Debug\content\tilesets\castle_tiles.png
-D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\content\sprites\collider.png
-D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\content\sprites\player.png
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\content\tilesets\castle_tiles.png
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\content\tilesets\castle_tiles.tsx
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\content\levels\0x0.tmx
@@ -30,6 +28,7 @@ D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\obj\Debug\Varkhe
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\obj\Debug\Varkheim.exe
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\obj\Debug\Varkheim.pdb
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\content\levels\1x0.tmx
-D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\content\sprites\spirit.png
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\System.ValueTuple.dll
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\System.ValueTuple.xml
+D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\content\sprites\player.ase
+D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\content\sprites\spirit.ase
