@@ -94,6 +94,7 @@
     <Compile Include="src\systems\PhysicsSystem.cs" />
     <Compile Include="src\systems\PlayerControlSystem.cs" />
     <Compile Include="src\systems\ShootingSystem.cs" />
+    <Compile Include="src\systems\SpriteSystem.cs" />
     <Compile Include="src\systems\TilemapSystem.cs" />
     <Compile Include="src\parsers\Tiled.cs" />
     <Compile Include="src\VGame.cs" />

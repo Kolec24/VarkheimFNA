@@ -18,6 +18,7 @@ namespace Varkheim
             AddComponentType<Player>();
             // TODO: Probably remove!
             AddComponentType<Position>();
+            AddComponentType<Animation>();
         }
 
         public override void UpdateComponents(float DeltaTime, List<BaseComponent> Components)
@@ -27,20 +28,24 @@ namespace Varkheim
             Player Player = (Player)Components[2];
             // TODO: Probably remove!
             Position Position = (Position)Components[3];
+            Animation Animator = (Animation)Components[4];
 
             if (_IsKeyDown(Input, Keys.Right))
             {
                 Physics.Direction = 1;
                 Position.Facing = 1;
+                Animator.CurrentAnimation = "Walk";
             }
             else if (_IsKeyDown(Input, Keys.Left))
             {
                 Physics.Direction = -1;
                 Position.Facing = -1;
+                Animator.CurrentAnimation = "Walk";
             }
             else
             {
                 Physics.Direction = 0;
+                Animator.CurrentAnimation = "Idle";
             }
 
             if(_IsKeyPressed(Input, Keys.Z))

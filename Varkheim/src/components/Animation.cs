@@ -22,6 +22,7 @@ namespace Varkheim
         public int AnimationIndex = 0;
         public int FrameIndex = 0;
         public float FrameCounter = 0;
+        public bool InValidState = false;
     }
 
     

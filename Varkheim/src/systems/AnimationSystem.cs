@@ -11,30 +11,32 @@ namespace Varkheim
 {
     class AnimationSystem : BaseSystem
     {
-        public AnimationSystem(World InWorld) : base(SystemType.Render)
+        public AnimationSystem(World InWorld) : base(SystemType.Gameplay)
         {
             World = InWorld;
 
-            AddComponentType<Position>();
             AddComponentType<Animation>();
         }
 
-        public override void RenderComponents(float DeltaTime, List<BaseComponent> Components, SpriteBatch Batch)
+        public override void UpdateComponents(float DeltaTime, List<BaseComponent> Components)
         {
-            Position Position = (Position)Components[0];
-            Animation Animator = (Animation)Components[1];
+            Animation Animator = (Animation)Components[0];
 
-            if (!_IsInValidState(Animator))
+            int CurrentAnimationIndex = _GetAnimationIndex(Animator, Animator.CurrentAnimation);
+            if (Animator.AnimationIndex != CurrentAnimationIndex)
+            {
+                Animator.AnimationIndex = CurrentAnimationIndex;
+                Animator.FrameIndex = 0;
+                Animator.FrameCounter = 0;
+            }
+
+            Animator.InValidState = _IsInValidState(Animator);
+            if (!Animator.InValidState)
             {
                 return;
             }
 
-            Sprite.Animation Animation = Animator.Sprite.Animations[Animator.AnimationIndex];
-            Sprite.Frame Frame = Animation.Frames[Animator.FrameIndex];
-
             _UpdateAnimation(Animator, DeltaTime);
-            Batch.Draw(Frame.Texture, new Vector2(Position.Current.X, Position.Current.Y)
-                , new Rectangle(0, 0, Frame.Texture.Width, Frame.Texture.Height), Color.White, 0, Animator.Sprite.Origin, new Vector2(Position.Facing, 1), SpriteEffects.None, 0);
         }
 
         private void _UpdateAnimation(Animation Animator, float DeltaTime)
