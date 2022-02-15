@@ -29,8 +29,6 @@ namespace Varkheim
                 return;
             }
 
-            List<Collision> AllCollisions = World.GetComponents<Collision>();
-
             _CalculateVelocityX(DeltaTime, Mover, Physics);
             _CalculateVelocityY(DeltaTime, Mover, Physics);
         }

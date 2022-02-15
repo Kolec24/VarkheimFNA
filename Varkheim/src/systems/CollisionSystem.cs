@@ -110,7 +110,7 @@ namespace Varkheim
                         if (Collider.InteractableMasks.Contains(Other.Mask()))
                         {
                             HitCollisions.Add(Other);
-                            DistanceX = 1;
+                            //DistanceX = 1;
                         }
                     }
                 }
@@ -139,7 +139,7 @@ namespace Varkheim
                         if (Collider.InteractableMasks.Contains(Other.Mask()))
                         {
                             HitCollisions.Add(Other);
-                            DistanceY = 1;
+                            //DistanceY = 1;
                         }
                     }
                 }

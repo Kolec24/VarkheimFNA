@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="8" tileheight="8" infinite="0" nextlayerid="3" nextobjectid="2">
+ <tileset firstgid="1" source="../tilesets/castle_tiles.tsx"/>
+ <layer id="1" name="Solid" width="40" height="30">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3UwQkAMAgEwfsI9l9xUoLBEC+wC4ffeZmSYi+L9/WqLjefQ/h6/eBzDl+v0/+HDx8+fPjw4cM37RM+fPiu+WJg7r4FRic9ocASAAA=
+  </data>
+ </layer>
+ <objectgroup id="2" name="Objects">
+  <object id="1" name="Player" x="24" y="64" width="8" height="8"/>
+ </objectgroup>
+</map>

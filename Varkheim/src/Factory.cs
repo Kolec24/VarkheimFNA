@@ -37,6 +37,7 @@ namespace Varkheim
             }
             var PlayerComp = new Player();
             var Shooter = new Shooter(Projectile.Spirit, new Point(0, -8));
+            var Teleport = new Teleport();
             var Animator = new Animation(ContentLoader.FindSprite("player.ase"), "Idle");
 
             EntityHandle Player = Manager.AddEntity();
@@ -48,12 +49,13 @@ namespace Varkheim
                 Manager.AddComponent<Physics>(Player, Physics);
                 Manager.AddComponent<Player>(Player, PlayerComp);
                 Manager.AddComponent<Shooter>(Player, Shooter);
+                Manager.AddComponent<Teleport>(Player, Teleport);
                 Manager.AddComponent<Animation>(Player, Animator);
             }
             return Player;
         }
 
-        public static EntityHandle Spirit(EntityManager Manager, Point NewPosition, int Facing, Vector2 NewVelocity)
+        public static EntityHandle Spirit(EntityManager Manager, Point NewPosition, int Facing, Vector2 NewVelocity, Point Offset, EntityHandle Owner)
         {
             var Position = new Position(NewPosition.X, NewPosition.Y);
             {
@@ -65,6 +67,7 @@ namespace Varkheim
                 Collider.InteractableMasks.Add(Mask.Solid);
                 Collider.BlockingMasks.Add(Mask.Solid);
             }
+            var SpiritComp = new Spirit(Owner, Offset);
             var Animator = new Animation(ContentLoader.FindSprite("spirit.ase"), "Idle");
 
             EntityHandle Spirit = Manager.AddEntity();
@@ -73,6 +76,7 @@ namespace Varkheim
                 Manager.AddComponent<Movement>(Spirit, Mover);
                 Manager.AddComponent<Animation>(Spirit, Animator);
                 Manager.AddComponent<Collision>(Spirit, Collider);
+                Manager.AddComponent<Spirit>(Spirit, SpiritComp);
             }
             return Spirit;
         }

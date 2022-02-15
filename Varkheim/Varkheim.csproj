@@ -47,6 +47,9 @@
     <None Include="content\levels\1x0.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="content\levels\2x0.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="content\sprites\player.ase">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -69,6 +72,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\components\Spirit.cs" />
+    <Compile Include="src\components\Teleport.cs" />
     <Compile Include="src\components\Shooter.cs" />
     <Compile Include="src\parsers\Aseprite.cs" />
     <Compile Include="src\components\Animation.cs" />
@@ -92,6 +97,8 @@
     <Compile Include="src\systems\CameraSystem.cs" />
     <Compile Include="src\systems\CollisionSystem.cs" />
     <Compile Include="src\systems\InputSystem.cs" />
+    <Compile Include="src\systems\TeleportSystem.cs" />
+    <Compile Include="src\systems\SpiritSystem.cs" />
     <Compile Include="src\systems\MovementSystem.cs" />
     <Compile Include="src\systems\PhysicsSystem.cs" />
     <Compile Include="src\systems\PlayerControlSystem.cs" />

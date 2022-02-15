@@ -32,3 +32,4 @@ D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\System
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\System.ValueTuple.xml
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\content\sprites\player.ase
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\content\sprites\spirit.ase
+D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\content\levels\2x0.tmx

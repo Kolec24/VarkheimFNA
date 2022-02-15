@@ -95,6 +95,12 @@ namespace Varkheim
             Game.SetCamera(NextRoom);
         }
 
+        public void RemoveEntity(EntityHandle Entity)
+        {
+            Manager.RemoveEntity(Entity);
+            CurrentEntities.Remove(Entity);
+        }
+
         public void Update(float DeltaTime)
         {
             Manager.UpdateSystems(DeltaTime);
@@ -119,6 +125,8 @@ namespace Varkheim
             Manager.AddSystem(new MovementSystem(this));
             Manager.AddSystem(new CollisionSystem(this));
             Manager.AddSystem(new ShootingSystem(this));
+            Manager.AddSystem(new SpiritSystem(this));
+            Manager.AddSystem(new TeleportSystem(this));
             Manager.AddSystem(new AnimationSystem(this));
 
             Manager.AddSystem(new SpriteSystem(this));

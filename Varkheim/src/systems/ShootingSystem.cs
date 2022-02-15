@@ -29,7 +29,7 @@ namespace Varkheim
                 switch(Shooter.Projectile())
                 {
                     case Projectile.Spirit:
-                        World.CurrentEntities.Add(Factory.Spirit(World.Manager, ProjectilePos, Position.Facing, new Vector2(Position.Facing * 100, 0)));
+                        World.CurrentEntities.Add(Factory.Spirit(World.Manager, ProjectilePos, Position.Facing, new Vector2(Position.Facing * 200, 0), Shooter.Offset(), Shooter.Entity));
                         break;
                     default:
                         break;
