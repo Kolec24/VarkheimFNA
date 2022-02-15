@@ -33,7 +33,7 @@ namespace Varkheim
             Sprite.Frame Frame = Animation.Frames[Animator.FrameIndex];
 
             Batch.Draw(Frame.Texture, new Vector2(Position.Current.X, Position.Current.Y)
-                , new Rectangle(0, 0, Frame.Texture.Width, Frame.Texture.Height), Color.White, 0, Animator.Sprite.Origin, new Vector2(Position.Facing, 1), SpriteEffects.None, 0);
+                , new Rectangle(0, 0, Frame.Texture.Width, Frame.Texture.Height), Color.White, 0, Animator.Sprite.Origin, new Vector2(Position.Facing, 1), SpriteEffects.None, Animator.Depth);
         }
     }
 }

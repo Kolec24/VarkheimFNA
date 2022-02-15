@@ -15,19 +15,26 @@ namespace Varkheim
             World = InWorld;
 
             AddComponentType<Position>();
-            AddComponentType<Player>();
+            AddComponentType<Shooter>();
         }
 
         public override void UpdateComponents(float DeltaTime, List<BaseComponent> Components)
         {
             Position Position = (Position)Components[0];
-            Player Player = (Player)Components[1];
+            Shooter Shooter = (Shooter)Components[1];
 
-            if(Player.Shooting)
+            if(Shooter.Shooting)
             {
-                Point SpiritPos = new Point(Position.Current.X + Position.Facing * Player.ShootingOffset.X, Position.Current.Y + Player.ShootingOffset.Y);
-                World.CurrentEntities.Add(Factory.Spirit(World.Manager, SpiritPos, new Vector2(Position.Facing * 100, 0)));
-                Player.Shooting = false;
+                Point ProjectilePos = new Point(Position.Current.X + Position.Facing * Shooter.Offset().X, Position.Current.Y + Shooter.Offset().Y);
+                switch(Shooter.Projectile())
+                {
+                    case Projectile.Spirit:
+                        World.CurrentEntities.Add(Factory.Spirit(World.Manager, ProjectilePos, Position.Facing, new Vector2(Position.Facing * 100, 0)));
+                        break;
+                    default:
+                        break;
+                }
+                Shooter.Shooting = false;
             }
         }
     }

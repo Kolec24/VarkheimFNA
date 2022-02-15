@@ -30,12 +30,17 @@ namespace Varkheim
                 return;
             }
 
+            if(Position.Current == Position.Last)
+            {
+                return;
+            }
+
             List<Collision> AllCollisions = World.GetComponents<Collision>();
 
             Collider.Collisions.Clear();
 
             _CheckMovement(Position, Collider, AllCollisions);
-            _AdjustMove(Position, Mover, Collider);
+            _AdjustMovement(Position, Mover, Collider);
             _SetOnGround(Position, Mover, Collider, AllCollisions);
         }
 
@@ -73,6 +78,98 @@ namespace Varkheim
             }
         }
 
+        private void _AdjustMovement(Position Position, Movement Mover, Collision Collider)
+        {
+            int DistanceX = Math.Abs(Position.Current.X - Position.Last.X);
+            int DistanceY = Math.Abs(Position.Current.Y - Position.Last.Y);
+            int DirectionX = Math.Sign(Position.Current.X - Position.Last.X);
+            int DirectionY = Math.Sign(Position.Current.Y - Position.Last.Y);
+            Point OffsetX = new Point(DirectionX, 0);
+            Point OffsetY = new Point(0, DirectionY);
+
+            List<Collision> HitCollisions = new List<Collision>();
+            Position.Current = Position.Last;
+            while (DistanceX > 0 || DistanceY > 0)
+            {
+                // TODO: Find better solution than two separate loops.
+                foreach (var Other in Collider.Collisions)
+                {
+                    if (HitCollisions.Contains(Other))
+                    {
+                        continue;
+                    }
+
+                    if (DistanceX != 0 && _Check(Position, Collider, Other, OffsetX))
+                    {
+                        if (Collider.BlockingMasks.Contains(Other.Mask()))
+                        {
+                            _StopX(Position, Mover);
+                            DistanceX = 0;
+                        }
+
+                        if (Collider.InteractableMasks.Contains(Other.Mask()))
+                        {
+                            HitCollisions.Add(Other);
+                            DistanceX = 1;
+                        }
+                    }
+                }
+                if (DistanceX > 0)
+                {
+                    Position.Current.X += DirectionX;
+                    DistanceX -= 1;
+                }
+
+                // TODO: Find better solution than two separate loops.
+                foreach (var Other in Collider.Collisions)
+                {
+                    if (HitCollisions.Contains(Other))
+                    {
+                        continue;
+                    }
+
+                    if (DistanceY != 0 && _Check(Position, Collider, Other, OffsetY))
+                    {
+                        if (Collider.BlockingMasks.Contains(Other.Mask()))
+                        {
+                            _StopY(Position, Mover);
+                            DistanceY = 0;
+                        }
+
+                        if (Collider.InteractableMasks.Contains(Other.Mask()))
+                        {
+                            HitCollisions.Add(Other);
+                            DistanceY = 1;
+                        }
+                    }
+                }
+                if (DistanceY > 0)
+                {
+                    Position.Current.Y += DirectionY;
+                    DistanceY -= 1;
+                }
+            }
+            Collider.Collisions = HitCollisions;
+        }
+
+        private void _SetOnGround(Position Position, Movement Mover, Collision Collider, List<Collision> AllCollisions)
+        {
+            foreach (Collision Other in AllCollisions)
+            {
+                if (Other.Mask() != Mask.Solid)
+                {
+                    continue;
+                }
+
+                if (_Check(Position, Collider, Other, new Point(0, 1)))
+                {
+                    Mover.OnGround = true;
+                    return;
+                }
+            }
+            Mover.OnGround = false;
+        }
+
         private bool _Check(Position Position, Collision Collider, Collision Other, Point Offset)
         {
             Position OtherPos = World.Manager.GetComponent<Position>(Other.Entity);
@@ -85,7 +182,6 @@ namespace Varkheim
                 return _RectToGrid(Collider.Rectangle(), Other, Offset + Position.Current - OtherPos.Current);
             }
         }
-
 
         private bool _RectToRect(Rectangle R1, Rectangle R2, Point Offset)
         {
@@ -115,82 +211,6 @@ namespace Varkheim
             return false;
         }
 
-        private void _AdjustMove(Position Position, Movement Mover, Collision Collider)
-        {
-            int DistanceX = Math.Abs(Position.Current.X - Position.Last.X);
-            int DistanceY = Math.Abs(Position.Current.Y - Position.Last.Y);
-            if (DistanceX == 0 && DistanceY == 0)
-            {
-                return;
-            }
-
-            int DirectionX = Math.Sign(Position.Current.X - Position.Last.X);
-            int DirectionY = Math.Sign(Position.Current.Y - Position.Last.Y);
-            Point OffsetX = new Point(DirectionX, 0);
-            Point OffsetY = new Point(0, DirectionY);
-
-            bool Adjust = false;
-
-            foreach (var Other in Collider.Collisions)
-            {
-                // TODO: Add more conditions.
-                if (Other.Mask() == Mask.Solid)
-                {
-                    Adjust = true;
-                    Position.Current = Position.Last;
-                }
-            }
-
-            while (Adjust && (DistanceX > 0 || DistanceY > 0))
-            {
-                // TODO: Find better solution than two separate loops.
-                foreach (var Other in Collider.Collisions)
-                {
-                    if (DistanceX != 0 && _Check(Position, Collider, Other, OffsetX))
-                    {
-                        switch (Other.Mask())
-                        {
-                            case Mask.Solid:
-                                _StopX(Position, Mover);
-                                DistanceX = 0;
-                                break;
-
-                            default:
-                                break;
-                        }
-                    }
-                }
-                if (DistanceX > 0)
-                {
-                    Position.Current.X += DirectionX;
-                    DistanceX -= 1;
-                }
-
-                // TODO: Find better solution than two separate loops.
-                foreach (var Other in Collider.Collisions)
-                {
-                    if (DistanceY != 0 && _Check(Position, Collider, Other, OffsetY))
-                    {
-                        switch (Other.Mask())
-                        {
-                            case Mask.Solid:
-                                _StopY(Position, Mover);
-                                DistanceY = 0;
-                                break;
-
-                            default:
-                                break;
-                        }
-                    }
-                }
-                if (DistanceY > 0)
-                {
-                    Position.Current.Y += DirectionY;
-                    DistanceY -= 1;
-                }
-            }
-        }
-
         private void _StopX(Position Position, Movement Mover)
         {
             Mover.Velocity.X = 0;
@@ -201,24 +221,6 @@ namespace Varkheim
         {
             Mover.Velocity.Y = 0;
             Position.Remainder.Y = 0;
-        }
-
-        private void _SetOnGround(Position Position, Movement Mover, Collision Collider, List<Collision> AllCollisions)
-        {
-            foreach (Collision Other in AllCollisions)
-            {
-                if(Other.Mask() != Mask.Solid)
-                {
-                    continue;
-                }
-
-                if(_Check(Position, Collider, Other, new Point(0, 1)))
-                {
-                    Mover.OnGround = true;
-                    return;
-                }
-            }
-            Mover.OnGround = false;
         }
     }
 }

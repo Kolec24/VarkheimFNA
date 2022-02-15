@@ -15,8 +15,7 @@ namespace Varkheim
 
             AddComponentType<Input>();
             AddComponentType<Physics>();
-            AddComponentType<Player>();
-            // TODO: Probably remove!
+            AddComponentType<Shooter>();
             AddComponentType<Position>();
             AddComponentType<Animation>();
         }
@@ -25,7 +24,7 @@ namespace Varkheim
         {
             Input Input = (Input)Components[0];
             Physics Physics = (Physics)Components[1];
-            Player Player = (Player)Components[2];
+            Shooter Shooter = (Shooter)Components[2];
             // TODO: Probably remove!
             Position Position = (Position)Components[3];
             Animation Animator = (Animation)Components[4];
@@ -60,11 +59,11 @@ namespace Varkheim
 
             if (_IsKeyPressed(Input, Keys.X))
             {
-                Player.Shooting = true;
+                Shooter.Shooting = true;
             }
             else if (_IsKeyReleased(Input, Keys.X))
             {
-                Player.Shooting = false;
+                Shooter.Shooting = false;
             }
         }
 

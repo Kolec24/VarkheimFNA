@@ -12,12 +12,17 @@ namespace Varkheim
 {
     static class Factory
     {
+        #region Factory
+
         public static EntityHandle Player(EntityManager Manager, Point NewRoom, Point NewPosition)
         {
             var Input = new Input();
             var Position = new Position(NewPosition.X, NewPosition.Y);
             var Mover = new Movement();
             var Collider = new Collision(Mask.Player, new Rectangle(-4, -16, 8, 16));
+            {
+                Collider.BlockingMasks.Add(Mask.Solid);
+            }
             var Physics = new Physics();
             {
                 Physics.MaxGroundSpeed = 70;
@@ -31,7 +36,7 @@ namespace Varkheim
                 Physics.JumpVelocity = 120;
             }
             var PlayerComp = new Player();
-
+            var Shooter = new Shooter(Projectile.Spirit, new Point(0, -8));
             var Animator = new Animation(ContentLoader.FindSprite("player.ase"), "Idle");
 
             EntityHandle Player = Manager.AddEntity();
@@ -42,17 +47,24 @@ namespace Varkheim
                 Manager.AddComponent<Collision>(Player, Collider);
                 Manager.AddComponent<Physics>(Player, Physics);
                 Manager.AddComponent<Player>(Player, PlayerComp);
+                Manager.AddComponent<Shooter>(Player, Shooter);
                 Manager.AddComponent<Animation>(Player, Animator);
             }
             return Player;
         }
 
-        public static EntityHandle Spirit(EntityManager Manager, Point NewPosition, Vector2 NewVelocity)
+        public static EntityHandle Spirit(EntityManager Manager, Point NewPosition, int Facing, Vector2 NewVelocity)
         {
             var Position = new Position(NewPosition.X, NewPosition.Y);
+            {
+                Position.Facing = Facing;
+            }
             var Mover = new Movement(NewVelocity);
-            var Collider = new Collision(Mask.Player, new Rectangle(-2, -2, 4, 4));
-
+            var Collider = new Collision(Mask.Spirit, new Rectangle(-4, -8, 8, 16));
+            {
+                Collider.InteractableMasks.Add(Mask.Solid);
+                Collider.BlockingMasks.Add(Mask.Solid);
+            }
             var Animator = new Animation(ContentLoader.FindSprite("spirit.ase"), "Idle");
 
             EntityHandle Spirit = Manager.AddEntity();
@@ -78,6 +90,10 @@ namespace Varkheim
             return Terrain;
         }
 
+        #endregion
+
+        #region HelperMethods
+
         private static List<bool> _SolidCells(Parser.Map Map)
         {
             int Width = Map.Width;
@@ -95,5 +111,7 @@ namespace Varkheim
             }
             return new List<bool>(Cells);
         }
+
+        #endregion
     }
 }

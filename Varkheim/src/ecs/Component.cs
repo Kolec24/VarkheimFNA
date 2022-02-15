@@ -26,7 +26,7 @@ namespace ECS
 
         public bool Active = true;
         public bool Visible = true;
-        public int Depth = 0;
+        public float Depth = 0;
 
         public static int Type()
         {

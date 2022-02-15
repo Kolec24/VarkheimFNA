@@ -3,16 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using ECS;
 
 namespace Varkheim
 {
-    class Player : Component<Player>
+    static class Projectile
     {
-        public Player()
-        {
-
-        }
+        public const int Spirit = 0;
+        public const int Bullet = 1;
     }
 }

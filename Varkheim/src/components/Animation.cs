@@ -11,10 +11,12 @@ namespace Varkheim
 {
     class Animation : Component<Animation>
     {
-        public Animation(Sprite NewSprite, string NewAnimation)
+        // TODO: Check how depth works in FNA.
+        public Animation(Sprite NewSprite, string NewAnimation, float NewDepth = 0)
         {
             Sprite = NewSprite;
             CurrentAnimation = NewAnimation;
+            Depth = NewDepth;
         }
 
         public Sprite Sprite;
