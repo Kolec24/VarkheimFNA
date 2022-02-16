@@ -72,7 +72,7 @@ namespace Varkheim
                 {
                     int RelativeX = Object.X + (int)(0.5 * Object.Width);
                     int RelativeY = Object.Y + Object.Height;
-                    Player = Factory.Player(Manager, Room, new Point(RelativeX + Room.X * Game.BufferWidth, RelativeY + Room.Y * Game.BufferHeight));
+                    Player = Factory.Player(Manager, new Point(RelativeX + Room.X * Game.BufferWidth, RelativeY + Room.Y * Game.BufferHeight));
                 }
             }
 
@@ -122,6 +122,7 @@ namespace Varkheim
             Manager.AddSystem(new InputSystem(this));
             Manager.AddSystem(new PlayerControlSystem(this));
             Manager.AddSystem(new PhysicsSystem(this));
+            Manager.AddSystem(new JumpSystem(this));
             Manager.AddSystem(new MovementSystem(this));
             Manager.AddSystem(new CollisionSystem(this));
             Manager.AddSystem(new ShootingSystem(this));

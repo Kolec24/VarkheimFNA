@@ -14,11 +14,12 @@ namespace Varkheim
     {
         #region Factory
 
-        public static EntityHandle Player(EntityManager Manager, Point NewRoom, Point NewPosition)
+        public static EntityHandle Player(EntityManager Manager, Point NewPosition)
         {
             var Input = new Input();
             var Position = new Position(NewPosition.X, NewPosition.Y);
             var Mover = new Movement();
+            var Jumper = new Jump(120, 0.2F);
             var Collider = new Collision(Mask.Player, new Rectangle(-4, -16, 8, 16));
             {
                 Collider.BlockingMasks.Add(Mask.Solid);
@@ -31,12 +32,12 @@ namespace Varkheim
                 Physics.GroundAccel = 300;
                 Physics.AirAccel = 200;
                 Physics.Gravity = 700;
+                Physics.WallGravity = 400;
                 Physics.GroundFriction = 1000;
                 Physics.AirFriction = 700;
-                Physics.JumpVelocity = 120;
             }
             var PlayerComp = new Player();
-            var Shooter = new Shooter(Projectile.Spirit, new Point(0, -8));
+            var Shooter = new Shoot(Projectile.Spirit, new Point(0, -8), 200);
             var Teleport = new Teleport();
             var Animator = new Animation(ContentLoader.FindSprite("player.ase"), "Idle");
 
@@ -45,10 +46,11 @@ namespace Varkheim
                 Manager.AddComponent<Input>(Player, Input);
                 Manager.AddComponent<Position>(Player, Position);
                 Manager.AddComponent<Movement>(Player, Mover);
+                Manager.AddComponent<Jump>(Player, Jumper);
                 Manager.AddComponent<Collision>(Player, Collider);
                 Manager.AddComponent<Physics>(Player, Physics);
                 Manager.AddComponent<Player>(Player, PlayerComp);
-                Manager.AddComponent<Shooter>(Player, Shooter);
+                Manager.AddComponent<Shoot>(Player, Shooter);
                 Manager.AddComponent<Teleport>(Player, Teleport);
                 Manager.AddComponent<Animation>(Player, Animator);
             }

@@ -9,11 +9,12 @@ using ECS;
 
 namespace Varkheim
 {
-    class Shooter : Component<Shooter>
+    class Shoot : Component<Shoot>
     {
-        public Shooter(int Projectile, Point Offset)
+        public Shoot(int Projectile, Point Offset, float InVelocity)
         {
             _Projectile = Projectile;
+            Velocity = InVelocity;
             _Offset = Offset;
         }
 
@@ -28,7 +29,7 @@ namespace Varkheim
         }
 
         public bool Shooting = false;
-
+        public float Velocity;
         private int _Projectile;
         private Point _Offset;
     }

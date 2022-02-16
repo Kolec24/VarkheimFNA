@@ -72,9 +72,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\components\Jump.cs" />
     <Compile Include="src\components\Spirit.cs" />
     <Compile Include="src\components\Teleport.cs" />
-    <Compile Include="src\components\Shooter.cs" />
+    <Compile Include="src\components\Shoot.cs" />
     <Compile Include="src\parsers\Aseprite.cs" />
     <Compile Include="src\components\Animation.cs" />
     <Compile Include="src\components\Collision.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="src\systems\CameraSystem.cs" />
     <Compile Include="src\systems\CollisionSystem.cs" />
     <Compile Include="src\systems\InputSystem.cs" />
+    <Compile Include="src\systems\JumpSystem.cs" />
     <Compile Include="src\systems\TeleportSystem.cs" />
     <Compile Include="src\systems\SpiritSystem.cs" />
     <Compile Include="src\systems\MovementSystem.cs" />

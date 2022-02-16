@@ -15,13 +15,13 @@ namespace Varkheim
             World = InWorld;
 
             AddComponentType<Position>();
-            AddComponentType<Shooter>();
+            AddComponentType<Shoot>();
         }
 
         public override void UpdateComponents(float DeltaTime, List<BaseComponent> Components)
         {
             Position Position = (Position)Components[0];
-            Shooter Shooter = (Shooter)Components[1];
+            Shoot Shooter = (Shoot)Components[1];
 
             if(Shooter.Shooting)
             {
@@ -29,7 +29,7 @@ namespace Varkheim
                 switch(Shooter.Projectile())
                 {
                     case Projectile.Spirit:
-                        World.CurrentEntities.Add(Factory.Spirit(World.Manager, ProjectilePos, Position.Facing, new Vector2(Position.Facing * 200, 0), Shooter.Offset(), Shooter.Entity));
+                        World.CurrentEntities.Add(Factory.Spirit(World.Manager, ProjectilePos, Position.Facing, new Vector2(Position.Facing * Shooter.Velocity, 0), Shooter.Offset(), Shooter.Entity));
                         break;
                     default:
                         break;

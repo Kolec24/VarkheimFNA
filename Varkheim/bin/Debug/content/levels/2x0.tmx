@@ -3,10 +3,10 @@
  <tileset firstgid="1" source="../tilesets/castle_tiles.tsx"/>
  <layer id="1" name="Solid" width="40" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3UwQkAMAgEwfsI9l9xUoLBEC+wC4ffeZmSYi+L9/WqLjefQ/h6/eBzDl+v0/+HDx8+fPjw4cM37RM+fPiu+WJg7r4FRic9ocASAAA=
+   H4sIAAAAAAAACu3TwQkAMAhD0Vzcf+UuUNpKBKH+QG6K72JIClre7uDzgu98Dx++Sb7bPj58u/mq4POCz8vU/8WH7wdf9h6+Xh996wJn5f0VwBIAAA==
   </data>
  </layer>
  <objectgroup id="2" name="Objects">
-  <object id="1" name="Player" x="24" y="64" width="8" height="8"/>
+  <object id="1" name="Player" x="24" y="152" width="8" height="8"/>
  </objectgroup>
 </map>

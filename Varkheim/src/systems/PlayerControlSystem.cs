@@ -14,47 +14,48 @@ namespace Varkheim
             World = InWorld;
 
             AddComponentType<Input>();
-            AddComponentType<Physics>();
-            AddComponentType<Shooter>();
             AddComponentType<Position>();
+            AddComponentType<Movement>();
+            AddComponentType<Jump>();
+            AddComponentType<Shoot>();
             AddComponentType<Animation>();
         }
 
         public override void UpdateComponents(float DeltaTime, List<BaseComponent> Components)
         {
             Input Input = (Input)Components[0];
-            Physics Physics = (Physics)Components[1];
-            Shooter Shooter = (Shooter)Components[2];
-            // TODO: Probably remove!
-            Position Position = (Position)Components[3];
-            Animation Animator = (Animation)Components[4];
+            Position Position = (Position)Components[1];
+            Movement Mover = (Movement)Components[2];
+            Jump Jumper = (Jump)Components[3];
+            Shoot Shooter = (Shoot)Components[4];
+            Animation Animator = (Animation)Components[5];
 
             if (_IsKeyDown(Input, Keys.Right))
             {
-                Physics.Direction = 1;
+                Mover.Direction = 1;
                 Position.Facing = 1;
                 Animator.CurrentAnimation = "Walk";
             }
             else if (_IsKeyDown(Input, Keys.Left))
             {
-                Physics.Direction = -1;
+                Mover.Direction = -1;
                 Position.Facing = -1;
                 Animator.CurrentAnimation = "Walk";
             }
             else
             {
-                Physics.Direction = 0;
+                Mover.Direction = 0;
                 Animator.CurrentAnimation = "Idle";
             }
 
             if(_IsKeyPressed(Input, Keys.Z))
             {
-                Physics.Jumping = true;
+                Jumper.Jumping = true;
             }
             else if(_IsKeyReleased(Input, Keys.Z))
             {
-                Physics.Jumping = false;
-                Physics.JumpTimer = 0;
+                Jumper.Jumping = false;
+                Jumper.Timer = 0;
             }
 
             if (_IsKeyPressed(Input, Keys.X))

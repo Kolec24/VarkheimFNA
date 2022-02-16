@@ -10,7 +10,9 @@ namespace Varkheim
     class Movement : Component<Movement>
     {
         public Vector2 Velocity;
+        public int Direction = 0;
         public bool OnGround = false;
+        public bool OnWall = false;
 
         public Movement(Vector2 NewVelocity)
         {

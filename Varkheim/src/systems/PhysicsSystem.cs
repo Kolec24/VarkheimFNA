@@ -14,20 +14,13 @@ namespace Varkheim
             World = InWorld;
 
             AddComponentType<Movement>();
-            AddComponentType<Collision>();
             AddComponentType<Physics>();
         }
 
         public override void UpdateComponents(float DeltaTime, List<BaseComponent> Components)
         {
             var Mover = (Movement)Components[0];
-            var Collider = (Collision)Components[1];
-            var Physics = (Physics)Components[2];
-
-            if (Collider.Shape() != Collision.ShapeType.Rect)
-            {
-                return;
-            }
+            var Physics = (Physics)Components[1];
 
             _CalculateVelocityX(DeltaTime, Mover, Physics);
             _CalculateVelocityY(DeltaTime, Mover, Physics);
@@ -35,6 +28,7 @@ namespace Varkheim
 
         private void _CalculateVelocityX(float DeltaTime, Movement Mover, Physics Physics)
         {
+            // Friction is only horizontal!
             float MaxSpeed;
             float Acceleration;
             float Friction;
@@ -53,13 +47,13 @@ namespace Varkheim
             }
 
             float DesiredVel;
-            if (Mover.Velocity.X != 0 && Physics.Direction != Math.Sign(Mover.Velocity.X))
+            if (Mover.Velocity.X != 0 && Mover.Direction != Math.Sign(Mover.Velocity.X))
             {
                 DesiredVel = Math.Sign(Mover.Velocity.X) * Math.Max((Math.Abs(Mover.Velocity.X) - Friction * DeltaTime), 0);
             }
             else
             {
-                DesiredVel = Mover.Velocity.X + Physics.Direction * Acceleration * DeltaTime;
+                DesiredVel = Mover.Velocity.X + Mover.Direction * Acceleration * DeltaTime;
             }
 
             if (Math.Abs(DesiredVel) > MaxSpeed)
@@ -75,18 +69,11 @@ namespace Varkheim
         {
             if (Mover.OnGround)
             {
-                Mover.Velocity.Y = Physics.Jumping ? -1 * Physics.JumpVelocity : 0;
-                Physics.JumpTimer = Physics.Jumping ? 0.2F : 0;
+                Mover.Velocity.Y = 0;
             }
             else
             {
                 Mover.Velocity.Y = Math.Min(Mover.Velocity.Y + Physics.Gravity * DeltaTime, Physics.MaxFallingSpeed);
-            }
-
-            if (Physics.JumpTimer > 0)
-            {
-                Mover.Velocity.Y = -1 * Physics.JumpVelocity;
-                Physics.JumpTimer -= DeltaTime;
             }
         }
     }

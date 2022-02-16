@@ -33,7 +33,6 @@ namespace Varkheim
             }
         }
 
-        public string Name;
         public Vector2 Origin;
         public List<Animation> Animations = new List<Animation>();
     }
