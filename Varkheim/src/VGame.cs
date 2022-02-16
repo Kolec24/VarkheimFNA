@@ -33,6 +33,8 @@ namespace Varkheim
         public float TransitionTime;
         public float CurrentTransitionTime;
 
+        public Point Start = new Point(0, 0);
+
 
         public VGame()
         {
@@ -77,9 +79,10 @@ namespace Varkheim
         {
             Batch = new SpriteBatch(GraphicsDevice);
             ContentLoader.Load(Content, GraphicsDevice);
+            SetStartingPoint(new Point(0, 0));
 
             // To change starting room one needs to change camera!
-            World.Load(new Point(0, 0));
+            World.Load(Start);
 
             base.LoadContent();
         }
@@ -99,6 +102,15 @@ namespace Varkheim
             {
                 World.UnloadPreviousLevel();
             }
+        }
+
+        public void SetStartingPoint(Point InStart)
+        {
+            Start = InStart;
+            CameraPosition.X = InStart.X * BufferWidth;
+            CameraPosition.Y = InStart.Y * BufferHeight;
+            LastCamera = CameraPosition;
+            NextCamera = CameraPosition;
         }
 
         protected override void Update(GameTime GameTime)

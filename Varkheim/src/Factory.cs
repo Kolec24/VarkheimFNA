@@ -19,7 +19,9 @@ namespace Varkheim
             var Input = new Input();
             var Position = new Position(NewPosition.X, NewPosition.Y);
             var Mover = new Movement();
-            var Jumper = new Jump(120, 0.2F);
+            Vector2 JumpVelocity = new Vector2(60, 100);
+            float JumpMaxTimer = 0.2F;
+            var Jumper = new Jump(JumpVelocity, JumpMaxTimer);
             var Collider = new Collision(Mask.Player, new Rectangle(-4, -16, 8, 16));
             {
                 Collider.BlockingMasks.Add(Mask.Solid);
@@ -32,12 +34,14 @@ namespace Varkheim
                 Physics.GroundAccel = 300;
                 Physics.AirAccel = 200;
                 Physics.Gravity = 700;
-                Physics.WallGravity = 400;
+                Physics.WallGravity = 250;
                 Physics.GroundFriction = 1000;
                 Physics.AirFriction = 700;
             }
             var PlayerComp = new Player();
-            var Shooter = new Shoot(Projectile.Spirit, new Point(0, -8), 200);
+            Point ShootOffset = new Point(0, -8);
+            float ShootVelocity = 300;
+            var Shooter = new Shoot(Projectile.Spirit, ShootOffset, ShootVelocity);
             var Teleport = new Teleport();
             var Animator = new Animation(ContentLoader.FindSprite("player.ase"), "Idle");
 
@@ -83,9 +87,9 @@ namespace Varkheim
             return Spirit;
         }
 
-        public static EntityHandle Tilemap(EntityManager Manager, Parser.Map NewMap, Point Room)
+        public static EntityHandle Tilemap(EntityManager Manager, Parser.Map NewMap, Point InPosition)
         {
-            var Position = new Position(Room.X * 320, Room.Y * 240);
+            var Position = new Position(InPosition.X, InPosition.Y);
             var Tilemap = new Tilemap(NewMap);
             var SolidCells = _SolidCells(NewMap);
             var Collider = new Collision(Mask.Solid, NewMap.Width, NewMap.Height, 8, SolidCells);

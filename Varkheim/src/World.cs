@@ -76,7 +76,7 @@ namespace Varkheim
                 }
             }
 
-            CurrentEntities.Add(Factory.Tilemap(Manager, NewMap, Room));
+            CurrentEntities.Add(Factory.Tilemap(Manager, NewMap, new Point(Room.X * Game.BufferWidth, Room.Y * Game.BufferHeight)));
         }
 
         public void UnloadPreviousLevel()

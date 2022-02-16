@@ -12,7 +12,7 @@ namespace Varkheim
         public Vector2 Velocity;
         public int Direction = 0;
         public bool OnGround = false;
-        public bool OnWall = false;
+        public int OnWall = 0;
 
         public Movement(Vector2 NewVelocity)
         {

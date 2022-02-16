@@ -12,7 +12,7 @@ namespace Varkheim
 {
     class Jump : Component<Jump>
     {
-        public Jump(float InVelocity, float MaxTimer)
+        public Jump(Vector2 InVelocity, float MaxTimer)
         {
             Velocity = InVelocity;
             _MaxTimer = MaxTimer;
@@ -24,8 +24,12 @@ namespace Varkheim
         }
 
         public bool Jumping = false;
-        public float Velocity = 0;
-        public float Timer = 0;
+        public int Direction = 0;
+        public Vector2 Velocity;
+        public bool GroundJumping = false;
+        public bool WallJumping = false;
+        public float GroundTimer = 0;
+        public float WallTimer = 0;
 
         private float _MaxTimer = 0;
     }

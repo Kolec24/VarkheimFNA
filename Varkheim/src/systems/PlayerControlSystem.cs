@@ -55,7 +55,10 @@ namespace Varkheim
             else if(_IsKeyReleased(Input, Keys.Z))
             {
                 Jumper.Jumping = false;
-                Jumper.Timer = 0;
+                Jumper.GroundJumping = false;
+                Jumper.WallJumping = false;
+                Jumper.GroundTimer = 0;
+                Jumper.WallTimer = 0;
             }
 
             if (_IsKeyPressed(Input, Keys.X))

@@ -73,7 +73,13 @@ namespace Varkheim
             }
             else
             {
-                Mover.Velocity.Y = Math.Min(Mover.Velocity.Y + Physics.Gravity * DeltaTime, Physics.MaxFallingSpeed);
+                float Gravity = Physics.Gravity;
+                if (Mover.Velocity.Y > 0)
+                {
+                    Gravity = Mover.OnWall == 0 ? Physics.Gravity : Physics.WallGravity;
+                }
+
+                Mover.Velocity.Y = Math.Min(Mover.Velocity.Y + Gravity * DeltaTime, Physics.MaxFallingSpeed);
             }
         }
     }

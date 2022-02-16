@@ -42,6 +42,7 @@ namespace Varkheim
             _CheckMovement(Position, Collider, AllCollisions);
             _AdjustMovement(Position, Mover, Collider);
             _SetOnGround(Position, Mover, Collider, AllCollisions);
+            _SetOnWall(Position, Mover, Collider, AllCollisions);
         }
 
         private void _CheckMovement(Position Position, Collision Collider, List<Collision> AllCollisions)
@@ -168,6 +169,35 @@ namespace Varkheim
                 }
             }
             Mover.OnGround = false;
+        }
+
+        private void _SetOnWall(Position Position, Movement Mover, Collision Collider, List<Collision> AllCollisions)
+        {
+            if(Mover.OnGround)
+            {
+                Mover.OnWall = 0;
+                return;
+            }
+
+            foreach (Collision Other in AllCollisions)
+            {
+                if (Other.Mask() != Mask.Solid)
+                {
+                    continue;
+                }
+
+                if (_Check(Position, Collider, Other, new Point(1, 0)))
+                {
+                    Mover.OnWall = 1;
+                    return;
+                }
+                else if (_Check(Position, Collider, Other, new Point(-1, 0)))
+                {
+                    Mover.OnWall = -1;
+                    return;
+                }
+            }
+            Mover.OnWall = 0;
         }
 
         private bool _Check(Position Position, Collision Collider, Collision Other, Point Offset)

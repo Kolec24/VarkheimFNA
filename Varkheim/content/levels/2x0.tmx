@@ -3,7 +3,7 @@
  <tileset firstgid="1" source="../tilesets/castle_tiles.tsx"/>
  <layer id="1" name="Solid" width="40" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3TwQkAMAhD0Vzcf+UuUNpKBKH+QG6K72JIClre7uDzgu98Dx++Sb7bPj58u/mq4POCz8vU/8WH7wdf9h6+Xh996wJn5f0VwBIAAA==
+   H4sIAAAAAAAACu3TMQoAMAhDURfvf+XOboZqFfqFbCG8DnUzc9KWqcN3dz/5Ot6D740vY8aHD9+MT+3ji5tqH1/cVPtb/i8+fJt82S18+Cp8JJcDQXpshsASAAA=
   </data>
  </layer>
  <objectgroup id="2" name="Objects">
