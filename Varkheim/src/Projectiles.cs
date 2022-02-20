@@ -8,7 +8,7 @@ namespace Varkheim
 {
     static class Projectile
     {
-        public const int Spirit = 0;
+        public const int Soul = 0;
         public const int Bullet = 1;
     }
 }

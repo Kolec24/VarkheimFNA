@@ -11,11 +11,12 @@ namespace Varkheim
 {
     class Shoot : Component<Shoot>
     {
-        public Shoot(int Projectile, Point Offset, float InVelocity)
+        public Shoot(int Projectile, float InVelocity, Point HorizontalOffset, Point VerticalOffset)
         {
             _Projectile = Projectile;
             Velocity = InVelocity;
-            _Offset = Offset;
+            _HorizontalOffset = HorizontalOffset;
+            _VerticalOffset = VerticalOffset;
         }
 
         public int Projectile()
@@ -23,15 +24,21 @@ namespace Varkheim
             return _Projectile;
         }
 
-        public Point Offset()
+        public Point HorizontalOffset()
         {
-            return _Offset;
+            return _HorizontalOffset;
+        }
+
+        public Point VerticalOffset()
+        {
+            return _VerticalOffset;
         }
 
         public bool Shooting = false;
         public float Velocity;
         private int _Projectile;
-        private Point _Offset;
+        private Point _HorizontalOffset;
+        private Point _VerticalOffset;
     }
 
     

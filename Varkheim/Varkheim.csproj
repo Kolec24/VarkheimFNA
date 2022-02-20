@@ -50,6 +50,9 @@
     <None Include="content\levels\2x0.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="content\levels\3x0.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="content\sprites\player.ase">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -73,7 +76,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\components\Jump.cs" />
-    <Compile Include="src\components\Spirit.cs" />
+    <Compile Include="src\components\Damageable.cs" />
+    <Compile Include="src\components\Soul.cs" />
     <Compile Include="src\components\Teleport.cs" />
     <Compile Include="src\components\Shoot.cs" />
     <Compile Include="src\parsers\Aseprite.cs" />
@@ -99,8 +103,9 @@
     <Compile Include="src\systems\CollisionSystem.cs" />
     <Compile Include="src\systems\InputSystem.cs" />
     <Compile Include="src\systems\JumpSystem.cs" />
+    <Compile Include="src\systems\DamageSystem.cs" />
     <Compile Include="src\systems\TeleportSystem.cs" />
-    <Compile Include="src\systems\SpiritSystem.cs" />
+    <Compile Include="src\systems\SoulSystem.cs" />
     <Compile Include="src\systems\MovementSystem.cs" />
     <Compile Include="src\systems\PhysicsSystem.cs" />
     <Compile Include="src\systems\PlayerControlSystem.cs" />
@@ -117,6 +122,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="content\tilesets\castle_tiles.tsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\tilesets\spikes.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\tilesets\spikes.tsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

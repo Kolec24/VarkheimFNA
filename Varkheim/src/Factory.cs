@@ -24,8 +24,12 @@ namespace Varkheim
             var Jumper = new Jump(JumpVelocity, JumpMaxTimer);
             var Collider = new Collision(Mask.Player, new Rectangle(-4, -16, 8, 16));
             {
+                Collider.DamagingMasks.Add(Mask.Spike);
                 Collider.BlockingMasks.Add(Mask.Solid);
+                Collider.BlockingMasks.Add(Mask.Spike);
             }
+            int Health = 1;
+            var DamageableComp = new Damageable(Health);
             var Physics = new Physics();
             {
                 Physics.MaxGroundSpeed = 70;
@@ -39,9 +43,10 @@ namespace Varkheim
                 Physics.AirFriction = 700;
             }
             var PlayerComp = new Player();
-            Point ShootOffset = new Point(0, -8);
+            Point ShootHorizontalOffset = new Point(0, 0);
+            Point ShootVerticalOffset = new Point(0, 0);
             float ShootVelocity = 300;
-            var Shooter = new Shoot(Projectile.Spirit, ShootOffset, ShootVelocity);
+            var Shooter = new Shoot(Projectile.Soul, ShootVelocity, ShootHorizontalOffset, ShootVerticalOffset);
             var Teleport = new Teleport();
             var Animator = new Animation(ContentLoader.FindSprite("player.ase"), "Idle");
 
@@ -52,6 +57,7 @@ namespace Varkheim
                 Manager.AddComponent<Movement>(Player, Mover);
                 Manager.AddComponent<Jump>(Player, Jumper);
                 Manager.AddComponent<Collision>(Player, Collider);
+                Manager.AddComponent<Damageable>(Player, DamageableComp);
                 Manager.AddComponent<Physics>(Player, Physics);
                 Manager.AddComponent<Player>(Player, PlayerComp);
                 Manager.AddComponent<Shoot>(Player, Shooter);
@@ -61,19 +67,19 @@ namespace Varkheim
             return Player;
         }
 
-        public static EntityHandle Spirit(EntityManager Manager, Point NewPosition, int Facing, Vector2 NewVelocity, Point Offset, EntityHandle Owner)
+        public static EntityHandle Soul(EntityManager Manager, Point NewPosition, int Facing, Vector2 NewVelocity, EntityHandle Owner)
         {
             var Position = new Position(NewPosition.X, NewPosition.Y);
             {
-                Position.Facing = Facing;
+                Position.Facing.X = Facing;
             }
             var Mover = new Movement(NewVelocity);
-            var Collider = new Collision(Mask.Spirit, new Rectangle(-4, -8, 8, 16));
+            var Collider = new Collision(Mask.Soul, new Rectangle(-4, -16, 8, 16));
             {
                 Collider.InteractableMasks.Add(Mask.Solid);
                 Collider.BlockingMasks.Add(Mask.Solid);
             }
-            var SpiritComp = new Spirit(Owner, Offset);
+            var Soul = new Soul(Owner);
             var Animator = new Animation(ContentLoader.FindSprite("spirit.ase"), "Idle");
 
             EntityHandle Spirit = Manager.AddEntity();
@@ -82,7 +88,7 @@ namespace Varkheim
                 Manager.AddComponent<Movement>(Spirit, Mover);
                 Manager.AddComponent<Animation>(Spirit, Animator);
                 Manager.AddComponent<Collision>(Spirit, Collider);
-                Manager.AddComponent<Spirit>(Spirit, SpiritComp);
+                Manager.AddComponent<Soul>(Spirit, Soul);
             }
             return Spirit;
         }
@@ -91,11 +97,13 @@ namespace Varkheim
         {
             var Position = new Position(InPosition.X, InPosition.Y);
             var Tilemap = new Tilemap(NewMap);
-            var SolidCells = _SolidCells(NewMap);
-            var Collider = new Collision(Mask.Solid, NewMap.Width, NewMap.Height, 8, SolidCells);
+            var Colliders = _MapCollisions(NewMap);
             EntityHandle Terrain = Manager.AddEntity();
             Manager.AddComponent<Position>(Terrain, Position);
-            Manager.AddComponent<Collision>(Terrain, Collider);
+            foreach(var Collider in Colliders)
+            {
+                Manager.AddComponent<Collision>(Terrain, Collider);
+            }
             Manager.AddComponent<Tilemap>(Terrain, Tilemap);
             return Terrain;
         }
@@ -104,7 +112,32 @@ namespace Varkheim
 
         #region HelperMethods
 
-        private static List<bool> _SolidCells(Parser.Map Map)
+        private static List<Collision> _MapCollisions(Parser.Map Map)
+        {
+            List<Collision> Colliders = new List<Collision>();
+            foreach (KeyValuePair<string, Parser.Layer> Layer in Map.Layers)
+            {
+                int LayerMask;
+                switch(Layer.Key)
+                {
+                    case "Solids":
+                        LayerMask = Mask.Solid;
+                        break;
+                    case "Spikes":
+                        LayerMask = Mask.Spike;
+                        break;
+                    default:
+                        LayerMask = Mask.NONE;
+                        break;
+                }
+
+                List<bool> Cells = _Cells(Map, Layer.Value);
+                Colliders.Add(new Collision(LayerMask, Map.Width, Map.Height, 8, Cells));
+            }
+            return Colliders;
+        }
+
+        private static List<bool> _Cells(Parser.Map Map, Parser.Layer Layer)
         {
             int Width = Map.Width;
             int Height = Map.Height;
@@ -113,7 +146,7 @@ namespace Varkheim
             {
                 for (int y = 0; y < Height; y++)
                 {
-                    if (Map.Layers["Solid"].Tiles[x + y * Width] > 0)
+                    if (Layer.Tiles[x + y * Width] > 0)
                         Cells[x + y * Width] = true;
                     else
                         Cells[x + y * Width] = false;

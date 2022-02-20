@@ -23,19 +23,36 @@ namespace Varkheim
             Position Position = (Position)Components[0];
             Shoot Shooter = (Shoot)Components[1];
 
-            if(Shooter.Shooting)
+            if(!Shooter.Shooting)
             {
-                Point ProjectilePos = new Point(Position.Current.X + Position.Facing * Shooter.Offset().X, Position.Current.Y + Shooter.Offset().Y);
-                switch(Shooter.Projectile())
-                {
-                    case Projectile.Spirit:
-                        World.CurrentEntities.Add(Factory.Spirit(World.Manager, ProjectilePos, Position.Facing, new Vector2(Position.Facing * Shooter.Velocity, 0), Shooter.Offset(), Shooter.Entity));
-                        break;
-                    default:
-                        break;
-                }
-                Shooter.Shooting = false;
+                return;
             }
+
+            Point Offset;
+            Vector2 Velocity;
+            Point ProjectilePosition;
+            if(Position.Facing.Y == -1)
+            {
+                Offset = Shooter.VerticalOffset();
+                Velocity = new Vector2(0, Position.Facing.Y * Shooter.Velocity);
+                ProjectilePosition = new Point(Position.Current.X + Position.Facing.X * Offset.X, Position.Current.Y - Position.Facing.Y * Offset.Y);
+            }
+            else
+            {
+                Offset = Shooter.HorizontalOffset();
+                Velocity = new Vector2(Position.Facing.X * Shooter.Velocity, 0);
+                ProjectilePosition = new Point(Position.Current.X + Position.Facing.X * Offset.X, Position.Current.Y + Offset.Y);
+            }
+
+            switch(Shooter.Projectile())
+            { 
+                case Projectile.Soul:
+                    World.CurrentEntities.Add(Factory.Soul(World.Manager, ProjectilePosition, Position.Facing.X, Velocity, Shooter.Entity));
+                    break;
+                default:
+                    break;
+            }
+            Shooter.Shooting = false;
         }
     }
 }

@@ -8,38 +8,38 @@ using ECS;
 
 namespace Varkheim
 {
-    class SpiritSystem : BaseSystem
+    class SoulSystem : BaseSystem
     {
-        public SpiritSystem(World InWorld) : base(SystemType.Gameplay)
+        public SoulSystem(World InWorld) : base(SystemType.Gameplay)
         {
             World = InWorld;
 
             AddComponentType<Position>();
             AddComponentType<Collision>();
-            AddComponentType<Spirit>();
+            AddComponentType<Soul>();
         }
 
         public override void UpdateComponents(float DeltaTime, List<BaseComponent> Components)
         {
             var Position = (Position)Components[0];
             var Collider = (Collision)Components[1];
-            var Spirit = (Spirit)Components[2];
+            var Soul = (Soul)Components[2];
 
             if(Collider.Collisions.Count() == 0)
             {
                 return;
             }
 
-            Teleport Teleport = World.Manager.GetComponent<Teleport>(Spirit.Owner);
+            Teleport Teleport = World.Manager.GetComponent<Teleport>(Soul.Owner);
             if (Teleport == null)
             {
                 return;
             }
 
-            Teleport.TargetPosition = Position.Current - Spirit.Offset;
+            Teleport.TargetPosition = Position.Current;
             Teleport.Teleporting = true;
 
-            World.RemoveEntity(Spirit.Entity);
+            World.RemoveEntity(Soul.Entity);
         }
     }
 }

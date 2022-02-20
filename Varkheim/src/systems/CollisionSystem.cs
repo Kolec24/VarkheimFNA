@@ -108,7 +108,8 @@ namespace Varkheim
                             DistanceX = 0;
                         }
 
-                        if (Collider.InteractableMasks.Contains(Other.Mask()))
+                        if (Collider.InteractableMasks.Contains(Other.Mask())
+                            || Collider.DamagingMasks.Contains(Other.Mask()))
                         {
                             HitCollisions.Add(Other);
                             //DistanceX = 1;
@@ -137,7 +138,8 @@ namespace Varkheim
                             DistanceY = 0;
                         }
 
-                        if (Collider.InteractableMasks.Contains(Other.Mask()))
+                        if (Collider.InteractableMasks.Contains(Other.Mask())
+                            || Collider.DamagingMasks.Contains(Other.Mask()))
                         {
                             HitCollisions.Add(Other);
                             //DistanceY = 1;

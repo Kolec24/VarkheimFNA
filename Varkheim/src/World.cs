@@ -88,6 +88,21 @@ namespace Varkheim
 
             LastEntities.Clear();
         }
+        public void UnloadCurrentLevel()
+        {
+            foreach (var Entity in CurrentEntities)
+            {
+                Manager.RemoveEntity(Entity);
+            }
+
+            CurrentEntities.Clear();
+        }
+
+        public void ReloadLevel()
+        {
+            UnloadCurrentLevel();
+            LoadLevel(CurrentRoom);
+        }
 
         public void ChangeRooms(Point NextRoom)
         {
@@ -99,6 +114,11 @@ namespace Varkheim
         {
             Manager.RemoveEntity(Entity);
             CurrentEntities.Remove(Entity);
+            if (Entity == Player)
+            {
+                Player = null;
+                ReloadLevel();
+            }
         }
 
         public void Update(float DeltaTime)
@@ -125,8 +145,9 @@ namespace Varkheim
             Manager.AddSystem(new JumpSystem(this));
             Manager.AddSystem(new MovementSystem(this));
             Manager.AddSystem(new CollisionSystem(this));
+            Manager.AddSystem(new DamageSystem(this));
             Manager.AddSystem(new ShootingSystem(this));
-            Manager.AddSystem(new SpiritSystem(this));
+            Manager.AddSystem(new SoulSystem(this));
             Manager.AddSystem(new TeleportSystem(this));
             Manager.AddSystem(new AnimationSystem(this));
 

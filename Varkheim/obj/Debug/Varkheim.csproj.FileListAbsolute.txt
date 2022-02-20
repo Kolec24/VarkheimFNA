@@ -33,3 +33,6 @@ D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\System
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\content\sprites\player.ase
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\content\sprites\spirit.ase
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\content\levels\2x0.tmx
+D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\content\levels\3x0.tmx
+D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\content\tilesets\spikes.png
+D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\content\tilesets\spikes.tsx

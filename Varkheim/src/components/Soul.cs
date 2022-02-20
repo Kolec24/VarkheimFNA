@@ -10,15 +10,13 @@ using EntityHandle = System.Object;
 
 namespace Varkheim
 {
-    class Spirit : Component<Spirit>
+    class Soul : Component<Soul>
     {
-        public Spirit(EntityHandle InOwner, Point InOffset)
+        public Soul(EntityHandle InOwner)
         {
             Owner = InOwner;
-            Offset = InOffset;
         }
 
         public EntityHandle Owner;
-        public Point Offset;
     }
 }

@@ -15,7 +15,7 @@ namespace Varkheim
         public Vector2 Remainder = Vector2.Zero;
 
         // TODO: Check if this is the right place.
-        public int Facing = 1;
+        public Point Facing = new Point(1, 0);
 
         public Position(int PosX, int PosY)
         {

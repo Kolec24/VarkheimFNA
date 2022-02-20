@@ -33,13 +33,13 @@ namespace Varkheim
             if (_IsKeyDown(Input, Keys.Right))
             {
                 Mover.Direction = 1;
-                Position.Facing = 1;
+                Position.Facing.X = 1;
                 Animator.CurrentAnimation = "Walk";
             }
             else if (_IsKeyDown(Input, Keys.Left))
             {
                 Mover.Direction = -1;
-                Position.Facing = -1;
+                Position.Facing.X = -1;
                 Animator.CurrentAnimation = "Walk";
             }
             else
@@ -48,7 +48,23 @@ namespace Varkheim
                 Animator.CurrentAnimation = "Idle";
             }
 
-            if(_IsKeyPressed(Input, Keys.Z))
+            if (_IsKeyDown(Input, Keys.Up))
+            {
+                Position.Facing.Y = -1;
+                //Animator.CurrentAnimation = "Walk";
+            }
+            else if (_IsKeyDown(Input, Keys.Down))
+            {
+                Position.Facing.Y = 1;
+                //Animator.CurrentAnimation = "Walk";
+            }
+            else
+            {
+                Position.Facing.Y = 0;
+                //Animator.CurrentAnimation = "Idle";
+            }
+
+            if (_IsKeyPressed(Input, Keys.Z))
             {
                 Jumper.Jumping = true;
             }

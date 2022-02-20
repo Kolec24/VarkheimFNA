@@ -71,6 +71,7 @@ namespace Varkheim
         private GridType _Grid;
 
         public List<int> InteractableMasks = new List<int>();
+        public List<int> DamagingMasks = new List<int>();
         public List<int> BlockingMasks = new List<int>();
     }
 }

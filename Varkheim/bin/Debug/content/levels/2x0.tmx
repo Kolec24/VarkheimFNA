@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="8" tileheight="8" infinite="0" nextlayerid="3" nextobjectid="2">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="8" tileheight="8" infinite="0" nextlayerid="4" nextobjectid="2">
  <tileset firstgid="1" source="../tilesets/castle_tiles.tsx"/>
- <layer id="1" name="Solid" width="40" height="30">
+ <tileset firstgid="9" source="../tilesets/spikes.tsx"/>
+ <layer id="1" name="Solids" width="40" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3TMQoAMAhDURfvf+XOboZqFfqFbCG8DnUzc9KWqcN3dz/5Ot6D740vY8aHD9+MT+3ji5tqH1/cVPtb/i8+fJt82S18+Cp8JJcDQXpshsASAAA=
+   H4sIAAAAAAAACu3UMQ4AQAREUY37X3lrHUGQ/ZNMJ/K2WCoiSts6FXy54MvlJ1/HeypvDj58+GZ80Xl8dmd0Hp/dGZ3f8n/x4dvk8+6qDr5crvqorw/rNMOGwBIAAA==
+  </data>
+ </layer>
+ <layer id="3" name="Spikes" width="40" height="30">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3QMQoAIAwEwbTi//9ra6cQooIzcP1yEVTqtwMW9OXoy9npa9NOe/0/AACAXwxsXBHRwBIAAA==
   </data>
  </layer>
  <objectgroup id="2" name="Objects">

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="8" tileheight="8" infinite="0" nextlayerid="3" nextobjectid="2">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="8" tileheight="8" infinite="0" nextlayerid="4" nextobjectid="2">
  <tileset firstgid="1" source="../tilesets/castle_tiles.tsx"/>
- <layer id="1" name="Solid" width="40" height="30">
+ <tileset firstgid="9" source="../tilesets/spikes.tsx"/>
+ <layer id="1" name="Solids" width="40" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3XsQrAIAyE4YDE93/kDuLQodbm0nKh90MmBz90UTczLzCddKaPNfmw5MOSD0s+LPmw5MP62tcejnwjD9jkO7/R/+iL2hHTnW/1j6ruyzDt3m/03Bh9maaKvqu1t/bN8DEMu+8ApvCovcASAAA=
+   H4sIAAAAAAAACu3WsQ0AIAwDwTTsvzILIArsIIP+JdecqDKqajB5qeHTwqeFTwufFj4tfFq3fen3S6ov/f5L9aXfz92+U7vLtfI5/jnV53bt3k34N5evy/WKj/25Cb4ynvrAEgAA
   </data>
  </layer>
  <objectgroup id="2" name="Objects">
