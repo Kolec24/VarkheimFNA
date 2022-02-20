@@ -4,12 +4,12 @@
  <tileset firstgid="9" source="../tilesets/spikes.tsx"/>
  <layer id="1" name="Solids" width="40" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3UMQ4AQAREUY37X3lrHUGQ/ZNMJ/K2WCoiSts6FXy54MvlJ1/HeypvDj58+GZ80Xl8dmd0Hp/dGZ3f8n/x4dvk8+6qDr5crvqorw/rNMOGwBIAAA==
+   H4sIAAAAAAAACu3TOw4AIAhEQRruf2VPoCCfGPWRbKWr06AioqQtFYMPHz6fL9LJ+qxOp89jxocP3xnf7v3ffLMzfPf4Iu9mdhQfvp2/Knyr6fBZXXxv+4gvA+DGUWjAEgAA
   </data>
  </layer>
  <layer id="3" name="Spikes" width="40" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3QMQoAIAwEwbTi//9ra6cQooIzcP1yEVTqtwMW9OXoy9npa9NOe/0/AACAXwxsXBHRwBIAAA==
+   H4sIAAAAAAAACu3UOw4AIAgEUVo/9z+vvQUSF6LFvGRbMhVmqDReBxzQp6FPE+lr2zw9uMw+ALg1C29H/6ansi8DfRr6NPRpfu8D8KcF2WAKQsASAAA=
   </data>
  </layer>
  <objectgroup id="2" name="Objects">

@@ -23,18 +23,27 @@ namespace Varkheim
         {
             var Position = (Position)Components[0];
             var Mover = (Movement)Components[1];
-            var Teleport = (Teleport)Components[2];
+            var Teleporter = (Teleport)Components[2];
 
-            if(!Teleport.Teleporting)
+            if(!Teleporter.Teleporting)
             {
                 return;
             }
 
-            Position.Current = Teleport.TargetPosition;
+            Position SoulPosition = World.Manager.GetComponent<Position>(Teleporter.Soul);
+            if(SoulPosition == null)
+            {
+                Console.WriteLine("Invalid soul!");
+                return;
+            }
+
+            Position.Current = SoulPosition.Current;
             Mover.Velocity = Vector2.Zero;
             // TODO: Hack!
             Mover.OnGround = false;
-            Teleport.Teleporting = false;
+
+            World.RemoveEntity(Teleporter.Soul);
+            Teleporter.Teleporting = false;
         }
     }
 }

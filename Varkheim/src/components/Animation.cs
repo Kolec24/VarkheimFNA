@@ -15,16 +15,27 @@ namespace Varkheim
         public Animation(Sprite NewSprite, string NewAnimation, float NewDepth = 0)
         {
             Sprite = NewSprite;
-            CurrentAnimation = NewAnimation;
+            _CurrentAnimation = NewAnimation;
             Depth = NewDepth;
         }
 
+        public void Play(string Animation)
+        {
+            _CurrentAnimation = Animation;
+        }
+
+        public string CurrentAnimation()
+        {
+            return _CurrentAnimation;
+        }
+
         public Sprite Sprite;
-        public string CurrentAnimation;
         public int AnimationIndex = 0;
         public int FrameIndex = 0;
         public float FrameCounter = 0;
         public bool InValidState = false;
+
+        private string _CurrentAnimation;
     }
 
     

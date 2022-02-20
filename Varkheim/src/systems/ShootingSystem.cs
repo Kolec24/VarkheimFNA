@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using ECS;
 
+using EntityHandle = System.Object;
+
 namespace Varkheim
 {
     class ShootingSystem : BaseSystem
@@ -45,9 +47,10 @@ namespace Varkheim
             }
 
             switch(Shooter.Projectile())
-            { 
+            {
                 case Projectile.Soul:
-                    World.CurrentEntities.Add(Factory.Soul(World.Manager, ProjectilePosition, Position.Facing.X, Velocity, Shooter.Entity));
+                    EntityHandle Soul = Factory.Soul(World.Manager, ProjectilePosition, Position.Facing.X, Velocity, Shooter.Entity);
+                    World.AddEntity(Soul);
                     break;
                 default:
                     break;

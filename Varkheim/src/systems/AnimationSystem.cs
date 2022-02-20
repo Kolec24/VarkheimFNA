@@ -22,8 +22,8 @@ namespace Varkheim
         {
             Animation Animator = (Animation)Components[0];
 
-            int CurrentAnimationIndex = _GetAnimationIndex(Animator, Animator.CurrentAnimation);
-            if (Animator.AnimationIndex != CurrentAnimationIndex)
+            int CurrentAnimationIndex = _GetAnimationIndex(Animator, Animator.CurrentAnimation());
+            if (CurrentAnimationIndex >= 0 && Animator.AnimationIndex != CurrentAnimationIndex)
             {
                 Animator.AnimationIndex = CurrentAnimationIndex;
                 Animator.FrameIndex = 0;

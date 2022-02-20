@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using ECS;
 
-using EntityHandle = System.Object;
-
 namespace Varkheim
 {
     class DamageSystem : BaseSystem
@@ -43,17 +41,7 @@ namespace Varkheim
                 }
 
                 Damageable.Health--;
-                if(Damageable.Health <= 0)
-                {
-                    _Kill(Damageable.Entity);
-                    return;
-                }
             }
-        }
-
-        private void _Kill(EntityHandle Entity)
-        {
-            World.RemoveEntity(Entity);
         }
     }
 }

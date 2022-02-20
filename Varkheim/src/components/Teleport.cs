@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using ECS;
 
+using EntityHandle = System.Object;
+
 namespace Varkheim
 {
     class Teleport : Component<Teleport>
@@ -15,7 +17,7 @@ namespace Varkheim
 
         }
 
-        public Point TargetPosition;
         public bool Teleporting = false;
+        public EntityHandle Soul;
     }
 }

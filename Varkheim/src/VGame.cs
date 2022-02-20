@@ -30,11 +30,11 @@ namespace Varkheim
         public Point CameraPosition = new Point(0, 0);
         public Point LastCamera = new Point(0, 0);
         public Point NextCamera = new Point(0, 0);
-        public float TransitionTime;
-        public float CurrentTransitionTime;
+        public float TransitionTimer;
+        public float CurrentTransitionTimer;
+        public float CurrentDeathTimer;
 
         public Point Start = new Point(0, 0);
-
 
         public VGame()
         {
@@ -64,7 +64,7 @@ namespace Varkheim
             Graphics.IsFullScreen = false;
             Graphics.ApplyChanges();
 
-            TransitionTime = 0.75F;
+            TransitionTimer = 0.75F;
         }
 
         protected override void Initialize()
@@ -89,7 +89,7 @@ namespace Varkheim
 
         public void SetCamera(Point TargetCamera)
         {
-            CurrentTransitionTime = TransitionTime;
+            CurrentTransitionTimer = TransitionTimer;
             LastCamera = NextCamera;
             NextCamera = new Point(TargetCamera.X * BufferWidth, TargetCamera.Y * BufferHeight);
         }
@@ -113,21 +113,37 @@ namespace Varkheim
             NextCamera = CameraPosition;
         }
 
+        public void DeathFreeze(float DeathTimer)
+        {
+            CurrentDeathTimer = DeathTimer;
+        }
+
         protected override void Update(GameTime GameTime)
         {
             float DeltaTime = (float)GameTime.ElapsedGameTime.TotalSeconds;
 
             // TODO: Check if such update block can be used.
-            if (CurrentTransitionTime > 0)
+            if (CurrentTransitionTimer > 0)
             {
-                CurrentTransitionTime = Math.Max(CurrentTransitionTime - DeltaTime, 0);
-                MoveCamera(CurrentTransitionTime / TransitionTime);
+                CurrentTransitionTimer = Math.Max(CurrentTransitionTimer - DeltaTime, 0);
+                MoveCamera(CurrentTransitionTimer / TransitionTimer);
+                base.Update(GameTime);
+                return;
+            }
+
+            if(CurrentDeathTimer > 0)
+            {
+                CurrentDeathTimer = Math.Max(CurrentDeathTimer - DeltaTime, 0);
+                if(CurrentDeathTimer == 0)
+                {
+                    World.DeathUnfreeze();
+                }
+
                 base.Update(GameTime);
                 return;
             }
 
             World.Update(DeltaTime);
-
             base.Update(GameTime);
         }
 

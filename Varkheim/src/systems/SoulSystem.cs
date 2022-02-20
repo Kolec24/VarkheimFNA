@@ -30,16 +30,28 @@ namespace Varkheim
                 return;
             }
 
+            bool Interact = false;
+            foreach(Collision Other in Collider.Collisions)
+            {
+                if(Collider.InteractableMasks.Contains(Other.Mask()))
+                {
+                    Interact = true;
+                    break;
+                }
+            }
+            if(!Interact)
+            {
+                return;
+            }
+
             Teleport Teleport = World.Manager.GetComponent<Teleport>(Soul.Owner);
             if (Teleport == null)
             {
                 return;
             }
 
-            Teleport.TargetPosition = Position.Current;
+            Teleport.Soul = Soul.Entity;
             Teleport.Teleporting = true;
-
-            World.RemoveEntity(Soul.Entity);
         }
     }
 }

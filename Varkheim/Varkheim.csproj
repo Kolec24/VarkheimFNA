@@ -101,6 +101,7 @@
     <Compile Include="src\systems\AnimationSystem.cs" />
     <Compile Include="src\systems\CameraSystem.cs" />
     <Compile Include="src\systems\CollisionSystem.cs" />
+    <Compile Include="src\systems\DeathSystem.cs" />
     <Compile Include="src\systems\InputSystem.cs" />
     <Compile Include="src\systems\JumpSystem.cs" />
     <Compile Include="src\systems\DamageSystem.cs" />

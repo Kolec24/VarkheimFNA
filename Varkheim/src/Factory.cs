@@ -25,11 +25,14 @@ namespace Varkheim
             var Collider = new Collision(Mask.Player, new Rectangle(-4, -16, 8, 16));
             {
                 Collider.DamagingMasks.Add(Mask.Spike);
+
                 Collider.BlockingMasks.Add(Mask.Solid);
                 Collider.BlockingMasks.Add(Mask.Spike);
             }
             int Health = 1;
-            var DamageableComp = new Damageable(Health);
+            float DeathTimer = 0.5F;
+            bool StopGame = true;
+            var Damage = new Damageable(Health, DeathTimer, StopGame);
             var Physics = new Physics();
             {
                 Physics.MaxGroundSpeed = 70;
@@ -57,7 +60,7 @@ namespace Varkheim
                 Manager.AddComponent<Movement>(Player, Mover);
                 Manager.AddComponent<Jump>(Player, Jumper);
                 Manager.AddComponent<Collision>(Player, Collider);
-                Manager.AddComponent<Damageable>(Player, DamageableComp);
+                Manager.AddComponent<Damageable>(Player, Damage);
                 Manager.AddComponent<Physics>(Player, Physics);
                 Manager.AddComponent<Player>(Player, PlayerComp);
                 Manager.AddComponent<Shoot>(Player, Shooter);
@@ -76,9 +79,15 @@ namespace Varkheim
             var Mover = new Movement(NewVelocity);
             var Collider = new Collision(Mask.Soul, new Rectangle(-4, -16, 8, 16));
             {
-                Collider.InteractableMasks.Add(Mask.Solid);
+                Collider.InteractableMasks.Add(Mask.Solid); // Toggle between teleporting to walls.
+
+                Collider.DamagingMasks.Add(Mask.Solid);
+                Collider.DamagingMasks.Add(Mask.Spike);
+
                 Collider.BlockingMasks.Add(Mask.Solid);
+                Collider.BlockingMasks.Add(Mask.Spike);
             }
+            var Damage = new Damageable(1);
             var Soul = new Soul(Owner);
             var Animator = new Animation(ContentLoader.FindSprite("spirit.ase"), "Idle");
 
@@ -88,6 +97,7 @@ namespace Varkheim
                 Manager.AddComponent<Movement>(Spirit, Mover);
                 Manager.AddComponent<Animation>(Spirit, Animator);
                 Manager.AddComponent<Collision>(Spirit, Collider);
+                Manager.AddComponent<Damageable>(Spirit, Damage);
                 Manager.AddComponent<Soul>(Spirit, Soul);
             }
             return Spirit;

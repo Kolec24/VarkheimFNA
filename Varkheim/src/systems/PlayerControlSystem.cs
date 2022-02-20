@@ -19,6 +19,7 @@ namespace Varkheim
             AddComponentType<Jump>();
             AddComponentType<Shoot>();
             AddComponentType<Animation>();
+            AddComponentType<Teleport>();
         }
 
         public override void UpdateComponents(float DeltaTime, List<BaseComponent> Components)
@@ -29,23 +30,24 @@ namespace Varkheim
             Jump Jumper = (Jump)Components[3];
             Shoot Shooter = (Shoot)Components[4];
             Animation Animator = (Animation)Components[5];
+            Teleport Teleporter = (Teleport)Components[6];
 
             if (_IsKeyDown(Input, Keys.Right))
             {
                 Mover.Direction = 1;
                 Position.Facing.X = 1;
-                Animator.CurrentAnimation = "Walk";
+                Animator.Play("Walk");
             }
             else if (_IsKeyDown(Input, Keys.Left))
             {
                 Mover.Direction = -1;
                 Position.Facing.X = -1;
-                Animator.CurrentAnimation = "Walk";
+                Animator.Play("Walk");
             }
             else
             {
                 Mover.Direction = 0;
-                Animator.CurrentAnimation = "Idle";
+                Animator.Play("Idle");
             }
 
             if (_IsKeyDown(Input, Keys.Up))
@@ -79,7 +81,17 @@ namespace Varkheim
 
             if (_IsKeyPressed(Input, Keys.X))
             {
-                Shooter.Shooting = true;
+                // TODO: Hack!
+                var Soul = World.GetFirstValid<Soul>();
+                if (Soul != null)
+                {
+                    Teleporter.Soul = Soul;
+                    Teleporter.Teleporting = true;
+                }
+                else
+                {
+                    Shooter.Shooting = true;
+                }
             }
             else if (_IsKeyReleased(Input, Keys.X))
             {
