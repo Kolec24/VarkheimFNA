@@ -98,10 +98,6 @@ namespace Varkheim
         {
             CameraPosition.X = (int)(Progress * LastCamera.X + (1 - Progress) * NextCamera.X);
             CameraPosition.Y = (int)(Progress * LastCamera.Y + (1 - Progress) * NextCamera.Y);
-            if(CameraPosition == NextCamera)
-            {
-                World.UnloadPreviousLevel();
-            }
         }
 
         public void SetStartingPoint(Point InStart)

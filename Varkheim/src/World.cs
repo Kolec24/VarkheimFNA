@@ -17,10 +17,9 @@ namespace Varkheim
         public EntityManager Manager;
         public EntityHandle Player;
         public EntityHandle FreezingEntity;
-        // Temporary unloading.
+        // State of the game.
         private List<EntityHandle> _CurrentEntities = new List<EntityHandle>();
         private List<EntityHandle> _ValidEntities = new List<EntityHandle>();
-        private List<EntityHandle> _LastEntities = new List<EntityHandle>();
         public Point CurrentRoom = new Point(0, 0);
         public Point LastRoom = new Point(0, 0);
 
@@ -46,12 +45,6 @@ namespace Varkheim
             LastRoom = CurrentRoom;
             CurrentRoom = Room;
 
-            // Mark which entities should be removed.
-            _LastEntities.Clear();
-            foreach(EntityHandle Entity in _CurrentEntities)
-            {
-                _LastEntities.Add(Entity);
-            }
             _CurrentEntities.Clear();
             _ValidEntities.Clear();
 
@@ -77,14 +70,6 @@ namespace Varkheim
             AddEntity(Factory.Tilemap(Manager, NewMap, new Point(Room.X * Game.BufferWidth, Room.Y * Game.BufferHeight)));
         }
 
-        public void UnloadPreviousLevel()
-        {
-            foreach(var Entity in _LastEntities)
-            {
-                Manager.RemoveEntity(Entity);
-            }
-            _LastEntities.Clear();
-        }
         public void UnloadCurrentLevel()
         {
             foreach (var Entity in _CurrentEntities)
@@ -105,6 +90,11 @@ namespace Varkheim
         {
             LoadLevel(NextRoom);
             Game.SetCamera(NextRoom);
+        }
+
+        public bool IsChangingRooms()
+        {
+            return Game.CurrentTransitionTimer > 0;
         }
 
         public void DeathFreeze(EntityHandle Entity, float DeathTimer)
@@ -206,6 +196,7 @@ namespace Varkheim
             Manager.AddSystem(new TilemapSystem(this));
 
             Manager.AddSystem(new CameraSystem(this));
+            Manager.AddSystem(new UnloadSystem(this));
         }
     }
 }

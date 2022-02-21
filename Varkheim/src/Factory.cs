@@ -88,19 +88,19 @@ namespace Varkheim
                 Collider.BlockingMasks.Add(Mask.Spike);
             }
             var Damage = new Damageable(1);
-            var Soul = new Soul(Owner);
-            var Animator = new Animation(ContentLoader.FindSprite("spirit.ase"), "Idle");
+            var SoulComp = new Soul(Owner);
+            var Animator = new Animation(ContentLoader.FindSprite("soul.ase"), "Idle");
 
-            EntityHandle Spirit = Manager.AddEntity();
+            EntityHandle Soul = Manager.AddEntity();
             {
-                Manager.AddComponent<Position>(Spirit, Position);
-                Manager.AddComponent<Movement>(Spirit, Mover);
-                Manager.AddComponent<Animation>(Spirit, Animator);
-                Manager.AddComponent<Collision>(Spirit, Collider);
-                Manager.AddComponent<Damageable>(Spirit, Damage);
-                Manager.AddComponent<Soul>(Spirit, Soul);
+                Manager.AddComponent<Position>(Soul, Position);
+                Manager.AddComponent<Movement>(Soul, Mover);
+                Manager.AddComponent<Animation>(Soul, Animator);
+                Manager.AddComponent<Collision>(Soul, Collider);
+                Manager.AddComponent<Damageable>(Soul, Damage);
+                Manager.AddComponent<Soul>(Soul, SoulComp);
             }
-            return Spirit;
+            return Soul;
         }
 
         public static EntityHandle Tilemap(EntityManager Manager, Parser.Map NewMap, Point InPosition)

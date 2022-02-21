@@ -9,7 +9,7 @@ namespace Varkheim
 {
     class PlayerAnimationSystem : BaseSystem
     {
-        // TODO: Probably need to think about different way of playing animations, since this works only for player!
+        // TODO: Probably need to think about different way of playing animations, since this works only for player! Possibly can merge this to PlayerControlSystem.
         public PlayerAnimationSystem(World InWorld) : base(SystemType.Gameplay)
         {
             World = InWorld;

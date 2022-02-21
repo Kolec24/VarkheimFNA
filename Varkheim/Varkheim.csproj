@@ -56,7 +56,7 @@
     <None Include="content\sprites\player.ase">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="content\sprites\spirit.ase">
+    <None Include="content\sprites\soul.ase">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
@@ -98,6 +98,7 @@
     <Compile Include="src\Factory.cs" />
     <Compile Include="src\Masks.cs" />
     <Compile Include="src\Program.cs" />
+    <Compile Include="src\systems\UnloadSystem.cs" />
     <Compile Include="src\systems\AnimationSystem.cs" />
     <Compile Include="src\systems\CameraSystem.cs" />
     <Compile Include="src\systems\CollisionSystem.cs" />
