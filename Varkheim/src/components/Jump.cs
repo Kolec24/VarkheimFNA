@@ -23,6 +23,15 @@ namespace Varkheim
             return _MaxTimer;
         }
 
+        public void Reset()
+        {
+            Jumping = false;
+            GroundJumping = false;
+            WallJumping = false;
+            GroundTimer = 0;
+            WallTimer = 0;
+        }
+
         public bool Jumping = false;
         public int Direction = 0;
         public Vector2 Velocity;

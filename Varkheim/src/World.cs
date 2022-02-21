@@ -189,7 +189,8 @@ namespace Varkheim
         private void _InitializeSystems()
         {
             Manager.AddSystem(new InputSystem(this));
-            Manager.AddSystem(new PlayerControlSystem(this));
+            Manager.AddSystem(new PlayerControlSystem(this)); 
+            Manager.AddSystem(new PlayerAnimationSystem(this));
             Manager.AddSystem(new PhysicsSystem(this));
             Manager.AddSystem(new JumpSystem(this));
             Manager.AddSystem(new MovementSystem(this));

@@ -18,7 +18,6 @@ namespace Varkheim
             AddComponentType<Movement>();
             AddComponentType<Jump>();
             AddComponentType<Shoot>();
-            AddComponentType<Animation>();
             AddComponentType<Teleport>();
         }
 
@@ -29,41 +28,34 @@ namespace Varkheim
             Movement Mover = (Movement)Components[2];
             Jump Jumper = (Jump)Components[3];
             Shoot Shooter = (Shoot)Components[4];
-            Animation Animator = (Animation)Components[5];
-            Teleport Teleporter = (Teleport)Components[6];
+            Teleport Teleporter = (Teleport)Components[5];
 
             if (_IsKeyDown(Input, Keys.Right))
             {
                 Mover.Direction = 1;
                 Position.Facing.X = 1;
-                Animator.Play("Walk");
             }
             else if (_IsKeyDown(Input, Keys.Left))
             {
                 Mover.Direction = -1;
                 Position.Facing.X = -1;
-                Animator.Play("Walk");
             }
             else
             {
                 Mover.Direction = 0;
-                Animator.Play("Idle");
             }
 
             if (_IsKeyDown(Input, Keys.Up))
             {
                 Position.Facing.Y = -1;
-                //Animator.CurrentAnimation = "Walk";
             }
             else if (_IsKeyDown(Input, Keys.Down))
             {
                 Position.Facing.Y = 1;
-                //Animator.CurrentAnimation = "Walk";
             }
             else
             {
                 Position.Facing.Y = 0;
-                //Animator.CurrentAnimation = "Idle";
             }
 
             if (_IsKeyPressed(Input, Keys.Z))
@@ -72,11 +64,7 @@ namespace Varkheim
             }
             else if(_IsKeyReleased(Input, Keys.Z))
             {
-                Jumper.Jumping = false;
-                Jumper.GroundJumping = false;
-                Jumper.WallJumping = false;
-                Jumper.GroundTimer = 0;
-                Jumper.WallTimer = 0;
+                Jumper.Reset();
             }
 
             if (_IsKeyPressed(Input, Keys.X))

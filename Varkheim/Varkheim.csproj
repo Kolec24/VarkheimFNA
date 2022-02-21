@@ -105,6 +105,7 @@
     <Compile Include="src\systems\InputSystem.cs" />
     <Compile Include="src\systems\JumpSystem.cs" />
     <Compile Include="src\systems\DamageSystem.cs" />
+    <Compile Include="src\systems\PlayerAnimationSystem.cs" />
     <Compile Include="src\systems\TeleportSystem.cs" />
     <Compile Include="src\systems\SoulSystem.cs" />
     <Compile Include="src\systems\MovementSystem.cs" />
