@@ -37,10 +37,20 @@ namespace Varkheim
                 return;
             }
 
-            Position.Current = SoulPosition.Current;
+            Point Adjustment = new Point(0, 0);
+            if(SoulPosition.Facing.Y != 0)
+            {
+                Adjustment.Y = SoulPosition.Facing.Y;
+            }
+            else
+            {
+                Adjustment.X = SoulPosition.Facing.X;
+            }
+
+            Position.Current = SoulPosition.Current - Adjustment;
+            // TODO: Should stop all movement - stopping X, Y and jumping.
             Mover.Velocity = Vector2.Zero;
-            // TODO: Hack!
-            Mover.OnGround = false;
+            Mover.Teleported = true;
 
             World.RemoveEntity(Teleporter.Soul);
             Teleporter.Teleporting = false;

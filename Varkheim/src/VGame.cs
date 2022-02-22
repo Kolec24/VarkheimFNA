@@ -59,6 +59,8 @@ namespace Varkheim
             BGColor.B = 24;
             BGColor.A = 255;
 
+            BGColor = Color.CornflowerBlue;
+
             Graphics.PreferredBackBufferWidth = BackBufferWidth;
             Graphics.PreferredBackBufferHeight = BackBufferHeight;
             Graphics.IsFullScreen = false;
@@ -79,7 +81,7 @@ namespace Varkheim
         {
             Batch = new SpriteBatch(GraphicsDevice);
             ContentLoader.Load(Content, GraphicsDevice);
-            SetStartingPoint(new Point(0, 0));
+            SetStartingPoint(new Point(3, 0));
 
             // To change starting room one needs to change camera!
             World.Load(Start);

@@ -14,32 +14,16 @@ namespace Varkheim
         {
             World = InWorld;
 
-            AddComponentType<Position>();
             AddComponentType<Collision>();
             AddComponentType<Soul>();
         }
 
         public override void UpdateComponents(float DeltaTime, List<BaseComponent> Components)
         {
-            var Position = (Position)Components[0];
-            var Collider = (Collision)Components[1];
-            var Soul = (Soul)Components[2];
+            var Collider = (Collision)Components[0];
+            var Soul = (Soul)Components[1];
 
-            if(Collider.Collisions.Count() == 0)
-            {
-                return;
-            }
-
-            bool Interact = false;
-            foreach(Collision Other in Collider.Collisions)
-            {
-                if(Collider.InteractableMasks.Contains(Other.Mask()))
-                {
-                    Interact = true;
-                    break;
-                }
-            }
-            if(!Interact)
+            if(Collider.Interactables.Count() == 0)
             {
                 return;
             }

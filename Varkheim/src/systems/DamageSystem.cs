@@ -23,25 +23,17 @@ namespace Varkheim
             var Collider = (Collision)Components[0];
             var Damageable = (Damageable)Components[1];
 
-            if(Collider.Collisions.Count() == 0)
+            if(Collider.Damagers.Count() == 0)
             {
                 return;
             }
 
-            _CalculateDamage(Collider, Damageable);
+            _ApplyDamage(Collider, Damageable);
         }
 
-        private void _CalculateDamage(Collision Collider, Damageable Damageable)
+        private void _ApplyDamage(Collision Collider, Damageable Damageable)
         {
-            foreach(var Other in Collider.Collisions)
-            {
-                if(!Collider.DamagingMasks.Contains(Other.Mask()))
-                {
-                    continue;
-                }
-
-                Damageable.Health--;
-            }
+            Damageable.Health--;
         }
     }
 }

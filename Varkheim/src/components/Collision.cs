@@ -55,6 +55,18 @@ namespace Varkheim
             return _Mask;
         }
 
+        public int CollisionCount()
+        {
+            return Interactables.Count() + Damagers.Count() + Blockers.Count();
+        }
+
+        public void CollisionClear()
+        {
+            Interactables.Clear();
+            Damagers.Clear();
+            Blockers.Clear();
+        }
+
         public struct GridType
         {
             public int Columns;
@@ -63,7 +75,9 @@ namespace Varkheim
             public List<bool> Cells;
         }
 
-        public List<Collision> Collisions = new List<Collision>();
+        public List<Collision> Interactables = new List<Collision>();
+        public List<Collision> Damagers = new List<Collision>();
+        public List<Collision> Blockers = new List<Collision>();
 
         private int _Mask;
         private ShapeType _Shape;

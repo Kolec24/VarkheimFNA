@@ -27,7 +27,6 @@ namespace Varkheim
                 Collider.DamagingMasks.Add(Mask.Spike);
 
                 Collider.BlockingMasks.Add(Mask.Solid);
-                Collider.BlockingMasks.Add(Mask.Spike);
             }
             int Health = 1;
             float DeathTimer = 0.5F;
@@ -70,11 +69,11 @@ namespace Varkheim
             return Player;
         }
 
-        public static EntityHandle Soul(EntityManager Manager, Point NewPosition, int Facing, Vector2 NewVelocity, EntityHandle Owner)
+        public static EntityHandle Soul(EntityManager Manager, Point NewPosition, Point Facing, Vector2 NewVelocity, EntityHandle Owner)
         {
             var Position = new Position(NewPosition.X, NewPosition.Y);
             {
-                Position.Facing.X = Facing;
+                Position.Facing = Facing;
             }
             var Mover = new Movement(NewVelocity);
             var Collider = new Collision(Mask.Soul, new Rectangle(-4, -16, 8, 16));
@@ -83,9 +82,6 @@ namespace Varkheim
 
                 Collider.DamagingMasks.Add(Mask.Solid);
                 Collider.DamagingMasks.Add(Mask.Spike);
-
-                Collider.BlockingMasks.Add(Mask.Solid);
-                Collider.BlockingMasks.Add(Mask.Spike);
             }
             var Damage = new Damageable(1);
             var SoulComp = new Soul(Owner);

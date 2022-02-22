@@ -30,19 +30,26 @@ namespace Varkheim
                 return;
             }
 
-            if(Position.Current == Position.Last)
+            Collider.CollisionClear();
+
+            // Movement.
+            if (Position.Current != Position.Last)
             {
-                return;
+                List<Collision> AllCollisions = World.GetComponents<Collision>();
+                _CheckMovement(Position, Collider, AllCollisions);
+                _AdjustMovement(Position, Mover, Collider);
+                _SetOnGround(Position, Mover, Collider, AllCollisions);
+                _SetOnWall(Position, Mover, Collider, AllCollisions);
             }
 
-            List<Collision> AllCollisions = World.GetComponents<Collision>();
-
-            Collider.Collisions.Clear();
-
-            _CheckMovement(Position, Collider, AllCollisions);
-            _AdjustMovement(Position, Mover, Collider);
-            _SetOnGround(Position, Mover, Collider, AllCollisions);
-            _SetOnWall(Position, Mover, Collider, AllCollisions);
+            // Teleport.
+            if (Mover.Teleported)
+            {
+                List<Collision> AllCollisions = World.GetComponents<Collision>();
+                _SetOnGround(Position, Mover, Collider, AllCollisions);
+                _SetOnWall(Position, Mover, Collider, AllCollisions);
+                Mover.Teleported = false;
+            }
         }
 
         private void _CheckMovement(Position Position, Collision Collider, List<Collision> AllCollisions)
@@ -66,14 +73,14 @@ namespace Varkheim
                 {
                     if (_RectToRect(MovementRectangle, Other.Rectangle(), MovementOffset - OtherPos.Current))
                     {
-                        Collider.Collisions.Add(Other);
+                        _AddHitCollision(Collider, Other);
                     }
                 }
                 else
                 {
                     if (_RectToGrid(MovementRectangle, Other, MovementOffset - OtherPos.Current))
                     {
-                        Collider.Collisions.Add(Other);
+                        _AddHitCollision(Collider, Other);
                     }
                 }
             }
@@ -81,78 +88,99 @@ namespace Varkheim
 
         private void _AdjustMovement(Position Position, Movement Mover, Collision Collider)
         {
+            if(Collider.CollisionCount() == 0)
+            {
+                return;
+            }
+
             int DistanceX = Math.Abs(Position.Current.X - Position.Last.X);
             int DistanceY = Math.Abs(Position.Current.Y - Position.Last.Y);
             int DirectionX = Math.Sign(Position.Current.X - Position.Last.X);
             int DirectionY = Math.Sign(Position.Current.Y - Position.Last.Y);
             Point OffsetX = new Point(DirectionX, 0);
             Point OffsetY = new Point(0, DirectionY);
+            Point NoOffset = new Point(0, 0);
 
-            List<Collision> HitCollisions = new List<Collision>();
             Position.Current = Position.Last;
-            while (DistanceX > 0 || DistanceY > 0)
+            List<Collision> HitInteractables = new List<Collision>();
+            List<Collision> HitDamagers = new List<Collision>();
+            bool Moved = true; // This method is not called if movement did not occur.
+            while (Moved)
             {
-                // TODO: Find better solution than two separate loops.
-                foreach (var Other in Collider.Collisions)
+                Moved = false;
+
+                // Interactable.
+                foreach(var Other in Collider.Interactables)
                 {
-                    if (HitCollisions.Contains(Other))
+                    // TODO: Remove components from Collisions instead.
+                    if(HitInteractables.Contains(Other))
                     {
                         continue;
                     }
 
-                    if (DistanceX != 0 && _Check(Position, Collider, Other, OffsetX))
+                    if (_Check(Position, Collider, Other, NoOffset))
                     {
-                        if (Collider.BlockingMasks.Contains(Other.Mask()))
-                        {
-                            _StopX(Position, Mover);
-                            DistanceX = 0;
-                        }
+                        HitInteractables.Add(Other);
+                    }
+                }
 
-                        if (Collider.InteractableMasks.Contains(Other.Mask())
-                            || Collider.DamagingMasks.Contains(Other.Mask()))
-                        {
-                            HitCollisions.Add(Other);
-                            //DistanceX = 1;
-                        }
+                // Damaging.
+                foreach (var Other in Collider.Damagers)
+                {
+                    // TODO: Remove components from Collisions instead.
+                    if (HitDamagers.Contains(Other))
+                    {
+                        continue;
+                    }
+
+                    if (_Check(Position, Collider, Other, NoOffset))
+                    {
+                        HitDamagers.Add(Other);
+                        Collider.Interactables = HitInteractables;
+                        Collider.Damagers = HitDamagers;
+                        return;
+                    }
+                }
+
+                if (DistanceX == 0 && DistanceY == 0)
+                {
+                    break;
+                }
+
+                // X adjustment.
+                foreach (var Other in Collider.Blockers)
+                {
+                    if (DistanceX > 0 && _Check(Position, Collider, Other, OffsetX))
+                    {
+                        _StopX(Position, Mover);
+                        DistanceX = 0;
                     }
                 }
                 if (DistanceX > 0)
                 {
                     Position.Current.X += DirectionX;
                     DistanceX -= 1;
+                    Moved = true;
                 }
 
-                // TODO: Find better solution than two separate loops.
-                foreach (var Other in Collider.Collisions)
+                // Y adjustment
+                foreach (var Other in Collider.Blockers)
                 {
-                    if (HitCollisions.Contains(Other))
+                    if (DistanceY > 0 && _Check(Position, Collider, Other, OffsetY))
                     {
-                        continue;
-                    }
-
-                    if (DistanceY != 0 && _Check(Position, Collider, Other, OffsetY))
-                    {
-                        if (Collider.BlockingMasks.Contains(Other.Mask()))
-                        {
-                            _StopY(Position, Mover);
-                            DistanceY = 0;
-                        }
-
-                        if (Collider.InteractableMasks.Contains(Other.Mask())
-                            || Collider.DamagingMasks.Contains(Other.Mask()))
-                        {
-                            HitCollisions.Add(Other);
-                            //DistanceY = 1;
-                        }
+                        _StopY(Position, Mover);
+                        DistanceY = 0;
                     }
                 }
                 if (DistanceY > 0)
                 {
                     Position.Current.Y += DirectionY;
                     DistanceY -= 1;
+                    Moved = true;
                 }
             }
-            Collider.Collisions = HitCollisions;
+            Collider.Interactables = HitInteractables;
+            Collider.Damagers = HitDamagers;
         }
 
         private void _SetOnGround(Position Position, Movement Mover, Collision Collider, List<Collision> AllCollisions)
@@ -200,6 +228,25 @@ namespace Varkheim
                 }
             }
             Mover.OnWall = 0;
+        }
+
+        private void _AddHitCollision(Collision Collider, Collision Other)
+        {
+            // TODO: Blocking mask won't have interaction or damage!
+            if(Collider.InteractableMasks.Contains(Other.Mask()))
+            {
+                Collider.Interactables.Add(Other);
+            }
+
+            if (Collider.DamagingMasks.Contains(Other.Mask()))
+            {
+                Collider.Damagers.Add(Other);
+            }
+
+            if (Collider.BlockingMasks.Contains(Other.Mask()))
+            {
+                Collider.Blockers.Add(Other);
+            }
         }
 
         private bool _Check(Position Position, Collision Collider, Collision Other, Point Offset)

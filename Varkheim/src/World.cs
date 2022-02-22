@@ -39,7 +39,6 @@ namespace Varkheim
             LoadLevel(StartingRoom);
         }
 
-        // TODO: Messy.
         public void LoadLevel(Point Room)
         {
             LastRoom = CurrentRoom;
@@ -178,6 +177,7 @@ namespace Varkheim
 
         private void _InitializeSystems()
         {
+            // Gameplay.
             Manager.AddSystem(new InputSystem(this));
             Manager.AddSystem(new PlayerControlSystem(this)); 
             Manager.AddSystem(new PlayerAnimationSystem(this));
@@ -192,9 +192,11 @@ namespace Varkheim
             Manager.AddSystem(new DeathSystem(this));
             Manager.AddSystem(new AnimationSystem(this));
 
+            // Render.
             Manager.AddSystem(new SpriteSystem(this));
             Manager.AddSystem(new TilemapSystem(this));
 
+            // Utility.
             Manager.AddSystem(new CameraSystem(this));
             Manager.AddSystem(new UnloadSystem(this));
         }

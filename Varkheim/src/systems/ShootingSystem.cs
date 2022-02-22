@@ -33,23 +33,26 @@ namespace Varkheim
             Point Offset;
             Vector2 Velocity;
             Point ProjectilePosition;
+            Point ProjectileFacing;
             if(Position.Facing.Y == -1)
             {
                 Offset = Shooter.VerticalOffset();
                 Velocity = new Vector2(0, Position.Facing.Y * Shooter.Velocity);
                 ProjectilePosition = new Point(Position.Current.X + Position.Facing.X * Offset.X, Position.Current.Y - Position.Facing.Y * Offset.Y);
+                ProjectileFacing = new Point(1, -1);
             }
             else
             {
                 Offset = Shooter.HorizontalOffset();
                 Velocity = new Vector2(Position.Facing.X * Shooter.Velocity, 0);
                 ProjectilePosition = new Point(Position.Current.X + Position.Facing.X * Offset.X, Position.Current.Y + Offset.Y);
+                ProjectileFacing = new Point(Position.Facing.X, 0);
             }
 
             switch(Shooter.Projectile())
             {
                 case Projectile.Soul:
-                    EntityHandle Soul = Factory.Soul(World.Manager, ProjectilePosition, Position.Facing.X, Velocity, Shooter.Entity);
+                    EntityHandle Soul = Factory.Soul(World.Manager, ProjectilePosition, ProjectileFacing, Velocity, Shooter.Entity);
                     World.AddEntity(Soul);
                     break;
                 default:

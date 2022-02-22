@@ -14,6 +14,8 @@ namespace Varkheim
         public bool OnGround = false;
         public int OnWall = 0;
 
+        public bool Teleported = false;
+
         public Movement(Vector2 NewVelocity)
         {
             Velocity = NewVelocity;
