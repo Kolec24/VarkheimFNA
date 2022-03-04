@@ -38,3 +38,27 @@ D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\conten
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\content\tilesets\grass.png
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\content\tilesets\grass.tsx
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\content\levels\1x0.tmx
+C:\Users\kkglu\OneDrive\Pulpit\Varkheim\Varkheim\Varkheim\bin\Debug\content\tilesets\castle_tiles.png
+C:\Users\kkglu\OneDrive\Pulpit\Varkheim\Varkheim\Varkheim\bin\Debug\content\tilesets\castle_tiles.tsx
+C:\Users\kkglu\OneDrive\Pulpit\Varkheim\Varkheim\Varkheim\bin\Debug\content\tilesets\grass.png
+C:\Users\kkglu\OneDrive\Pulpit\Varkheim\Varkheim\Varkheim\bin\Debug\content\tilesets\grass.tsx
+C:\Users\kkglu\OneDrive\Pulpit\Varkheim\Varkheim\Varkheim\bin\Debug\content\tilesets\spikes.png
+C:\Users\kkglu\OneDrive\Pulpit\Varkheim\Varkheim\Varkheim\bin\Debug\content\tilesets\spikes.tsx
+C:\Users\kkglu\OneDrive\Pulpit\Varkheim\Varkheim\Varkheim\bin\Debug\content\levels\0x0.tmx
+C:\Users\kkglu\OneDrive\Pulpit\Varkheim\Varkheim\Varkheim\bin\Debug\content\levels\1x0.tmx
+C:\Users\kkglu\OneDrive\Pulpit\Varkheim\Varkheim\Varkheim\bin\Debug\content\levels\2x0.tmx
+C:\Users\kkglu\OneDrive\Pulpit\Varkheim\Varkheim\Varkheim\bin\Debug\content\levels\3x0.tmx
+C:\Users\kkglu\OneDrive\Pulpit\Varkheim\Varkheim\Varkheim\bin\Debug\content\sprites\player.ase
+C:\Users\kkglu\OneDrive\Pulpit\Varkheim\Varkheim\Varkheim\bin\Debug\content\sprites\soul.ase
+C:\Users\kkglu\OneDrive\Pulpit\Varkheim\Varkheim\Varkheim\bin\Debug\Varkheim.exe.config
+C:\Users\kkglu\OneDrive\Pulpit\Varkheim\Varkheim\Varkheim\bin\Debug\Varkheim.exe
+C:\Users\kkglu\OneDrive\Pulpit\Varkheim\Varkheim\Varkheim\bin\Debug\Varkheim.pdb
+C:\Users\kkglu\OneDrive\Pulpit\Varkheim\Varkheim\Varkheim\bin\Debug\System.ValueTuple.dll
+C:\Users\kkglu\OneDrive\Pulpit\Varkheim\Varkheim\Varkheim\bin\Debug\FNA.dll.config
+C:\Users\kkglu\OneDrive\Pulpit\Varkheim\Varkheim\Varkheim\bin\Debug\System.ValueTuple.xml
+C:\Users\kkglu\OneDrive\Pulpit\Varkheim\Varkheim\Varkheim\obj\Debug\Varkheim.csproj.AssemblyReference.cache
+C:\Users\kkglu\OneDrive\Pulpit\Varkheim\Varkheim\Varkheim\obj\Debug\Varkheim.csproj.SuggestedBindingRedirects.cache
+C:\Users\kkglu\OneDrive\Pulpit\Varkheim\Varkheim\Varkheim\obj\Debug\Varkheim.csproj.CoreCompileInputs.cache
+C:\Users\kkglu\OneDrive\Pulpit\Varkheim\Varkheim\Varkheim\obj\Debug\Varkheim.csproj.CopyComplete
+C:\Users\kkglu\OneDrive\Pulpit\Varkheim\Varkheim\Varkheim\obj\Debug\Varkheim.exe
+C:\Users\kkglu\OneDrive\Pulpit\Varkheim\Varkheim\Varkheim\obj\Debug\Varkheim.pdb
