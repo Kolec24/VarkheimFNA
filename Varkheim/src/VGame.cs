@@ -41,8 +41,8 @@ namespace Varkheim
             Graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "content";
 
-            BackBufferWidth = 1280;
-            BackBufferHeight = 960;
+            BackBufferWidth = 960;//1280;
+            BackBufferHeight = 720;//960;
             BufferWidth = 320;
             BufferHeight = 240;
 
@@ -81,11 +81,9 @@ namespace Varkheim
         {
             Batch = new SpriteBatch(GraphicsDevice);
             ContentLoader.Load(Content, GraphicsDevice);
-            SetStartingPoint(new Point(3, 0));
+            SetStartingPoint(new Point(0, 0));
 
-            // To change starting room one needs to change camera!
             World.Load(Start);
-
             base.LoadContent();
         }
 

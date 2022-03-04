@@ -27,7 +27,6 @@ D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\obj\Debug\Varkhe
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\obj\Debug\Varkheim.csproj.CopyComplete
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\obj\Debug\Varkheim.exe
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\obj\Debug\Varkheim.pdb
-D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\content\levels\1x0.tmx
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\System.ValueTuple.dll
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\System.ValueTuple.xml
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\content\sprites\player.ase
@@ -36,3 +35,6 @@ D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\conten
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\content\tilesets\spikes.png
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\content\tilesets\spikes.tsx
 D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\content\sprites\soul.ase
+D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\content\tilesets\grass.png
+D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\content\tilesets\grass.tsx
+D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\content\levels\1x0.tmx

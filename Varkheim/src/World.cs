@@ -47,7 +47,7 @@ namespace Varkheim
             _CurrentEntities.Clear();
             _ValidEntities.Clear();
 
-            // Not sure if using ContentLoader in the world is OK.
+            // Not sure if using ContentLoader in the world is OK. TODO: Redundant with Hack below.
             Parser.Map NewMap = ContentLoader.FindMap(Room.X, Room.Y);
             if (NewMap == null)
             {
@@ -87,6 +87,14 @@ namespace Varkheim
 
         public void ChangeRooms(Point NextRoom)
         {
+            // TODO: Hack!!!
+            Parser.Map NewMap = ContentLoader.FindMap(NextRoom.X, NextRoom.Y);
+            if (NewMap == null)
+            {
+                Console.WriteLine("InvalidMap");
+                return;
+            }
+
             LoadLevel(NextRoom);
             Game.SetCamera(NextRoom);
         }
