@@ -81,7 +81,7 @@ namespace Varkheim
         {
             Batch = new SpriteBatch(GraphicsDevice);
             ContentLoader.Load(Content, GraphicsDevice);
-            SetStartingPoint(new Point(0, 0));
+            SetStartingPoint(new Point(2, 0));
 
             World.Load(Start);
             base.LoadContent();
