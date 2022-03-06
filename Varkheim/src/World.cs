@@ -58,14 +58,29 @@ namespace Varkheim
             IList<Parser.Object> GameObjects = NewMap.ObjectGroups["Objects"].Objects.Values;
             foreach(Parser.Object Object in GameObjects)
             {
-                if(Object.Name == "Player" && Player == null)
+                int RelativeX = Object.X + (int)(0.5 * Object.Width);
+                int RelativeY = Object.Y + Object.Height;
+                Point SpawnPosition = new Point(RelativeX + Room.X * Game.BufferWidth, RelativeY + Room.Y * Game.BufferHeight);
+                switch (Object.Name)
                 {
-                    int RelativeX = Object.X + (int)(0.5 * Object.Width);
-                    int RelativeY = Object.Y + Object.Height;
-                    Player = Factory.Player(Manager, new Point(RelativeX + Room.X * Game.BufferWidth, RelativeY + Room.Y * Game.BufferHeight));
+                    case "Player":
+                        if(Player == null)
+                        {
+                            // Its not added as world entity since its a player, rest should be.
+                            Player = Factory.Player(Manager, SpawnPosition);
+                        }
+                        break;
+                    case "Key":
+                        AddEntity(Factory.Key(Manager, SpawnPosition));
+                        break;
+                    case "Door":
+                        AddEntity(Factory.Door(Manager, SpawnPosition));
+                        break;
+                    default:
+                        break;
+
                 }
             }
-
             AddEntity(Factory.Tilemap(Manager, NewMap, new Point(Room.X * Game.BufferWidth, Room.Y * Game.BufferHeight)));
         }
 
@@ -193,6 +208,8 @@ namespace Varkheim
             Manager.AddSystem(new JumpSystem(this));
             Manager.AddSystem(new MovementSystem(this));
             Manager.AddSystem(new CollisionSystem(this));
+            Manager.AddSystem(new PickupSystem(this));
+            Manager.AddSystem(new OpenSystem(this));
             Manager.AddSystem(new ShootingSystem(this));
             Manager.AddSystem(new SoulSystem(this));
             Manager.AddSystem(new TeleportSystem(this));

@@ -106,6 +106,11 @@ namespace ECS
 
         public T GetComponent<T>(EntityHandle Entity) where T : BaseComponent
         {
+            if(!_Components.ContainsKey(Component<T>.Type()))
+            {
+                return null;
+            }
+
             // Better way of casting to be taken under consideration.
             return (T)_GetComponentInternal(Entity, _Components[Component<T>.Type()], Component<T>.Type());
         }
@@ -122,7 +127,6 @@ namespace ECS
             }
             return null;
         }
-
 
         public void AddSystem(BaseSystem System)
         {

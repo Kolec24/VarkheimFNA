@@ -62,3 +62,5 @@ C:\Users\kkglu\OneDrive\Pulpit\Varkheim\Varkheim\Varkheim\obj\Debug\Varkheim.csp
 C:\Users\kkglu\OneDrive\Pulpit\Varkheim\Varkheim\Varkheim\obj\Debug\Varkheim.csproj.CopyComplete
 C:\Users\kkglu\OneDrive\Pulpit\Varkheim\Varkheim\Varkheim\obj\Debug\Varkheim.exe
 C:\Users\kkglu\OneDrive\Pulpit\Varkheim\Varkheim\Varkheim\obj\Debug\Varkheim.pdb
+D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\content\sprites\key.ase
+D:\Program Files\FNA Projects\VarkheimProject\Varkheim\Varkheim\bin\Debug\content\sprites\door.ase

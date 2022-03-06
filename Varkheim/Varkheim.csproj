@@ -53,6 +53,12 @@
     <None Include="content\levels\3x0.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="content\sprites\door.ase">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="content\sprites\key.ase">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="content\sprites\player.ase">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -77,9 +83,13 @@
   <ItemGroup>
     <Compile Include="src\components\Jump.cs" />
     <Compile Include="src\components\Damageable.cs" />
+    <Compile Include="src\components\Collectible.cs" />
+    <Compile Include="src\components\Inventory.cs" />
+    <Compile Include="src\components\Openable.cs" />
     <Compile Include="src\components\Soul.cs" />
     <Compile Include="src\components\Teleport.cs" />
     <Compile Include="src\components\Shoot.cs" />
+    <Compile Include="src\Items.cs" />
     <Compile Include="src\parsers\Aseprite.cs" />
     <Compile Include="src\components\Animation.cs" />
     <Compile Include="src\components\Collision.cs" />
@@ -98,6 +108,8 @@
     <Compile Include="src\Factory.cs" />
     <Compile Include="src\Masks.cs" />
     <Compile Include="src\Program.cs" />
+    <Compile Include="src\systems\OpenSystem.cs" />
+    <Compile Include="src\systems\PickupSystem.cs" />
     <Compile Include="src\systems\UnloadSystem.cs" />
     <Compile Include="src\systems\AnimationSystem.cs" />
     <Compile Include="src\systems\CameraSystem.cs" />

@@ -12,5 +12,7 @@ namespace Varkheim
         public const int Soul = 2;
         public const int Spike = 3;
         public const int Player = 4;
+        public const int Key = 5;
+        public const int Door = 6;
     }
 }

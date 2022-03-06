@@ -74,6 +74,7 @@ namespace Varkheim
                     if (_RectToRect(MovementRectangle, Other.Rectangle(), MovementOffset - OtherPos.Current))
                     {
                         _AddHitCollision(Collider, Other);
+                        _AddHitCollision(Other, Collider);
                     }
                 }
                 else
@@ -81,6 +82,7 @@ namespace Varkheim
                     if (_RectToGrid(MovementRectangle, Other, MovementOffset - OtherPos.Current))
                     {
                         _AddHitCollision(Collider, Other);
+                        _AddHitCollision(Other, Collider);
                     }
                 }
             }
@@ -152,6 +154,12 @@ namespace Varkheim
                 {
                     if (DistanceX > 0 && _Check(Position, Collider, Other, OffsetX))
                     {
+                        // TODO: HACK: Blocking interactables!
+                        if(Collider.Interactables.Contains(Other) && !HitInteractables.Contains(Other))
+                        {
+                            HitInteractables.Add(Other);
+                        }
+
                         _StopX(Position, Mover);
                         DistanceX = 0;
                     }
@@ -168,6 +176,12 @@ namespace Varkheim
                 {
                     if (DistanceY > 0 && _Check(Position, Collider, Other, OffsetY))
                     {
+                        // TODO: HACK: Blocking interactables!
+                        if (Collider.Interactables.Contains(Other) && !HitInteractables.Contains(Other))
+                        {
+                            HitInteractables.Add(Other);
+                        }
+
                         _StopY(Position, Mover);
                         DistanceY = 0;
                     }
@@ -232,7 +246,7 @@ namespace Varkheim
 
         private void _AddHitCollision(Collision Collider, Collision Other)
         {
-            // TODO: Blocking mask won't have interaction or damage!
+            // TODO: Blocking mask won't have damage!
             if(Collider.InteractableMasks.Contains(Other.Mask()))
             {
                 Collider.Interactables.Add(Other);

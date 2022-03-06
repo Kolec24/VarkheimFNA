@@ -24,10 +24,15 @@ namespace Varkheim
             var Jumper = new Jump(JumpVelocity, JumpMaxTimer);
             var Collider = new Collision(Mask.Player, new Rectangle(-4, -16, 8, 16));
             {
+                Collider.InteractableMasks.Add(Mask.Key);
+                Collider.InteractableMasks.Add(Mask.Door);
+
                 Collider.DamagingMasks.Add(Mask.Spike);
 
                 Collider.BlockingMasks.Add(Mask.Solid);
+                Collider.BlockingMasks.Add(Mask.Door);
             }
+            var Inventory = new Inventory();
             int Health = 1;
             float DeathTimer = 0.5F;
             bool StopGame = true;
@@ -59,6 +64,7 @@ namespace Varkheim
                 Manager.AddComponent<Movement>(Player, Mover);
                 Manager.AddComponent<Jump>(Player, Jumper);
                 Manager.AddComponent<Collision>(Player, Collider);
+                Manager.AddComponent<Inventory>(Player, Inventory);
                 Manager.AddComponent<Damageable>(Player, Damage);
                 Manager.AddComponent<Physics>(Player, Physics);
                 Manager.AddComponent<Player>(Player, PlayerComp);
@@ -80,8 +86,9 @@ namespace Varkheim
             {
                 Collider.InteractableMasks.Add(Mask.Solid); // Toggle between teleporting to walls.
 
-                Collider.DamagingMasks.Add(Mask.Solid);
+                Collider.DamagingMasks.Add(Mask.Solid); // TODO: onsider if destroying should be handled in Teleport System instead of damage.
                 Collider.DamagingMasks.Add(Mask.Spike);
+                Collider.DamagingMasks.Add(Mask.Door);
             }
             var Damage = new Damageable(1);
             var SoulComp = new Soul(Owner);
@@ -97,6 +104,37 @@ namespace Varkheim
                 Manager.AddComponent<Soul>(Soul, SoulComp);
             }
             return Soul;
+        }
+
+        // TODO: BIG! Add destroy component, so removing entities always goes through destroy system (renamed death system).
+        public static EntityHandle Key(EntityManager Manager, Point InPosition)
+        {
+            var Position = new Position(InPosition.X, InPosition.Y);
+            var Collider = new Collision(Mask.Key, new Rectangle(-4, -4, 8, 8));
+            var Collectible = new Collectible(Item.Key);
+            var Animator = new Animation(ContentLoader.FindSprite("key.ase"), "Idle");
+
+            EntityHandle Key = Manager.AddEntity();
+            Manager.AddComponent<Position>(Key, Position);
+            Manager.AddComponent<Collision>(Key, Collider);
+            Manager.AddComponent<Collectible>(Key, Collectible);
+            Manager.AddComponent<Animation>(Key, Animator);
+            return Key;
+        }
+
+        public static EntityHandle Door(EntityManager Manager, Point InPosition)
+        {
+            var Position = new Position(InPosition.X, InPosition.Y);
+            var Collider = new Collision(Mask.Door, new Rectangle(-5, -24, 10, 24));
+            var Open = new Openable(Item.Key);
+            var Animator = new Animation(ContentLoader.FindSprite("door.ase"), "Idle");
+
+            EntityHandle Door = Manager.AddEntity();
+            Manager.AddComponent<Position>(Door, Position);
+            Manager.AddComponent<Collision>(Door, Collider);
+            Manager.AddComponent<Openable>(Door, Open);
+            Manager.AddComponent<Animation>(Door, Animator);
+            return Door;
         }
 
         public static EntityHandle Tilemap(EntityManager Manager, Parser.Map NewMap, Point InPosition)
