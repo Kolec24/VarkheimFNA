@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.2" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="8" tileheight="8" infinite="0" nextlayerid="4" nextobjectid="2">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="8" tileheight="8" infinite="0" nextlayerid="4" nextobjectid="2">
  <tileset firstgid="1" source="../tilesets/castle_tiles.tsx"/>
  <tileset firstgid="9" source="../tilesets/spikes.tsx"/>
  <tileset firstgid="13" source="../tilesets/grass.tsx"/>
  <tileset firstgid="16" source="../tilesets/basement.tsx"/>
  <layer id="1" name="Solids" width="40" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3TSwoAIAgEUI/g/U/bslU0fimcAVeRPSRVRDRQt0R6Z1SXryre3vTtd7z3Tr7uP0qfzYfYEV9VkPm+5LvNmL4+X/buTPVVh75YJvqqdme6LxL66EPPrG969wPpTd9fPpavFj6c3wjAEgAA
+   H4sIAAAAAAAACu3TOw4AIQgEUI7A/U9raaMR+SjKTDLVZuEVwkTEhq5ime3RU76oaGfD1/do/5v5Tr/RX31Rkdiz+GZ7MvlGu+C74/O+7aq+6MBnS0Vf1O1U91kCH3zSb7s7tfchmQ3fWz5U1waG6hBJwBIAAA==
   </data>
  </layer>
  <layer id="3" name="Spikes" width="40" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3VQQoAIAhEUdfV/c/bogNEjqblPGgbv0AU8TMc77bwSl9TnJt9WWXvo9w0cxc1i9X16IAN9mGs+6q91xr7MOzDnPRF7Oyf/i8C+zDsw2Tvo2UCOrBFgMASAAA=
+   H4sIAAAAAAAACu3WsQ0AIAhEUWp1/3ktHMDIgaDcS2zN11Ag4mc43m3hlb6mODf7ssreV51mrqNmnXLr0QEb7MNY91V7rzX2YdiHOemL2Cl++r8I7MOwD5O9j5YJuFPWR8ASAAA=
   </data>
  </layer>
  <objectgroup id="2" name="Objects">

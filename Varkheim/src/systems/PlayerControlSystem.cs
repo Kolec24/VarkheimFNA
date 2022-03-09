@@ -58,11 +58,11 @@ namespace Varkheim
                 Position.Facing.Y = 0;
             }
 
-            if (_IsKeyPressed(Input, Keys.Z))
+            if (_IsKeyPressed(Input, Keys.C))
             {
                 Jumper.Jumping = true;
             }
-            else if(_IsKeyReleased(Input, Keys.Z))
+            else if(_IsKeyReleased(Input, Keys.C))
             {
                 Jumper.Reset();
             }
