@@ -5,10 +5,15 @@
  <tileset firstgid="13" source="../tilesets/grass.tsx"/>
  <layer id="1" name="Solids" width="40" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu2POwrAMAzFsni0c//bdukQiu00n5ZSJNAU81BKAQAAAAAA+Bf1dAfimN1WR3HeLNjIuqPdXmN7awN6WPK3aKfXN9J0p2/Gtk0vmzqph25ofLpvh2/3SfJG3/rWF/oOg/qIxsASAAA=
+   H4sIAAAAAAAACu2UOQ4AIAgEafj/l40FrQcIrmYnoXSZGEBFRFnhQoN+Mejn80Dbj2q/3Vx0v1nOCTL+YPRmN7PKz5uZ6Ye2zwaql4Hs1vnJ78ac/uR3A/qNe816r978qnrdDw36xXjN79RcZ/VB9WusDpGbwBIAAA==
+  </data>
+ </layer>
+ <layer id="3" name="Spikes" width="40" height="30">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3OQQoAIAwDwV4V//9eX1AQ00rAHcg5G4EK83AvrEc/t+jTuPS5dGTo6+HeTZ+GPg19Gvo09GmyvtG0qj4X9Gno09D3jw3iVuFiwBIAAA==
   </data>
  </layer>
  <objectgroup id="2" name="Objects">
-  <object id="1" name="Player" x="56" y="160" width="8" height="8"/>
+  <object id="1" name="Player" x="8" y="96" width="8" height="8"/>
  </objectgroup>
 </map>

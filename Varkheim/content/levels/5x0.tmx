@@ -3,12 +3,18 @@
  <tileset firstgid="1" source="../tilesets/castle_tiles.tsx"/>
  <tileset firstgid="9" source="../tilesets/spikes.tsx"/>
  <tileset firstgid="13" source="../tilesets/grass.tsx"/>
+ <tileset firstgid="16" source="../tilesets/basement.tsx"/>
  <layer id="1" name="Solids" width="40" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu2POwrAMAzFsni0c//bdukQiu00n5ZSJNAU81BKAQAAAAAA+Bf1dAfimN1WR3HeLNjIuqPdXmN7awN6WPK3aKfXN9J0p2/Gtk0vmzqph25ofLpvh2/3SfJG3/rWF/oOg/qIxsASAAA=
+   H4sIAAAAAAAACu3VMQ4AIQhEURruf2V7E2PCDCJhSCj37ytW183MtfBGh9G4deXDuj/69j76/HRf1h1QfS9190Uns80Y+bCZ7GOcJfl6+BgN+bCGfOf3Vv/bX/lYXbYv2sv+/lDXNN8P29G3ABvcygDAEgAA
+  </data>
+ </layer>
+ <layer id="3" name="Spikes" width="40" height="30">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3OIQ4AIAwAMTTw//fiMRMjAZY2OX+tUc28PRDwB5zUtwB+N24PBPzl+Mvxl+Mv5/W/6hbi0kZywBIAAA==
   </data>
  </layer>
  <objectgroup id="2" name="Objects">
-  <object id="1" name="Player" x="56" y="160" width="8" height="8"/>
+  <object id="1" name="Player" x="264" y="216" width="8" height="8"/>
  </objectgroup>
 </map>
