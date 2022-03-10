@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.2" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="8" tileheight="8" infinite="0" nextlayerid="4" nextobjectid="2">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="8" tileheight="8" infinite="0" nextlayerid="4" nextobjectid="2">
  <tileset firstgid="1" source="../tilesets/castle_tiles.tsx"/>
  <tileset firstgid="9" source="../tilesets/spikes.tsx"/>
  <tileset firstgid="13" source="../tilesets/grass.tsx"/>
  <tileset firstgid="16" source="../tilesets/soil.tsx"/>
  <layer id="1" name="Solids" width="40" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu2XAQ7CMAhFe4R29z+smriEfP+HtkzURBIy7Ri8dS3Q3lobd+2gA/QxZqXDONrb5+yVCcY9r4dgQd+Krz99HO3VfyM+FJ+Ke/rekQM0I/b97Hue43++a/nQdkYr+ZBzVezantUqPtzX38TH8kk1X7QOWR5dlUq+HXn3/sgKq0WeXbVUz5+3NtUaquaLepAM326diPaRqo8ZvhlGG3eI317tXuWzfiNGzLkzfJnvy/pFxY3xo/8e32x+Uf326vzY74i2LO4uH6sNrC9nc8t8X/F9V2oW44zsd/k+JX++nPwan91nSlbOaZnez+NDRq8XH44d8rFahvVS1WfsJVQse5+dLbp4vpN7mH+x/2J5VPU/0ZmH5Uh13pk9L1m+GyH6al7AEgAA
+   H4sIAAAAAAAACu2XCw4CIQxEOULZ+x9WTdykGWdaoCtq4iRE3S3lyact1lrr92bQOrTHMy+D52jv+/lPJSO2h2BB34rPnj6O9uq/ER8RHxv39L2iA1pVbP3O//3nu5YPbUfaTj7sMyu/t0fbLj4819/Ex+LJbr5sH7I4OqudfCt69/moiuWiyG63ds9ftDfVHtrNl9UgFb7VPJGdI5UfK3wjjH7cLr5HuXuWz/vNGDHmjvBV1pfVi4obx89+R3yj8UXV27Pz49cRbdm4q3wsN7C6nM0t833F+s7kLMaZ2a/yfUp/vpp+jc+fM6WZe1ql9ov4kDGqxXtgh3wsl2G+VPkZawk1ln/P7hYm+ht5h/EX6y8WR1X9k915WIxU953R+5LnuwHjb4oCwBIAAA==
   </data>
  </layer>
  <objectgroup id="2" name="Objects">

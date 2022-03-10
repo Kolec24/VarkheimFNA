@@ -110,7 +110,7 @@ namespace Varkheim
         public static EntityHandle Key(EntityManager Manager, Point InPosition)
         {
             var Position = new Position(InPosition.X, InPosition.Y);
-            var Collider = new Collision(Mask.Key, new Rectangle(-4, -4, 8, 8));
+            var Collider = new Collision(Mask.Key, new Rectangle(-4, -8, 8, 8));
             var Collectible = new Collectible(Item.Key);
             var Animator = new Animation(ContentLoader.FindSprite("key.ase"), "Idle");
 
@@ -125,7 +125,7 @@ namespace Varkheim
         public static EntityHandle Door(EntityManager Manager, Point InPosition)
         {
             var Position = new Position(InPosition.X, InPosition.Y);
-            var Collider = new Collision(Mask.Door, new Rectangle(-5, -24, 10, 24));
+            var Collider = new Collision(Mask.Door, new Rectangle(-12, -24, 24, 24));
             var Open = new Openable(Item.Key);
             var Animator = new Animation(ContentLoader.FindSprite("door.ase"), "Idle");
 

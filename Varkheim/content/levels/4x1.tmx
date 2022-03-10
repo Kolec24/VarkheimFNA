@@ -6,12 +6,12 @@
  <tileset firstgid="16" source="../tilesets/basement.tsx"/>
  <layer id="1" name="Solids" width="40" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3TOw4AIQgEUI7A/U9raaMR+SjKTDLVZuEVwkTEhq5ime3RU76oaGfD1/do/5v5Tr/RX31Rkdiz+GZ7MvlGu+C74/O+7aq+6MBnS0Vf1O1U91kCH3zSb7s7tfchmQ3fWz5U1waG6hBJwBIAAA==
+   H4sIAAAAAAAACu3TOw4AIQgEUI7g/U9raSMR5SPKTEK1WeYV0oioKWYVzW6LifJ55XQ3fKPn9D/OF/1Gf/V5RWLP4uN6MvlmXfDd8VnfdlWfd+DTpaLP63aq+zSBDz7pt93O6PuI8kl2w/eWL+t02s//hcASAAA=
   </data>
  </layer>
  <layer id="3" name="Spikes" width="40" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3WsQ0AIAhEUWp1/3ktHMDIgaDcS2zN11Ag4mc43m3hlb6mODf7ssreV51mrqNmnXLr0QEb7MNY91V7rzX2YdiHOemL2Cl++r8I7MOwD5O9j5YJuFPWR8ASAAA=
+   H4sIAAAAAAAACu3WsQ0AIAhEUWp1/3kdwciBgNxLbM3XUCDiZznebaFK31Ccl31ZZe/rTjPXUbNOuc3ogAP2Yaz7ur3XGvsw7MPc9EXsFD/9XwT2YdiHYV8NG8+5HJ/AEgAA
   </data>
  </layer>
  <objectgroup id="2" name="Objects">
