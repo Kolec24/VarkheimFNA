@@ -25,9 +25,10 @@ namespace ECS
         public void RemoveEntity(EntityHandle Handle)
         {
             List<(int, int)> EntityComponents = _HandleToComponents(Handle);
-            for (int Index = 0; Index < EntityComponents.Count; Index++)
+            for (int Index = EntityComponents.Count - 1; Index >= 0; Index--)
             {
                 _DestroyComponentInternal(EntityComponents[Index].Item1, EntityComponents[Index].Item2);
+                EntityComponents.RemoveAt(Index);
             }
 
             int EntityIndex = _HandleToIndex(Handle);
