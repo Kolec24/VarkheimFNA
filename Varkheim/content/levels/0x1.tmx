@@ -6,7 +6,7 @@
  <tileset firstgid="16" source="../tilesets/soil.tsx"/>
  <layer id="1" name="Solids" width="40" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu2XCw4CIQxEOULZ+x9WTdykGWdaoCtq4iRE3S3lyact1lrr92bQOrTHMy+D52jv+/lPJSO2h2BB34rPnj6O9uq/ER8RHxv39L2iA1pVbP3O//3nu5YPbUfaTj7sMyu/t0fbLj4819/Ex+LJbr5sH7I4OqudfCt69/moiuWiyG63ds9ftDfVHtrNl9UgFb7VPJGdI5UfK3wjjH7cLr5HuXuWz/vNGDHmjvBV1pfVi4obx89+R3yj8UXV27Pz49cRbdm4q3wsN7C6nM0t833F+s7kLMaZ2a/yfUp/vpp+jc+fM6WZe1ql9ov4kDGqxXtgh3wsl2G+VPkZawk1ln/P7hYm+ht5h/EX6y8WR1X9k915WIxU953R+5LnuwHjb4oCwBIAAA==
+   H4sIAAAAAAAACu2XCQoDMQhFcwST+x+2HeiA/H6XxJBSGEHazhh9zaJGWmv9rQLaQa9nWgSeo70ex8ajCNhen8NgQd8Wn3x8jPbtvxEfnrC4t+8VGaBVYet3/++Hbz8f2kd6im9HfL23s3qKD8/1bj7GmBXMJzPzWNl/HnuU16O8Z8XOnN8dfCtS4TshrBZ5dqfl9Px5e9PaQ6f5oh6kwreap6NzZNXHCl+GUcftxnevds/yab8RI+bcDF9lfVm/aHFj/Oi3x5fNL1a/PTs/eh3RlsVd5WO1gfXlbG6Z7x3rO1OzGGdkv8r3K3n4avJvfPqcWTJzT6v0fh4fMnq9eHfskI/VMqyXVn3GXsKKpd+zu4UY44W8w/yL/RfLo1b/E915WI607jvZ+5LmewFHPboNwBIAAA==
   </data>
  </layer>
  <objectgroup id="2" name="Objects">

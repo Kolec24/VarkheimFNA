@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="8" tileheight="8" infinite="0" nextlayerid="4" nextobjectid="6">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="8" tileheight="8" infinite="0" nextlayerid="5" nextobjectid="6">
  <tileset firstgid="1" source="../tilesets/castle_tiles.tsx"/>
  <tileset firstgid="9" source="../tilesets/spikes.tsx"/>
  <tileset firstgid="13" source="../tilesets/grass.tsx"/>
  <tileset firstgid="16" source="../tilesets/basement.tsx"/>
+ <tileset firstgid="19" source="../tilesets/semisolids.tsx"/>
  <layer id="1" name="Solids" width="40" height="30">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAACu2UwQ3AIAwDMwL7T9tvHxXYMdCU2lJegDkl4BYRrUjd9TZLhg8Vuz/jZz7Nj5m/+fbwZbkVvp4fkhPmw/wUzeRT+mS++ULyYxUf0uvqfMhZNp/NV2O+o5z/At/Iewdf5n4kn9U3/Gc+ROz7662h/+MkPkWn861mZLPb9VwXORiJ5cASAAA=
+  </data>
+ </layer>
+ <layer id="4" name="Semisolids" width="40" height="30">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3DMQ0AAAgDsHnAv1feWSC0SRPggqkAAADwyQL9AN5OwBIAAA==
   </data>
  </layer>
  <layer id="3" name="Spikes" width="40" height="30">

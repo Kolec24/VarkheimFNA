@@ -30,6 +30,7 @@ namespace Varkheim
                 Collider.DamagingMasks.Add(Mask.Spike);
 
                 Collider.BlockingMasks.Add(Mask.Solid);
+                Collider.BlockingMasks.Add(Mask.Semisolid);
                 Collider.BlockingMasks.Add(Mask.Door);
             }
             var Inventory = new Inventory();
@@ -41,10 +42,10 @@ namespace Varkheim
             {
                 Physics.MaxGroundSpeed = 70;
                 Physics.MaxAirSpeed = 60;
-                Physics.MaxFallingSpeed = 300;
+                Physics.MaxFallingSpeed = 250;
                 Physics.GroundAccel = 300;
                 Physics.AirAccel = 200;
-                Physics.Gravity = 700;
+                Physics.Gravity = 500;
                 Physics.WallGravity = 250;
                 Physics.GroundFriction = 1000;
                 Physics.AirFriction = 700;
@@ -162,6 +163,10 @@ namespace Varkheim
             foreach (KeyValuePair<string, Parser.Layer> Layer in Map.Layers)
             {
                 int LayerMask;
+                if(Layer.Key == "Semisolids")
+                {
+                    //continue;
+                }
                 switch(Layer.Key)
                 {
                     case "Solids":
@@ -169,6 +174,9 @@ namespace Varkheim
                         break;
                     case "Spikes":
                         LayerMask = Mask.Spike;
+                        break;
+                    case "Semisolids":
+                        LayerMask = Mask.Semisolid;
                         break;
                     default:
                         LayerMask = Mask.NONE;

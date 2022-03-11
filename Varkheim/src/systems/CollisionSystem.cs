@@ -160,6 +160,11 @@ namespace Varkheim
                             HitInteractables.Add(Other);
                         }
 
+                        if (Other.Mask() == Mask.Semisolid)
+                        {
+                            continue;
+                        }
+
                         _StopX(Position, Mover);
                         DistanceX = 0;
                     }
@@ -182,6 +187,16 @@ namespace Varkheim
                             HitInteractables.Add(Other);
                         }
 
+                        // TODO: HACK: Reconsider if doing jumpthroughs like this is fine.
+                        // TODO: Should Semisolids be Blockers?!
+                        if(Other.Mask() == Mask.Semisolid)
+                        {
+                            if(DirectionY <= 0 || _Check(Position, Collider, Other, NoOffset))
+                            {
+                                continue;
+                            }
+                        }
+
                         _StopY(Position, Mover);
                         DistanceY = 0;
                     }
@@ -201,7 +216,12 @@ namespace Varkheim
         {
             foreach (Collision Other in AllCollisions)
             {
-                if (Other.Mask() != Mask.Solid)
+                if (!Collider.BlockingMasks.Contains(Other.Mask()))
+                {
+                    continue;
+                }
+
+                if(Other.Mask() == Mask.Semisolid && _Check(Position, Collider, Other, new Point(0, 0)))
                 {
                     continue;
                 }
@@ -225,7 +245,7 @@ namespace Varkheim
 
             foreach (Collision Other in AllCollisions)
             {
-                if (Other.Mask() != Mask.Solid)
+                if (!Collider.BlockingMasks.Contains(Other.Mask()) || Other.Mask() == Mask.Semisolid)
                 {
                     continue;
                 }
