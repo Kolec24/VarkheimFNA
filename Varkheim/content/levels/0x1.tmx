@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="8" tileheight="8" infinite="0" nextlayerid="4" nextobjectid="2">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="8" tileheight="8" infinite="0" nextlayerid="5" nextobjectid="2">
  <tileset firstgid="1" source="../tilesets/castle_tiles.tsx"/>
  <tileset firstgid="9" source="../tilesets/spikes.tsx"/>
  <tileset firstgid="13" source="../tilesets/grass.tsx"/>
@@ -7,6 +7,11 @@
  <layer id="1" name="Solids" width="40" height="30">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAACu2XCQoDMQhFcwST+x+2HeiA/H6XxJBSGEHazhh9zaJGWmv9rQLaQa9nWgSeo70ex8ajCNhen8NgQd8Wn3x8jPbtvxEfnrC4t+8VGaBVYet3/++Hbz8f2kd6im9HfL23s3qKD8/1bj7GmBXMJzPzWNl/HnuU16O8Z8XOnN8dfCtS4TshrBZ5dqfl9Px5e9PaQ6f5oh6kwreap6NzZNXHCl+GUcftxnevds/yab8RI+bcDF9lfVm/aHFj/Oi3x5fNL1a/PTs/eh3RlsVd5WO1gfXlbG6Z7x3rO1OzGGdkv8r3K3n4avJvfPqcWTJzT6v0fh4fMnq9eHfskI/VMqyXVn3GXsKKpd+zu4UY44W8w/yL/RfLo1b/E915WI607jvZ+5LmewFHPboNwBIAAA==
+  </data>
+ </layer>
+ <layer id="4" name="Text" width="40" height="30">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3SMQrAMAxDUS++/5W7BiFjQUq7/LcldhJhUgUAAAAAUL2stdZHT0tN+9xZd5frd5mm81N2V0v3pvWWcevR+SUzvc2Xzi959+18f/2/NB/wtQdZH05ywBIAAA==
   </data>
  </layer>
  <objectgroup id="2" name="Objects">

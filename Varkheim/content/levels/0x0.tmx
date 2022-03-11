@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="8" tileheight="8" infinite="0" nextlayerid="5" nextobjectid="2">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="8" tileheight="8" infinite="0" nextlayerid="6" nextobjectid="2">
  <tileset firstgid="1" source="../tilesets/castle_tiles.tsx"/>
  <tileset firstgid="9" source="../tilesets/spikes.tsx"/>
  <tileset firstgid="13" source="../tilesets/grass.tsx"/>
  <tileset firstgid="16" source="../tilesets/semisolids.tsx"/>
  <layer id="1" name="Solids" width="40" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu2RSwrAIAwF3WRpvf9tS6GLIOZDsKWUGXibGB4TbA0AAAAAAOA/jDu7kEW83TFFjLmH9W51R45690gm8lvdZ3VFflmnrF+lT7v1qa8XsttPOz7tV+nz+t/wE2OOX87v6/975QSzuHouwBIAAA==
+   H4sIAAAAAAAACu2SQQrAIAwEc8kx9v+/LQUDIcQaW2pz2IEFkbAOKhEAAAAAAAD/c/RUpfVU47qzRnX9hPb7rfwl9VLPCA4ygs35Gnb7mbvw76oZdc8c7WzUG+UOO5fpnfllnVb9ZLCeOYrrkwfJ+K1ml5+da/S+/ws/78VUy8+nql/l9/VuJyTf11zAEgAA
   </data>
  </layer>
  <layer id="4" name="Semisolids" width="40" height="30">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAACu3DoQ0AAAgDsJ3A/9diJ1GoNmkCAAAAADdTvyyvsG7dwBIAAA==
+  </data>
+ </layer>
+ <layer id="5" name="Text" width="40" height="30">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu2UwQoAIQhEvfT/v7zXECun3FiW96BDjNqQltn3aW4psX1OlJvVRh5meSN/Jx4s2Ks1fY3VvSrnRL52/WWp6K+iqdyev16r7m9Wm/l7630omo/L/i+r+J1/omLGAAAAAAAA/s4D37zCocASAAA=
   </data>
  </layer>
  <objectgroup id="2" name="Objects">

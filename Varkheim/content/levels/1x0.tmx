@@ -5,15 +5,15 @@
  <tileset firstgid="13" source="../tilesets/grass.tsx"/>
  <layer id="1" name="Solids" width="40" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3Wuw6AIAwFUBZH4P//1omENH0XhMTe5C5G9KR1sJTzeZjekPTFkr5Y0hdL+mK53YclfbGkTx/M8jdfn2rNF7421Zpdvnlmw1Ydz1nh60gbaD3kwyyYy7sTq0+aE+UbxpU+zd4wB9XVPsts5h1i17079vg0s6LM1v8jzmdxWKs1cvfB/WjmI52Bu+bmKc2aej98rsbLndeU863cKfRFzLu+OWmWWu8LQJhHHMASAAA=
+   H4sIAAAAAAAACu2XsQ7EIAxDWTrC/f/f3nRSZMVOUqDXAUseWhC8OilqW/u/LuE36PDN6fCt1+Gb0+HLy2M5fHk9wfcxruoJvmFc1S4+m9kb+QZxVYqv2jcss118dl3Fypi68W4+xqqy6s71aj7cgxm/fViWq/mGc+3lwvL7+e47p/hs70S5YJ8xxpV8dv3RdM2R0/MOPo8D2bGGHcavdr/GFT7cV9k+i+2V6v9Dpv+yZmceq3WGUc2za0X7ePfZfMyRMURZs/1x3YiXnTUVK76ojtHYaDy7GeZq76kzMVsLVX/0F1U3B3zAEgAA
   </data>
  </layer>
  <layer id="3" name="Spikes" width="40" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3TMQoAIQxE0WkD3v+8y3Y26i5TTMD/6oCfBKWsEX7/hD4PfR76PPR5uvcBSd3/B30e+jz0eRJ99WM2tb/St870fU+N6b5Xab3PDn2z0r4Xd3kANV2UncASAAA=
+   H4sIAAAAAAAACu3TMQrAIBBE0WkXvP95JV1A1IQpxpD/6gU/uyhltfD7O/R56AO+6/T/QZ+HPg99Hvo89HnoG9WL2dT+Ss860/fdNab7LqX5Pk/ouyute/EvHQSXLhrAEgAA
   </data>
  </layer>
  <objectgroup id="2" name="Objects">
-  <object id="1" name="Player" x="16" y="168" width="8" height="8"/>
+  <object id="1" name="Player" x="8" y="120" width="8" height="8"/>
  </objectgroup>
 </map>
