@@ -81,8 +81,9 @@ namespace Varkheim
         {
             Batch = new SpriteBatch(GraphicsDevice);
             ContentLoader.Load(Content, GraphicsDevice);
-            SetStartingPoint(new Point(5, 1));
+            SetStartingPoint(new Point(0, 0));
             World.Load(Start);
+
             base.LoadContent();
         }
 
@@ -95,8 +96,18 @@ namespace Varkheim
 
         public void MoveCamera(float Progress)
         {
-            CameraPosition.X = (int)(Progress * LastCamera.X + (1 - Progress) * NextCamera.X);
-            CameraPosition.Y = (int)(Progress * LastCamera.Y + (1 - Progress) * NextCamera.Y);
+            // TODO: HACK: Full hack to remove screen shake in basement transitions.
+            // Find out why the shake was occuring in the first place. Probably int rounding is used wrongly.
+            if (LastCamera.Y == NextCamera.Y)
+            {
+                CameraPosition.X = (int)(Progress * LastCamera.X + (1 - Progress) * NextCamera.X);
+                CameraPosition.Y = NextCamera.Y;
+            }
+            else
+            {
+                CameraPosition.X = (int)(Progress * LastCamera.X + (1 - Progress) * NextCamera.X);
+                CameraPosition.Y = (int)(Progress * LastCamera.Y + (1 - Progress) * NextCamera.Y);
+            }
         }
 
         public void SetStartingPoint(Point InStart)
