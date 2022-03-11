@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="8" tileheight="8" infinite="0" nextlayerid="4" nextobjectid="2">
+<map version="1.8" tiledversion="1.8.2" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="8" tileheight="8" infinite="0" nextlayerid="4" nextobjectid="2">
  <tileset firstgid="1" source="../tilesets/castle_tiles.tsx"/>
  <tileset firstgid="9" source="../tilesets/spikes.tsx"/>
  <tileset firstgid="13" source="../tilesets/grass.tsx"/>
  <layer id="1" name="Solids" width="40" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3TOQ4AIAgFURruf2V74kJEsGBIfgWYV6CKiJJwZrXrZ/RWc/h6+rz7GXv4YnuZvg7/w87jq/V53rzx2bvD98eXdX/48OHDV+XbVUffqfC99ZFYBmPJqCLAEgAA
+   H4sIAAAAAAAACu3Tuw4AEBBE0W38/y/rRbCujddMshXGKUhmljR4aumtz2S0Uz7W+YIvIjt8nh75WF75H+V+Txdxy8fieVMnvj/52ufkY/nVt8oZ7aNW+ZjVe+do1+2+iP8T4aPe23waNhnsAcnCwBIAAA==
   </data>
  </layer>
  <layer id="3" name="Spikes" width="40" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu3OOwoAIAwE0bTq/e9rHxA/o9jMg1QrMhG6oU32mu7FNnq30vebfYx9jH2MfYx9jH2MfYx9jH2MfdK5km53W/1bd3WV9DC7wBIAAA==
+   H4sIAAAAAAAACu3TMQoAIQwF0bRZvf95t9kqhaDfTQTngYWVQ1Qz7NASzuhh/wxWVNE3gz76VPRp6NPQp6FPQ5/m5j7/liJjfm57Wmdl3K9ipS9zlqfPT1XxJle41f2hWzHv/7y17v41wBIAAA==
   </data>
  </layer>
  <objectgroup id="2" name="Objects">
